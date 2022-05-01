@@ -8,7 +8,7 @@
     "test": "nyc mocha --require ts-node/register tests/**/*.test.ts --timeout 1000000 --exit",
     "build": "rm -rf ./lib/ && tsc"
   },
-  "repository": "https://github.com/fangqk1991/node-tools.git",
+  "repository": "https://github.com/fangqk1991/datawich-service.git",
   "keywords": [
     "tools"
   ],
