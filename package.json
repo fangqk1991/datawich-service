@@ -1,12 +1,14 @@
 {
   "name": "@fangcha/datawich-service",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "Datawich Service.",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
     "test": "nyc mocha --require ts-node/register tests/**/*.test.ts --timeout 1000000 --exit",
-    "build": "rm -rf ./lib/ && tsc"
+    "build": "rm -rf ./lib/ && tsc",
+    "rebuild-models": "ts-node ./tools/rebuild-models.ts && yarn rebuild-tiny-models",
+    "rebuild-tiny-models": "ts-node ./tools/rebuild-tiny-models.ts"
   },
   "repository": "https://github.com/fangqk1991/datawich-service.git",
   "keywords": [
@@ -15,14 +17,19 @@
   "author": "fang <me@fangqk.com>",
   "license": "MIT",
   "dependencies": {
+    "@fangcha/tools": "^1.18.0",
+    "fc-sql": "^0.28.0",
     "tslib": "^2.4.0"
   },
   "devDependencies": {
     "@fangcha/eslint": "^0.2.0",
+    "@fangcha/generator": "^0.1.1",
     "@types/assert": "^1.5.4",
     "@types/mocha": "^8.2.2",
+    "@types/node": "^17.0.30",
     "mocha": "^8.4.0",
     "nyc": "^15.1.0",
+    "ts-node-dev": "^1.1.8",
     "typescript": "^4.6.2"
   },
   "prettier": {

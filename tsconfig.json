@@ -2,6 +2,7 @@
   "compilerOptions": {
     "importHelpers": true,
     "noEmitHelpers": true,
+    "lib": ["es2015"],
     "module": "commonjs",
     "declaration": true,
     "sourceMap": true,
