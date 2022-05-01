@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "importHelpers": true,
+    "noEmitHelpers": true,
+    "module": "commonjs",
+    "declaration": true,
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "outDir": "lib",
+    "strict": true,
+    "target": "es6",
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+    "downlevelIteration": true,
+    "suppressExcessPropertyErrors": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src"]
+}

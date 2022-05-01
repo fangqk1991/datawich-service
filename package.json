@@ -1,0 +1,45 @@
+{
+  "name": "@fangcha/datawich-service",
+  "version": "0.1.0",
+  "description": "Datawich Service.",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "test": "nyc mocha --require ts-node/register tests/**/*.test.ts --timeout 1000000 --exit",
+    "build": "rm -rf ./lib/ && tsc"
+  },
+  "repository": "https://github.com/fangqk1991/node-tools.git",
+  "keywords": [
+    "tools"
+  ],
+  "author": "fang <me@fangqk.com>",
+  "license": "MIT",
+  "dependencies": {
+    "tslib": "^2.4.0"
+  },
+  "devDependencies": {
+    "@fangcha/eslint": "^0.2.0",
+    "@types/assert": "^1.5.4",
+    "@types/mocha": "^8.2.2",
+    "mocha": "^8.4.0",
+    "nyc": "^15.1.0",
+    "typescript": "^4.6.2"
+  },
+  "prettier": {
+    "arrowParens": "always",
+    "bracketSpacing": true,
+    "jsxBracketSameLine": false,
+    "jsxSingleQuote": true,
+    "printWidth": 120,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "files": [
+    "lib/*",
+    "src/*"
+  ],
+  "nyc": {
+    "sourceMap": false
+  }
+}
