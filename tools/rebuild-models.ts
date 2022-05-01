@@ -189,12 +189,6 @@ const generalDataSchemas: DBModelSchema[] = [
     modifiableWhiteList: ['description'],
   },
   {
-    tableName: 'cs_wide_company',
-    outputFile: `${__dirname}/../src/models/auto-build/__WideCompany.ts`,
-    extFile: `${__dirname}/../src/models/company/_WideCompany.ts`,
-    primaryKey: 'company_id',
-  },
-  {
     tableName: 'model_milestone',
     outputFile: `${__dirname}/../src/models/auto-build/__ModelMilestone.ts`,
     extFile: `${__dirname}/../src/models/extensions/_ModelMilestone.ts`,
