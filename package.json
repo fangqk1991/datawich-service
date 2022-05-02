@@ -1,6 +1,6 @@
 {
   "name": "@fangcha/datawich-service",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Datawich Service.",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -17,8 +17,10 @@
   "author": "fang <me@fangqk.com>",
   "license": "MIT",
   "dependencies": {
+    "@fangcha/ali-oss": "^1.0.0",
     "@fangcha/general-group": "^0.1.1",
     "@fangcha/logger": "^0.2.0",
+    "@fangcha/oss-service": "^0.1.0",
     "@fangcha/tools": "^1.18.0",
     "fc-feed": "^0.16.0",
     "fc-model": "^0.4.2",
@@ -26,11 +28,16 @@
     "tslib": "^2.4.0"
   },
   "devDependencies": {
+    "@fangcha/backend-kit": "^0.1.0",
     "@fangcha/eslint": "^0.2.0",
     "@fangcha/generator": "^0.1.1",
     "@types/assert": "^1.5.4",
+    "@types/koa": "^2.13.4",
+    "@types/koa-joi-router": "^8.0.4",
     "@types/mocha": "^8.2.2",
     "@types/node": "^17.0.30",
+    "exceljs": "^4.3.0",
+    "koa": "^2.13.4",
     "mocha": "^8.4.0",
     "nyc": "^15.1.0",
     "ts-node-dev": "^1.1.8",

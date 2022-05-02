@@ -9,3 +9,8 @@ export interface ModelPluginProtocol {
   onDataModifyBefore: (params: any) => Promise<any>
   onParamsCheck: (params: any) => Promise<{ [p: string]: string }>
 }
+
+export interface DataPluginProtocol {
+  onDataFound: (data: any, dataModel: _DataModel) => Promise<void>
+  onParamsCheck: (params: any, dataModel: _DataModel) => Promise<{ [p: string]: string }> // return errorMap
+}
