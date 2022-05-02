@@ -5,7 +5,7 @@ import { calculateDataKey, calculateFilterKey, inlineFieldDefaultName } from '..
 import { FieldLinkModel } from './FieldLinkModel'
 import { LinkMapperInfo } from './LinkMapperInfo'
 import { I18nCode } from '@fangcha/tools'
-import { _DatawichService } from '../../../services/_DatawichService'
+import { _TinyDatawich } from '../../_TinyDatawich'
 
 export class FieldMaker {
   public readonly rawField: Raw_ModelField
@@ -60,7 +60,7 @@ export class FieldMaker {
           })
         }
       }
-      for (const plugin of _DatawichService.plugins) {
+      for (const plugin of _TinyDatawich.plugins) {
         if (plugin.onFieldInfosMade) {
           plugin.onFieldInfosMade(this.rawField, fieldInfos)
         }
