@@ -185,6 +185,18 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
+"@fangcha/app-error@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/app-error/-/app-error-1.1.0.tgz#6055f5b537dc05a384dab45cbf60958f3337a37b"
+  integrity sha512-9A4xraQWNoEwUdP0Rs1+WJnV0f4ufFytYQ/y/X+5UqVpxu3OVlwUlp7rBOehioECVOh06qIF6geV1sXqUdFOIA==
+
+"@fangcha/assert@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/assert/-/assert-1.1.0.tgz#8da84a0dca503b2180042349017ac9d39ab84078"
+  integrity sha512-75elhbSZEcbehnc2QiCGNwGck9UeXwvxSa3bLxXZsW3Yo6jWUxj5pDtxXwep0PST7CDzFcBwaOzCzw846kewCw==
+  dependencies:
+    "@fangcha/app-error" "^1.1.0"
+
 "@fangcha/eslint@^0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@fangcha/eslint/-/eslint-0.2.0.tgz#aca6b6a1e57fd4fb0de809bad38bfdcc7f1baec2"
@@ -205,6 +217,18 @@
     eslint-plugin-vue "^6.1.2"
     prettier "^2.5.1"
 
+"@fangcha/general-group@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@fangcha/general-group/-/general-group-0.1.1.tgz#3815ae64ddd63a39a06b0b3d4a884d9a638fb49b"
+  integrity sha512-HYFdHcvQ5f37q0TEgcaKJB6J+Ua6bhAWT7XSTo6sdHJJ/bE0lbrq5s9P2bmVI63hj7fXdm2x4rSOQEg0i2Mgqg==
+  dependencies:
+    "@fangcha/assert" "^1.1.0"
+    "@fangcha/logger" "^0.2.0"
+    "@fangcha/tools" "^1.18.0"
+    fc-feed "^0.16.0"
+    fc-sql "^0.28.0"
+    tslib "^2.4.0"
+
 "@fangcha/generator@^0.1.1":
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@fangcha/generator/-/generator-0.1.1.tgz#9b7db45e4c1d7be8925dfd8b3be60953218a4315"
@@ -212,6 +236,14 @@
   dependencies:
     "@types/ejs" "^2.6.3"
     ejs "^2.7.1"
+
+"@fangcha/logger@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/logger/-/logger-0.2.0.tgz#cc52bdf69d2fc2f58adf6eb4d93b3342710c346d"
+  integrity sha512-jQuxFF057zXPaPREznfzA2A5nbkgmnlk2OR01UW6Sz2Vmc1avS4STPInt4sCxF0FPPlTYEQlchGjqtOcPU8j/A==
+  dependencies:
+    lodash "^4.17.15"
+    tslib "^2.3.1"
 
 "@fangcha/tools@^1.18.0":
   version "1.18.0"
@@ -1205,6 +1237,11 @@ fc-feed@^0.16.0:
   version "0.16.0"
   resolved "https://registry.yarnpkg.com/fc-feed/-/fc-feed-0.16.0.tgz#077d58244fdff7270424d08645ce0eaa9bca3985"
   integrity sha512-wEZYWnIR22A1rGMaUr+hi+JWb6sxu7FM+wfLH0q0H+6qbG/5C4kkqW+oWwJlTgJNwy/nQcPsPfi+lCuvgZgblQ==
+
+fc-model@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/fc-model/-/fc-model-0.4.2.tgz#12751aea0b645208756b7b67923dc8c30adedc48"
+  integrity sha512-Uiv0DcQeKcJsQ4f24toMDgn5RP/cIIvUq9+YR3EBZS3DjVOmNHzuF0SXDhgqZoG2eOrLEmguoAO/Ri7rFVcl5g==
 
 fc-sql@^0.28.0:
   version "0.28.0"

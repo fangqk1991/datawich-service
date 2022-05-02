@@ -17,8 +17,11 @@
   "author": "fang <me@fangqk.com>",
   "license": "MIT",
   "dependencies": {
+    "@fangcha/general-group": "^0.1.1",
+    "@fangcha/logger": "^0.2.0",
     "@fangcha/tools": "^1.18.0",
     "fc-feed": "^0.16.0",
+    "fc-model": "^0.4.2",
     "fc-sql": "^0.28.0",
     "tslib": "^2.4.0"
   },
