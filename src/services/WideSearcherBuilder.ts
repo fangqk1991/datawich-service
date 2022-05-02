@@ -5,10 +5,14 @@ import assert from '@fangcha/assert'
 import { _ModelField } from '../models/extensions/_ModelField'
 import {
   calculateDataKey,
-  calculateFilterKey, checkExactSearchableField, checkSearchableField, extractMultiEnumItems,
+  calculateFilterKey,
+  checkExactSearchableField,
+  checkSearchableField,
+  extractMultiEnumItems,
   FieldType,
-  FilterCondition, FilterSymbol,
-  FilterSymbolDescriptor
+  FilterCondition,
+  FilterSymbol,
+  FilterSymbolDescriptor,
 } from '../common/models'
 import { _DataModel } from '../models/extensions/_DataModel'
 import { _FieldLink } from '../models/extensions/_FieldLink'

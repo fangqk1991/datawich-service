@@ -97,8 +97,10 @@ export class ModelDataHandler {
       item._data_key = `${keyPrefix}-${item.rid}`
     }
     for (const plugin of _DatawichService.plugins) {
-      for (const item of items) {
-        await plugin.onDataFound(item, dataModel)
+      if (plugin.onDataFound) {
+        for (const item of items) {
+          await plugin.onDataFound(item, dataModel)
+        }
       }
     }
     const attachmentFields = modelFields.filter((field) => field.fieldType === FieldType.Attachment)
@@ -257,8 +259,10 @@ export class ModelDataHandler {
     const dataModel = this._dataModel
     const modelFields = await dataModel.getFields()
     for (const plugin of _DatawichService.plugins) {
-      for (const item of items) {
-        await plugin.onDataFound(item, dataModel)
+      if (plugin.onDataFound) {
+        for (const item of items) {
+          await plugin.onDataFound(item, dataModel)
+        }
       }
     }
     modelFields.forEach((field) => {
@@ -614,7 +618,9 @@ export class ModelDataHandler {
     const fields = (await dataModel.getFields()).map((field) => field.modelForClient())
     const errorMap: { [p: string]: string } = GeneralDataChecker.calcSimpleInvalidMap(params, fields, curDataId)
     for (const plugin of _DatawichService.plugins) {
-      Object.assign(errorMap, await plugin.onParamsCheck(params, dataModel))
+      if (plugin.onParamsCheck) {
+        Object.assign(errorMap, await plugin.onParamsCheck(params, dataModel))
+      }
     }
     // 检查外键约束
     const foreignLinkMap = await dataModel.getForeignLinkMap()

@@ -5,6 +5,7 @@ import { calculateDataKey, calculateFilterKey, inlineFieldDefaultName } from '..
 import { FieldLinkModel } from './FieldLinkModel'
 import { LinkMapperInfo } from './LinkMapperInfo'
 import { I18nCode } from '@fangcha/tools'
+import { _DatawichService } from '../../../services/_DatawichService'
 
 export class FieldMaker {
   public readonly rawField: Raw_ModelField
@@ -59,32 +60,10 @@ export class FieldMaker {
           })
         }
       }
-
-      if (this.rawField.fieldType === FieldType.VendorID) {
-        fieldInfos.push({
-          fieldKey: '_company_id',
-          dataKey: '_company_id',
-          fieldType: FieldType.Dummy,
-          name: '公司 ID',
-        })
-        fieldInfos.push({
-          fieldKey: '_company_name',
-          dataKey: '_company_name',
-          fieldType: FieldType.Dummy,
-          name: '公司名',
-        })
-        fieldInfos.push({
-          fieldKey: '_project_id',
-          dataKey: '_project_id',
-          fieldType: FieldType.Dummy,
-          name: '项目 ID',
-        })
-        fieldInfos.push({
-          fieldKey: '_project_name',
-          dataKey: '_project_name',
-          fieldType: FieldType.Dummy,
-          name: '项目名',
-        })
+      for (const plugin of _DatawichService.plugins) {
+        if (plugin.onFieldInfosMade) {
+          plugin.onFieldInfosMade(this.rawField, fieldInfos)
+        }
       }
       this._describableFields = fieldInfos
     }
