@@ -1,6 +1,6 @@
 import { makeUUID } from '@fangcha/tools'
 import { AliyunOSS } from '@fangcha/ali-oss'
-import { DataPluginProtocol } from './ModelPluginProtocol'
+import { DataPluginProtocol } from './DataPluginProtocol'
 
 class __DatawichService {
   public version = '0.0.1'

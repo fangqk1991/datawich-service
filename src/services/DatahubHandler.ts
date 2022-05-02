@@ -7,14 +7,14 @@ import {
   DatahubLink,
   FieldType,
   ModelFieldModel,
-  transferLabelsToTagsValue
+  transferLabelsToTagsValue,
 } from '../common/models'
 import { _DatahubTable } from '../models/datahub-sync/_DatahubTable'
 import { _DatahubTableLink } from '../models/datahub-sync/_DatahubTableLink'
 import { _DatahubColumn } from '../models/datahub-sync/_DatahubColumn'
 import { _DatahubColumnLink } from '../models/datahub-sync/_DatahubColumnLink'
 
-export default class DatahubHandler {
+export class DatahubHandler {
   private readonly _dataModel: _DataModel
   public readonly datahubLink!: DatahubLink
 
