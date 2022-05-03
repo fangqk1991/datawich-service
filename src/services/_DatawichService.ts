@@ -28,6 +28,13 @@ import { _ModelGroup } from '../models/permission/_ModelGroup'
 import { CommonGroup } from '../models/permission/CommonGroup'
 import { MemberPower } from '../models/permission/MemberPower'
 
+interface Params {
+  database: FCDatabase
+  ossForSignature?: AliyunOSS
+  downloadRootDir?: string
+  plugins?: DataPluginProtocol[]
+}
+
 class __DatawichService {
   public version = '0.0.1'
 
@@ -38,11 +45,24 @@ class __DatawichService {
   public downloadRootDir = '/tmp'
   public plugins: DataPluginProtocol[] = []
 
+  public init(params: Params) {
+    this.setDatabase(params.database)
+    if (params.ossForSignature) {
+      this.ossForSignature = params.ossForSignature
+    }
+    if (params.downloadRootDir) {
+      this.downloadRootDir = params.downloadRootDir
+    }
+    if (params.plugins) {
+      this.plugins = params.plugins
+    }
+  }
+
   public generateRandomTmpPath() {
     return `${this.downloadRootDir}/${makeUUID()}`
   }
 
-  public setDatabase(database: FCDatabase) {
+  private setDatabase(database: FCDatabase) {
     this.database = database
     _DataModel.setDatabase(database)
     _ModelField.setDatabase(database)
@@ -65,7 +85,7 @@ class __DatawichService {
     return this
   }
 
-  public initDatahubSync(database: FCDatabase) {
+  private initDatahubSync(database: FCDatabase) {
     _DatahubEngine.setDatabase(database)
     _DatahubTable.setDatabase(database)
     _DatahubColumn.setDatabase(database)
@@ -75,7 +95,7 @@ class __DatawichService {
     return this
   }
 
-  public initPermissionSettings(database: FCDatabase) {
+  private initPermissionSettings(database: FCDatabase) {
     _ModelGroup.setDatabase(database)
     CommonGroup.setDatabase(database)
     MemberPower.setDatabase(database)

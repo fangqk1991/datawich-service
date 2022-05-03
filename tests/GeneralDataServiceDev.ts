@@ -5,5 +5,7 @@ import { GeneralDataDBOptions } from '../tools/db-config'
 FCDatabase.instanceWithName('general_data').init(GeneralDataDBOptions as any)
 
 export const initGeneralDataSettingsTest = () => {
-  _DatawichService.setDatabase(FCDatabase.instanceWithName('general_data'))
+  _DatawichService.init({
+    database: FCDatabase.instanceWithName('general_data'),
+  })
 }
