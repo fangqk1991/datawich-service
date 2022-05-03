@@ -460,6 +460,7 @@ export class ModelDataHandler {
   }
 
   public async createData(customData: any, withoutChecking = false) {
+    delete customData['rid']
     const dataModel = this._dataModel
     customData = {
       ...customData,
