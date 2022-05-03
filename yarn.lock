@@ -218,10 +218,10 @@
   dependencies:
     "@fangcha/app-error" "^1.1.0"
 
-"@fangcha/backend-kit@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@fangcha/backend-kit/-/backend-kit-0.1.0.tgz#2729daf6a53df713996561cf07f85289fcd43ed7"
-  integrity sha512-Spwk5anOfsAsSzt16EcP2h8KYqvFyJcrrWf1SYtes6SDtsZqf4Uwul5qjgNuNbiKcThzhuOlDMNGi6Bs1Jus/A==
+"@fangcha/backend-kit@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/backend-kit/-/backend-kit-0.2.0.tgz#566c8a33ed5744bf7346deca82317e8653851eb0"
+  integrity sha512-60Pxiq17gvstcGCM8PAXP0K+5GxEXnDTUHTcMDdrtGF00Bn2h2hWy7SqiMmPIJaB7l0sy2dTyBjFPSp38kdUnw==
   dependencies:
     "@fangcha/ali-oss" "^1.0.0"
     "@fangcha/app-request" "^1.4.0"

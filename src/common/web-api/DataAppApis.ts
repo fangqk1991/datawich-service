@@ -29,11 +29,6 @@ export const DataAppApis = {
     route: '/api/v2/data-app/:modelKey/field-link/:linkId/ref-infos-search',
     description: '搜索字段可填充联想项',
   },
-  DataAppProjectInfosSearch: {
-    method: 'GET',
-    route: '/api/v2/data-app/:modelKey/search-project',
-    description: '获取项目信息',
-  },
   DataAppRecordCreate: {
     method: 'POST',
     route: '/api/v2/data-app/:modelKey/record',
