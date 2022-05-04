@@ -5,6 +5,11 @@
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
+    "start": "concurrently --raw 'yarn start:typecheck' 'yarn open:compile' 'yarn admin:compile'",
+    "start-resque": "ts-node-dev --no-notify --ignore-watch node_modules datawich/apps/datawich-resque.ts",
+    "open:compile": "ts-node-dev --no-notify --ignore-watch node_modules datawich/apps/datawich-open.ts",
+    "admin:compile": "ts-node-dev --no-notify --ignore-watch node_modules datawich/apps/datawich-admin.ts",
+    "start:typecheck": "tsc -w --noEmit",
     "test": "nyc mocha --require ts-node/register tests/**/*.test.ts --timeout 1000000 --exit",
     "build": "rm -rf ./lib/ && tsc",
     "rebuild-models": "ts-node ./tools/rebuild-models.ts && yarn rebuild-tiny-models",
@@ -31,6 +36,7 @@
     "@fangcha/backend-kit": "^0.2.0",
     "@fangcha/eslint": "^0.2.0",
     "@fangcha/generator": "^0.1.1",
+    "@fangcha/webpack": "^0.7.0",
     "@types/assert": "^1.5.4",
     "@types/koa": "^2.13.4",
     "@types/koa-joi-router": "^8.0.4",
@@ -41,7 +47,8 @@
     "mocha": "^8.4.0",
     "nyc": "^15.1.0",
     "ts-node-dev": "^1.1.8",
-    "typescript": "^4.6.2"
+    "typescript": "^4.6.2",
+    "concurrently": "^6.3.0"
   },
   "prettier": {
     "arrowParens": "always",
