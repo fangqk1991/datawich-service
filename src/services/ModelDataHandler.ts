@@ -110,8 +110,7 @@ export class ModelDataHandler {
         try {
           if (item[field.fieldKey]) {
             entity = JSON.parse(item[field.fieldKey]) as OssFileInfo
-            // TODO: ossForSignature
-            // entity.url = GeneralDataService.ossForSignature!.signatureURL(entity.ossKey)
+            entity.url = _DatawichService.ossForSignature!.signatureURL(entity.ossKey)
           }
         } catch (e) {}
         item[attachmentEntityKey(field)] = entity
