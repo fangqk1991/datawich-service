@@ -1,10 +1,10 @@
-import { BasicAuthConfig } from '@fangcha/tools'
+import { DatawichProxy } from './DatawichProxy'
 
 class _DatawichService {
-  public datawichOptions!: BasicAuthConfig
+  public proxy!: DatawichProxy
 
-  public initOptions(options: BasicAuthConfig) {
-    this.datawichOptions = options
+  public initProxy(proxy: DatawichProxy) {
+    this.proxy = proxy
     return this
   }
 }
