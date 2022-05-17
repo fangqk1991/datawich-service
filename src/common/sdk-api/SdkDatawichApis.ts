@@ -12,3 +12,11 @@ for (const key of Object.keys(SdkDatawichApis)) {
     route: apiOptions.route.replace(/^\/api\//, '/api/datawich-sdk/'),
   }
 }
+
+export const SdkDatawichApis2 = {
+  SystemInfoGet: {
+    method: 'GET',
+    route: '/api/datawich-sdk/general-data/v1/system-info',
+    description: '获取系统信息',
+  } as Api,
+}

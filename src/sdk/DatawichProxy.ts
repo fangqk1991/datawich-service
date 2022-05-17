@@ -4,6 +4,10 @@ import { OpenDataModelApis } from '../common/open-api'
 import { ModelFullMetadata, ModelMilestoneModel } from '../common/models'
 
 export class DatawichProxy extends BasicAuthProxy {
+  public baseURL() {
+    return this._config.urlBase
+  }
+
   public async getGeneralDataModelMasterMetadata(modelKey: string) {
     const request = this.makeRequest(new CommonAPI(OpenDataModelApis.ModelMasterMetadataGet, modelKey))
     return (await request.quickSend()) as ModelFullMetadata

@@ -1,11 +1,6 @@
 import { Api } from '@fangcha/swagger'
 
 export const OpenDataModelApis = {
-  SystemInfoGet: {
-    method: 'GET',
-    route: '/api/general-data/v1/system-info',
-    description: '获取系统信息',
-  } as Api,
   ModelListGet: {
     method: 'GET',
     route: '/api/general-data/v1/data-model',
