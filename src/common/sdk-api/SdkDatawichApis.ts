@@ -23,5 +23,21 @@ export const SdkDatawichApis2 = {
     method: 'POST',
     route: '/api/datawich-sdk/general-data/v1/oss-url-signature',
     description: '获取签名链接',
+    parameters: [
+      {
+        name: 'bodyData',
+        type: 'object',
+        in: 'body',
+        schema: {
+          type: 'object',
+          properties: {
+            ossKey: {
+              type: 'string',
+              example: 'xxxx',
+            },
+          },
+        },
+      },
+    ],
   } as Api,
 }
