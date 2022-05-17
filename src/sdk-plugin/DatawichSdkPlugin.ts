@@ -12,10 +12,14 @@ factory.prepare(SdkDatawichApis2.SystemInfoGet, async (ctx) => {
     modelStructureBaseURL: `${DatawichService.proxy.baseURL()}/v2/data-model/:modelKey?curTab=fragment-model-structure`,
   } as DatawichSystemInfo
 })
-factory.prepare(SdkDatawichApis2.OssUrlSignature, async (ctx) => {
+factory.prepare(SdkDatawichApis2.OssUrlsSignature, async (ctx) => {
+  const { ossKeys } = ctx.request.body
   assert.ok(!!DatawichService.ossForSignature, 'ossForSignature invalid', 500)
-  const { ossKey } = ctx.request.body
-  ctx.body = DatawichService.ossForSignature.signatureURL(ossKey)
+  assert.ok(Array.isArray(ossKeys), 'ossKeys invalid')
+  ctx.body = (ossKeys as string[]).reduce((result, ossKey) => {
+    result[ossKey] = DatawichService.ossForSignature.signatureURL(ossKey)
+    return result
+  }, {})
 })
 
 export const DatawichSpecDocItem: SwaggerDocItem = {

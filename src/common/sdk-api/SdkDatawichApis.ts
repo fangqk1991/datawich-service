@@ -19,7 +19,7 @@ export const SdkDatawichApis2 = {
     route: '/api/datawich-sdk/general-data/v1/system-info',
     description: '获取系统信息',
   } as Api,
-  OssUrlSignature: {
+  OssUrlsSignature: {
     method: 'POST',
     route: '/api/datawich-sdk/general-data/v1/oss-url-signature',
     description: '获取签名链接',
@@ -31,9 +31,12 @@ export const SdkDatawichApis2 = {
         schema: {
           type: 'object',
           properties: {
-            ossKey: {
-              type: 'string',
-              example: 'xxxx',
+            ossKeys: {
+              type: 'array',
+              items: {
+                type: 'string',
+                example: 'xxxx',
+              },
             },
           },
         },
