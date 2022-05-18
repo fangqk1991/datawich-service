@@ -309,6 +309,11 @@ const ModelMilestoneApis = {
     route: '/api/v2/general-data/:modelKey/milestone',
     description: '创建模型元信息版本',
   },
+  ModelMilestoneImport: {
+    method: 'POST',
+    route: '/api/v2/general-data/:modelKey/milestone-import',
+    description: '导入模型元信息版本',
+  },
   ModelMilestoneDelete: {
     method: 'DELETE',
     route: '/api/v2/general-data/:modelKey/milestone/:tagName',

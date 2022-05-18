@@ -23,6 +23,13 @@ factory.prepare(GeneralDataApis.ModelMilestoneCreate, async (ctx) => {
   ctx.status = 200
 })
 
+factory.prepare(GeneralDataApis.ModelMilestoneImport, async (ctx) => {
+  const dataModel = await prepareDataModel(ctx)
+  await new SessionChecker(ctx).assertModelAccessible(dataModel)
+  await new DataModelHandler(dataModel).importMilestone(ctx.request.body)
+  ctx.status = 200
+})
+
 factory.prepare(GeneralDataApis.ModelMilestoneDelete, async (ctx) => {
   assert.ok(false, '暂不支持删除操作', 403)
   const dataModel = await prepareDataModel(ctx)

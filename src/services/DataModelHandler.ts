@@ -35,6 +35,22 @@ export class DataModelHandler {
     }
   }
 
+  public async importMilestone(metadata: ModelFullMetadata) {
+    const dataModel = this._dataModel
+    const tagName = metadata.tagName || ''
+    assert.ok(/^[\w-.]{1,63}$/.test(tagName), 'tagName 需满足规则 /^[\\w-.]{1,63}$/')
+    assert.ok(tagName !== 'master', 'master 为保留字，不可使用')
+    assert.ok(!(await _ModelMilestone.checkMilestoneExists(dataModel.modelKey, tagName)), `tagName ${tagName} 已存在`)
+    const feed = new _ModelMilestone()
+    feed.uid = makeUUID()
+    feed.modelKey = dataModel.modelKey
+    feed.tagName = tagName
+    feed.description = metadata.description || ''
+    feed.metadataStr = JSON.stringify(metadata)
+    await feed.addToDB()
+    return feed
+  }
+
   public async createMilestone(params: { tagName: string; description?: string }) {
     const dataModel = this._dataModel
     const { tagName, description } = params
