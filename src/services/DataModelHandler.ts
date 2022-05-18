@@ -43,6 +43,7 @@ export class DataModelHandler {
     assert.ok(!(await _ModelMilestone.checkMilestoneExists(dataModel.modelKey, tagName)), `tagName ${tagName} 已存在`)
 
     metadata.modelKey = dataModel.modelKey
+    metadata.dataModel.modelKey = dataModel.modelKey
     metadata.modelFields.forEach((item) => {
       item.modelKey = dataModel.modelKey
     })
