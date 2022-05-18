@@ -41,6 +41,21 @@ export class DataModelHandler {
     assert.ok(/^[\w-.]{1,63}$/.test(tagName), 'tagName 需满足规则 /^[\\w-.]{1,63}$/')
     assert.ok(tagName !== 'master', 'master 为保留字，不可使用')
     assert.ok(!(await _ModelMilestone.checkMilestoneExists(dataModel.modelKey, tagName)), `tagName ${tagName} 已存在`)
+
+    metadata.modelKey = dataModel.modelKey
+    metadata.modelFields.forEach((item) => {
+      item.modelKey = dataModel.modelKey
+    })
+    metadata.fieldLinks.forEach((item) => {
+      item.modelKey = dataModel.modelKey
+    })
+    metadata.fieldIndexes.forEach((item) => {
+      item.modelKey = dataModel.modelKey
+    })
+    metadata.fieldGroups.forEach((item) => {
+      item.modelKey = dataModel.modelKey
+    })
+
     const feed = new _ModelMilestone()
     feed.uid = makeUUID()
     feed.modelKey = dataModel.modelKey
