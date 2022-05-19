@@ -8,8 +8,9 @@ import assert from '@fangcha/assert'
 
 const factory = new SpecFactory('Datawich SDK 相关')
 factory.prepare(SdkDatawichApis2.SystemInfoGet, async (ctx) => {
+  const baseURL = DatawichService.options.webBaseUrl || ''
   ctx.body = {
-    modelStructureBaseURL: `${DatawichService.proxy.baseURL()}/v2/data-model/:modelKey?curTab=fragment-model-structure`,
+    modelStructureBaseURL: `${baseURL}/v2/data-model/:modelKey?curTab=fragment-model-structure`,
   } as DatawichSystemInfo
 })
 factory.prepare(SdkDatawichApis2.OssUrlsSignature, async (ctx) => {
