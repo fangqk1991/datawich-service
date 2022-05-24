@@ -27,12 +27,14 @@ import { _DatahubSyncProgress } from '../models/datahub-sync/_DatahubSyncProgres
 import { _ModelGroup } from '../models/permission/_ModelGroup'
 import { CommonGroup } from '../models/permission/CommonGroup'
 import { MemberPower } from '../models/permission/MemberPower'
+import { OSSService, OssServiceOptions } from '@fangcha/oss-service'
 
 interface Params {
   database: FCDatabase
   ossForSignature?: AliyunOSS
   downloadRootDir?: string
   plugins?: DataPluginProtocol[]
+  ossServiceOptions?: OssServiceOptions
 }
 
 class __DatawichService {
@@ -47,6 +49,7 @@ class __DatawichService {
 
   public init(params: Params) {
     this.setDatabase(params.database)
+
     if (params.ossForSignature) {
       this.ossForSignature = params.ossForSignature
     }
@@ -55,6 +58,9 @@ class __DatawichService {
     }
     if (params.plugins) {
       this.plugins = params.plugins
+    }
+    if (params.ossServiceOptions) {
+      OSSService.init(params.ossServiceOptions)
     }
   }
 
