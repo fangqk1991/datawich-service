@@ -1023,10 +1023,10 @@
     lodash "^4.17.15"
     tslib "^2.3.1"
 
-"@fangcha/oss-service@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@fangcha/oss-service/-/oss-service-0.1.0.tgz#dc4dd6ca3dfb429416168bf02185edfb804d594c"
-  integrity sha512-FTQgzvcp8eboyQb02FIWHwbDjBerfQD31awQtecPvYLRCbneCtm2p5oxlSFRfUF0qW05f5JqR5elod8G0X3dnQ==
+"@fangcha/oss-service@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/oss-service/-/oss-service-0.2.0.tgz#bae8d63f66ce0c164c5f9ca8fabaf4a2435dbb36"
+  integrity sha512-E3U+baAlzDlQEWoj2x+MRy5DrU8CmXiVnPtXZyt2QGWcaXWumlOXW5ZSOR9ImJ7MqSzaJ/MDmZuxgdQ8QP378Q==
   dependencies:
     "@fangcha/ali-oss" "^1.0.0"
     "@fangcha/app-request" "^1.4.0"
