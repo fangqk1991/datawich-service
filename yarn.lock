@@ -957,17 +957,16 @@
   dependencies:
     "@fangcha/app-error" "^1.1.0"
 
-"@fangcha/backend-kit@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@fangcha/backend-kit/-/backend-kit-0.2.0.tgz#566c8a33ed5744bf7346deca82317e8653851eb0"
-  integrity sha512-60Pxiq17gvstcGCM8PAXP0K+5GxEXnDTUHTcMDdrtGF00Bn2h2hWy7SqiMmPIJaB7l0sy2dTyBjFPSp38kdUnw==
+"@fangcha/backend-kit@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/backend-kit/-/backend-kit-0.3.0.tgz#5fd8244b85084a5b18a020771ebe10e2d8d90dd9"
+  integrity sha512-lmorTr42i1XGe1+RIXMNitRvUoJM3H5MwWwORfMdQucehNljkOaqjcVNB18GB7cq5pgEyMU11KPhT4WRXSiWFg==
   dependencies:
     "@fangcha/ali-oss" "^1.0.0"
     "@fangcha/app-request" "^1.4.0"
     "@fangcha/assert" "^1.1.0"
     "@fangcha/logger" "^0.2.0"
     "@fangcha/router" "^0.3.0"
-    "@fangcha/tools" "^1.18.0"
     fc-feed "^0.16.0"
     fc-model "^0.4.2"
     fc-sql "^0.28.0"
@@ -995,14 +994,13 @@
     eslint-plugin-vue "^6.1.2"
     prettier "^2.5.1"
 
-"@fangcha/general-group@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@fangcha/general-group/-/general-group-0.1.1.tgz#3815ae64ddd63a39a06b0b3d4a884d9a638fb49b"
-  integrity sha512-HYFdHcvQ5f37q0TEgcaKJB6J+Ua6bhAWT7XSTo6sdHJJ/bE0lbrq5s9P2bmVI63hj7fXdm2x4rSOQEg0i2Mgqg==
+"@fangcha/general-group@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@fangcha/general-group/-/general-group-0.1.2.tgz#f5b7bedbe735a72b9177fcd33ffbe4d825fa680b"
+  integrity sha512-ePKrU5jA0t+A52KBAbwr8wt7sWDvIamCahXEIM6vYMIpv74wmIc8JI0Zl5YFMJXWHURazEphZr6Mp7JRwck4uQ==
   dependencies:
     "@fangcha/assert" "^1.1.0"
     "@fangcha/logger" "^0.2.0"
-    "@fangcha/tools" "^1.18.0"
     fc-feed "^0.16.0"
     fc-sql "^0.28.0"
     tslib "^2.4.0"
@@ -1023,19 +1021,15 @@
     lodash "^4.17.15"
     tslib "^2.3.1"
 
-"@fangcha/oss-service@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@fangcha/oss-service/-/oss-service-0.2.0.tgz#bae8d63f66ce0c164c5f9ca8fabaf4a2435dbb36"
-  integrity sha512-E3U+baAlzDlQEWoj2x+MRy5DrU8CmXiVnPtXZyt2QGWcaXWumlOXW5ZSOR9ImJ7MqSzaJ/MDmZuxgdQ8QP378Q==
+"@fangcha/oss-service@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/oss-service/-/oss-service-0.3.0.tgz#56dafa777005f48271a7bf6c52f402fbfc2c1fc2"
+  integrity sha512-uxBbf6TEhLrrBndRZ+BHyWezc0AJl9xHLVydREPxqaV9Sy//pafGNyNJQARId13MTdiMuu4FT4DGVRKk2qLSCw==
   dependencies:
     "@fangcha/ali-oss" "^1.0.0"
     "@fangcha/app-request" "^1.4.0"
     "@fangcha/assert" "^1.1.0"
     "@fangcha/logger" "^0.2.0"
-    "@fangcha/tools" "^1.18.0"
-    fc-feed "^0.16.0"
-    fc-model "^0.4.2"
-    fc-sql "^0.28.0"
     shelljs "^0.8.5"
     tslib "^2.4.0"
 
@@ -1050,15 +1044,6 @@
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@fangcha/swagger/-/swagger-0.1.0.tgz#75f0b7806916da109d8ddaf16b0942d78a1b134c"
   integrity sha512-MDtlGlIJffwsunSupt6gc4cK2WMas4KJ+yn64jGQ44yXD/V5QJQ8cGYh3kW5LRqNufMd02VfYFLlUO9lJGEg7w==
-
-"@fangcha/tools@^1.18.0":
-  version "1.18.0"
-  resolved "https://registry.yarnpkg.com/@fangcha/tools/-/tools-1.18.0.tgz#6db5a92c25116698c183cc9e06b94848b46209e8"
-  integrity sha512-1s1WeQUFMMqb9L/7oz9eppCA97cWjw8+RBp5hFw9Sln0iL+VxoUxG7bGGr3eAQ4/zcwwYuoIlig/VvMdcsdX5w==
-  dependencies:
-    moment "^2.29.1"
-    tslib "^2.3.1"
-    uuid "^3.3.3"
 
 "@fangcha/tools@^1.19.0":
   version "1.19.0"

@@ -1,6 +1,6 @@
 {
   "name": "@fangcha/datawich-service",
-  "version": "0.8.6",
+  "version": "0.9.2",
   "description": "Datawich Service.",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -30,11 +30,11 @@
     "tslib": "^2.4.0"
   },
   "devDependencies": {
-    "@fangcha/backend-kit": "^0.2.0",
+    "@fangcha/backend-kit": "^0.3.0",
     "@fangcha/eslint": "^0.2.0",
     "@fangcha/generator": "^0.1.1",
-    "@fangcha/general-group": "^0.1.1",
-    "@fangcha/oss-service": "^0.2.0",
+    "@fangcha/general-group": "^0.1.2",
+    "@fangcha/oss-service": "^0.3.0",
     "@fangcha/tools": "^1.19.0",
     "@fangcha/webpack": "^0.7.0",
     "@types/assert": "^1.5.4",
