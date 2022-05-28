@@ -1060,6 +1060,15 @@
     tslib "^2.3.1"
     uuid "^3.3.3"
 
+"@fangcha/tools@^1.19.0":
+  version "1.19.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/tools/-/tools-1.19.0.tgz#67c465d4b6d11fac1687b94dccd29cb58a20ed0a"
+  integrity sha512-98GKijDG08kuK1E91jdRimSNvF8cgdXAbu71PykLZGupjnBkju3K+sTSjgrt6bmOtcIVy8OifCSYAguQgH4JVQ==
+  dependencies:
+    moment "^2.29.1"
+    tslib "^2.3.1"
+    uuid "^3.3.3"
+
 "@fangcha/webpack@^0.7.0":
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/@fangcha/webpack/-/webpack-0.7.0.tgz#04798aef65e4755ce939e16f2f81ae3cfab3ec10"
