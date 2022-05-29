@@ -1,0 +1,38 @@
+import { FilterSymbol, LogicExpression, LogicSymbol } from '../../src/common/models'
+
+describe('Test LogicExpression.test.ts', () => {
+  it(`Test LogicExpression`, async () => {
+    const expression: LogicExpression = {
+      logic: LogicSymbol.OR,
+      elements: [
+        {
+          condition: {
+            leftKey: 'a',
+            symbol: FilterSymbol.EQ,
+            rightValue: 1,
+          },
+        },
+        {
+          logic: LogicSymbol.AND,
+          elements: [
+            {
+              condition: {
+                leftKey: 'b',
+                symbol: FilterSymbol.GE,
+                rightValue: 10,
+              },
+            },
+            {
+              condition: {
+                leftKey: 'b',
+                symbol: FilterSymbol.LE,
+                rightValue: 20,
+              },
+            },
+          ],
+        },
+      ],
+    }
+    console.info(JSON.stringify(expression, null, 2))
+  })
+})
