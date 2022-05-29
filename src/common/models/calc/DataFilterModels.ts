@@ -6,22 +6,8 @@ export interface FilterCondition {
   rightValue: number | string | (string | number)[]
 }
 
-export interface FilterExpression {
+export interface LogicExpression {
   logic?: LogicSymbol
-  elements?: FilterExpression[]
+  elements?: LogicExpression[]
   condition?: FilterCondition
 }
-
-export interface FilterExpression_0 extends FilterExpression {
-  condition: FilterCondition
-  logic?: never
-  elements?: never
-}
-
-export interface FilterExpression_1 extends FilterExpression {
-  logic: LogicSymbol
-  elements: LogicExpression[]
-  condition?: never
-}
-
-export type LogicExpression = FilterExpression_0 | FilterExpression_1

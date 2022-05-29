@@ -3,6 +3,7 @@ import { Raw_ModelField } from '../auto-build'
 import { I18nTextData, SelectOption } from '@fangcha/tools'
 import { FieldLinkModel } from './FieldLinkModel'
 import { FieldType } from './FieldType'
+import { LogicExpression } from '../calc'
 
 export interface DateRange {
   floor: string
@@ -32,6 +33,7 @@ export interface ModelFieldExtrasData {
   nameI18n: I18nTextData
   readonly: boolean
   matchRegex: string
+  visibleLogic?: LogicExpression
 }
 
 export interface ModelFieldModel extends Raw_ModelField {

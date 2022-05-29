@@ -1,4 +1,4 @@
-import { FilterSymbol, LogicExpression, LogicSymbol } from '../../src/common/models'
+import { FilterSymbol, LogicExpression, LogicExpressionHelper, LogicSymbol } from '../../src/common/models'
 
 describe('Test LogicExpression.test.ts', () => {
   it(`Test LogicExpression`, async () => {
@@ -33,6 +33,11 @@ describe('Test LogicExpression.test.ts', () => {
         },
       ],
     }
-    console.info(JSON.stringify(expression, null, 2))
+    console.info(
+      LogicExpressionHelper.calcExpression(expression, {
+        a: 2,
+        b: 30,
+      })
+    )
   })
 })
