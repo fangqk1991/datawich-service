@@ -15,7 +15,8 @@ import { _ModelMilestone } from './_ModelMilestone'
 import {
   AccessLevel,
   calculateDataKey,
-  checkModelHasVendorField, cleanDataByModelFields,
+  checkModelHasVendorField,
+  cleanDataByModelFields,
   DataModelExtrasData,
   DataModelModel,
   DataRecordEvent,
@@ -23,14 +24,16 @@ import {
   FieldDisplayMode,
   FieldLinkModel,
   FieldType,
-  ForAnalysisParams, GeneralPermissionDescriptor,
+  ForAnalysisParams,
+  GeneralPermissionDescriptor,
   ModelDisplayColumnModel,
   ModelFieldModel,
   ModelFullMetadata,
   ModelNotifyTemplateModel,
   ModelType,
   ModelTypeDescriptor,
-  RetainFieldSource, TransferSelectOption,
+  RetainFieldSource,
+  TransferSelectOption,
 } from '../../common/models'
 
 export class _DataModel extends __DataModel {
@@ -275,7 +278,11 @@ export class _DataModel extends __DataModel {
     field.matrixKey = params.matrixKey || ''
     field.remarks = params.remarks || ''
     field.inputHint = params.inputHint || ''
+
     const extras: any = {}
+    if (params.extrasData && typeof params.extrasData === 'object') {
+      Object.assign(extras, params.extrasData)
+    }
     if ([FieldType.Tags, FieldType.MultiEnum].includes(field.fieldType as any)) {
       extras.options = params.options
     } else if ([FieldType.Enum, FieldType.TextEnum].includes(field.fieldType as any)) {
