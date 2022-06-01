@@ -29,7 +29,8 @@ export class GeneralDataChecker {
           field.fieldType === FieldType.SingleLineText ||
           field.fieldType === FieldType.MultipleLinesText ||
           field.fieldType === FieldType.RichText ||
-          field.fieldType === FieldType.JSON
+          field.fieldType === FieldType.JSON ||
+          field.fieldType === FieldType.Attachment
         ) {
           if (!params[field.fieldKey]) {
             errorMap[field.fieldKey] = `${field.name} 不能为空`
