@@ -52,6 +52,14 @@ factory.prepare(GeneralDataApis.ModelMilestoneMetadataGet, async (ctx) => {
   await new SessionChecker(ctx).assertModelAccessible(dataModel)
   const milestone = await _ModelMilestone.findMilestone(dataModel.modelKey, ctx.params.tagName)
   assert.ok(!!milestone, '版本不存在')
+  ctx.body = milestone.getMetadata()
+})
+
+factory.prepare(GeneralDataApis.ModelMilestoneMetadataExport, async (ctx) => {
+  const dataModel = await prepareDataModel(ctx)
+  await new SessionChecker(ctx).assertModelAccessible(dataModel)
+  const milestone = await _ModelMilestone.findMilestone(dataModel.modelKey, ctx.params.tagName)
+  assert.ok(!!milestone, '版本不存在')
   ctx.set('Content-disposition', `attachment; filename=${dataModel.modelKey}-${milestone.tagName}.json`)
   ctx.body = JSON.stringify(milestone.getMetadata(), null, 2)
 })

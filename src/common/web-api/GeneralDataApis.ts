@@ -326,8 +326,13 @@ const ModelMilestoneApis = {
   },
   ModelMilestoneMetadataGet: {
     method: 'GET',
-    route: '/api/v2/general-data/:modelKey/milestone/:tagName/full-metadata',
+    route: '/api/v2/general-data/:modelKey/milestone/:tagName/metadata',
     description: '指定版本完整元信息获取',
+  },
+  ModelMilestoneMetadataExport: {
+    method: 'GET',
+    route: '/api/v2/general-data/:modelKey/milestone/:tagName/full-metadata',
+    description: '指定版本完整元信息导出',
   },
 }
 
