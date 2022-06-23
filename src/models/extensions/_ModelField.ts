@@ -185,7 +185,8 @@ export class _ModelField extends __ModelField implements Raw_ModelField {
   }
   public getHint() {
     switch (this.fieldType as FieldType) {
-      case FieldType.Enum: {
+      case FieldType.Enum:
+      case FieldType.TextEnum: {
         const texts: string[] = []
         texts.push(`枚举项(单选)`)
         texts.push(...this.options().map((item: any) => item.label))
@@ -194,6 +195,12 @@ export class _ModelField extends __ModelField implements Raw_ModelField {
       case FieldType.Tags: {
         const texts: string[] = []
         texts.push(`标签项(多选)`)
+        texts.push(...this.options().map((item: any) => item.label))
+        return texts.join('\n')
+      }
+      case FieldType.MultiEnum: {
+        const texts: string[] = []
+        texts.push(`枚举项(多选)`)
         texts.push(...this.options().map((item: any) => item.label))
         return texts.join('\n')
       }
