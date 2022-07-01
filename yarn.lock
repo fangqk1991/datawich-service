@@ -3935,6 +3935,11 @@ fc-feed@^0.16.0:
   resolved "https://registry.yarnpkg.com/fc-feed/-/fc-feed-0.16.0.tgz#077d58244fdff7270424d08645ce0eaa9bca3985"
   integrity sha512-wEZYWnIR22A1rGMaUr+hi+JWb6sxu7FM+wfLH0q0H+6qbG/5C4kkqW+oWwJlTgJNwy/nQcPsPfi+lCuvgZgblQ==
 
+fc-feed@^0.17.0:
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/fc-feed/-/fc-feed-0.17.0.tgz#6712b7b9f0fae808eb90076253bf17823cebdeea"
+  integrity sha512-W+IDqXGTxnkNtTsBAFDRhCCLcOwdlkXCNSROASFSymStR4xJy1ufBEt2g8ev5MZWKXxhJkRUWUBGCk8OICMgqA==
+
 fc-model@^0.4.2:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/fc-model/-/fc-model-0.4.2.tgz#12751aea0b645208756b7b67923dc8c30adedc48"

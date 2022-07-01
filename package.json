@@ -1,6 +1,6 @@
 {
   "name": "@fangcha/datawich-service",
-  "version": "0.13.1",
+  "version": "0.14.0",
   "description": "Datawich Service.",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -24,9 +24,6 @@
   "dependencies": {
     "@fangcha/ali-oss": "^1.0.0",
     "@fangcha/logger": "^0.2.0",
-    "fc-feed": "^0.16.0",
-    "fc-model": "^0.4.2",
-    "fc-sql": "^0.28.0",
     "tslib": "^2.4.0"
   },
   "devDependencies": {
@@ -42,6 +39,9 @@
     "@types/koa-joi-router": "^8.0.4",
     "@types/mocha": "^8.2.2",
     "@types/node": "^17.0.30",
+    "fc-feed": "^0.17.0",
+    "fc-model": "^0.4.2",
+    "fc-sql": "^0.28.0",
     "exceljs": "^4.3.0",
     "koa": "^2.13.4",
     "mocha": "^8.4.0",
