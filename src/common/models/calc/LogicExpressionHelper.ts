@@ -19,7 +19,7 @@ export class LogicExpressionHelper {
           meta.condition !== undefined,
         'logic / condition 至少需要被定义一个'
       )
-      if (meta.logicResult === undefined) {
+      if (meta.logicResult !== undefined) {
         assert.ok(meta.logicResult === true || meta.logicResult === false, 'logicResult 必须为 bool 值')
         return
       }
