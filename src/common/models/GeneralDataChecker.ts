@@ -3,6 +3,7 @@ import { FieldType } from './field'
 import * as moment from 'moment'
 import { JsonChecker } from '@fangcha/tools'
 import { extractMultiEnumItems } from './GeneralDataHelper'
+import { LogicExpressionHelper } from './calc'
 
 interface OssFileInfo {
   ossKey: string
@@ -20,7 +21,11 @@ export class GeneralDataChecker {
           delete params[field.fieldKey]
         }
       }
-      if (!curDataId && field.required) {
+      let isRequired = !!field.required
+      if (field.extrasData.requiredLogic) {
+        isRequired = LogicExpressionHelper.calcExpression(field.extrasData.requiredLogic, params)
+      }
+      if (!curDataId && isRequired) {
         if (!(field.fieldKey in params)) {
           errorMap[field.fieldKey] = `${field.name} 不能为空`
           continue
@@ -75,7 +80,7 @@ export class GeneralDataChecker {
           case FieldType.Enum:
           case FieldType.TextEnum: {
             const value2LabelMap = field.value2LabelMap
-            if (!field.required && !value) {
+            if (!isRequired && !value) {
               break
             }
             if (!(value in value2LabelMap)) {
@@ -87,7 +92,7 @@ export class GeneralDataChecker {
           }
           case FieldType.MultiEnum: {
             const value2LabelMap = field.value2LabelMap
-            if (!field.required && !value) {
+            if (!isRequired && !value) {
               break
             }
             if (extractMultiEnumItems(value).find((key) => value2LabelMap[key] === undefined)) {

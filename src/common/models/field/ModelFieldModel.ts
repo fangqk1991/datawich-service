@@ -34,6 +34,7 @@ export interface ModelFieldExtrasData {
   readonly: boolean
   matchRegex: string
   visibleLogic?: LogicExpression
+  requiredLogic?: LogicExpression
 }
 
 export interface ModelFieldModel extends Raw_ModelField {
