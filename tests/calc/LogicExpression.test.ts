@@ -40,4 +40,11 @@ describe('Test LogicExpression.test.ts', () => {
       })
     )
   })
+
+  it(`Test logicResult`, async () => {
+    const expression: LogicExpression = {
+      logicResult: false,
+    }
+    console.info(LogicExpressionHelper.calcExpression(expression, {}))
+  })
 })

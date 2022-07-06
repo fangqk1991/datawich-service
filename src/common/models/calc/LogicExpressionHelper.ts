@@ -14,9 +14,15 @@ export class LogicExpressionHelper {
   public static checkExpressionValid(expression: LogicExpression) {
     const handler = (meta: LogicExpression) => {
       assert.ok(
-        LogicSymbolDescriptor.checkValueValid(meta.logic) || meta.condition !== undefined,
+        meta.logicResult !== undefined ||
+          LogicSymbolDescriptor.checkValueValid(meta.logic) ||
+          meta.condition !== undefined,
         'logic / condition 至少需要被定义一个'
       )
+      if (meta.logicResult === undefined) {
+        assert.ok(meta.logicResult === true || meta.logicResult === false, 'logicResult 必须为 bool 值')
+        return
+      }
       if (meta.condition) {
         assert.ok(!!meta.condition.leftKey, 'condition.leftKey 定义有误')
         assert.ok(FilterSymbolDescriptor.checkValueValid(meta.condition.symbol), 'condition.symbol 定义有误')
@@ -39,6 +45,9 @@ export class LogicExpressionHelper {
     this.checkExpressionValid(expression)
 
     const handler = (meta: LogicExpression) => {
+      if (meta.logicResult !== undefined) {
+        return !!meta.logicResult
+      }
       if (LogicSymbolDescriptor.checkValueValid(meta.logic)) {
         const children = meta.elements!
         if (children.length > 0) {

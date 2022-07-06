@@ -10,4 +10,5 @@ export interface LogicExpression {
   logic?: LogicSymbol
   elements?: LogicExpression[]
   condition?: FilterCondition
+  logicResult?: boolean
 }
