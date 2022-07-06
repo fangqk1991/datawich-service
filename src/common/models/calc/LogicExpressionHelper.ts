@@ -64,8 +64,12 @@ export class LogicExpressionHelper {
         switch (meta.condition.symbol) {
           case FilterSymbol.IN:
             return (expectVal as string[]).includes(inputVal)
+          case FilterSymbol.NotIN:
+            return !(expectVal as string[]).includes(inputVal)
           case FilterSymbol.EQ:
             return inputVal === expectVal
+          case FilterSymbol.NE:
+            return inputVal !== expectVal
           case FilterSymbol.GE:
             return inputVal >= expectVal
           case FilterSymbol.LE:
