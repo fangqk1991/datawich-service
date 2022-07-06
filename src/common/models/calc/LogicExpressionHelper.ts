@@ -66,6 +66,8 @@ export class LogicExpressionHelper {
             return (expectVal as string[]).includes(inputVal)
           case FilterSymbol.NotIN:
             return !(expectVal as string[]).includes(inputVal)
+          case FilterSymbol.BoolEQ:
+            return !!inputVal === !!expectVal
           case FilterSymbol.EQ:
             return inputVal === expectVal
           case FilterSymbol.NE:

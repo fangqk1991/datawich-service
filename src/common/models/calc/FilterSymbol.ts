@@ -3,6 +3,7 @@ import { Descriptor } from '@fangcha/tools'
 export enum FilterSymbol {
   IN = 'IN',
   NotIN = 'NotIN',
+  BoolEQ = 'BoolEQ',
   EQ = '=',
   NE = '!=',
   GE = '>=',
@@ -14,6 +15,7 @@ export enum FilterSymbol {
 const values = [
   FilterSymbol.IN,
   FilterSymbol.NotIN,
+  FilterSymbol.BoolEQ,
   FilterSymbol.EQ,
   FilterSymbol.NE,
   FilterSymbol.GE,
