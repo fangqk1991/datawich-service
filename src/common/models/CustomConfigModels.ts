@@ -3,6 +3,14 @@ export interface CustomConfigParams {
   metadataVersion: string
 }
 
+export interface CustomFormParams {
+  modelKey: string
+  metadataVersion: string
+  formData: {
+    [p: string]: string | number
+  }
+}
+
 export interface FlexConfigParams extends CustomConfigParams {
   modelKey: string
   metadataVersion: string
