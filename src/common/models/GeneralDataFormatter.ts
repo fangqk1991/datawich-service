@@ -43,6 +43,6 @@ export class GeneralDataFormatter {
       const checkedMap = extractMultiEnumCheckedMapForValue(value, field.options)
       return getCheckedTagsForField(field, checkedMap).join(', ')
     }
-    return `${value}`
+    return value
   }
 }
