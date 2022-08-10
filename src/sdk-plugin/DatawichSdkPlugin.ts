@@ -5,7 +5,6 @@ import { DatawichService, DatawichServiceOptions } from '../sdk'
 import { DatawichSystemInfo } from '../common/models'
 import { SdkDatawichApis2 } from '../common/sdk-api'
 import assert from '@fangcha/assert'
-import { _OSSResource } from '@fangcha/oss-service'
 
 const factory = new SpecFactory('Datawich SDK 相关')
 factory.prepare(SdkDatawichApis2.SystemInfoGet, async (ctx) => {
