@@ -20,6 +20,7 @@ import {
   GeneralDataChecker,
   GeneralDataFormatter,
   getCheckedTagsForField,
+  ModelFieldModel,
 } from '../common/models'
 import { _ModelField } from '../models/extensions/_ModelField'
 import { ModelDataInfo } from './ModelDataInfo'
@@ -229,9 +230,9 @@ export class ModelDataHandler {
     return GeneralDataFormatter.makeDescribableFields(modelFields, allLinks)
   }
 
-  private _transferItemsValueNaturalLanguage(items: any[], field: _ModelField, dataKey: string) {
+  private _transferItemsValueNaturalLanguage(items: any[], field: ModelFieldModel, dataKey: string) {
     if (field.fieldType === FieldType.Enum || field.fieldType === FieldType.TextEnum) {
-      const value2LabelMap = field.value2LabelMap()
+      const value2LabelMap = field.value2LabelMap
       if (Object.keys(value2LabelMap).length > 0) {
         items.forEach((item) => {
           if (item[dataKey] in value2LabelMap) {
@@ -240,16 +241,14 @@ export class ModelDataHandler {
         })
       }
     } else if (field.fieldType === FieldType.Tags) {
-      const fieldModel = field.modelForClient()
       items.forEach((item) => {
-        const checkedMap = extractCheckedMapForValue(item[dataKey], fieldModel)
-        item[dataKey] = getCheckedTagsForField(fieldModel, checkedMap).join(', ')
+        const checkedMap = extractCheckedMapForValue(item[dataKey], field)
+        item[dataKey] = getCheckedTagsForField(field, checkedMap).join(', ')
       })
     } else if (field.fieldType === FieldType.MultiEnum) {
-      const fieldModel = field.modelForClient()
       items.forEach((item) => {
-        const checkedMap = extractMultiEnumCheckedMapForValue(item[dataKey], fieldModel.options)
-        item[dataKey] = getCheckedTagsForField(fieldModel, checkedMap).join(', ')
+        const checkedMap = extractMultiEnumCheckedMapForValue(item[dataKey], field.options)
+        item[dataKey] = getCheckedTagsForField(field, checkedMap).join(', ')
       })
     }
   }
@@ -266,14 +265,14 @@ export class ModelDataHandler {
     }
     modelFields.forEach((field) => {
       const dataKey = calculateDataKey(field)
-      this._transferItemsValueNaturalLanguage(items, field, dataKey)
+      this._transferItemsValueNaturalLanguage(items, field.modelForClient(), dataKey)
     })
     const fieldLinks = await dataModel.getFieldLinks()
     for (const link of fieldLinks) {
       const refFields = await link.getRefFields()
       refFields.forEach((refField) => {
         const dataKey = calculateDataKey(refField, link)
-        this._transferItemsValueNaturalLanguage(items, refField, dataKey)
+        this._transferItemsValueNaturalLanguage(items, refField.modelForClient(), dataKey)
       })
     }
     return items

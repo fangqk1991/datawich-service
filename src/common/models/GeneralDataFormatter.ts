@@ -1,6 +1,11 @@
-import { DescribableField, FieldLinkMaker, FieldLinkModel, FieldMaker } from './field'
+import { DescribableField, FieldLinkMaker, FieldLinkModel, FieldMaker, FieldType, ModelFieldModel } from './field'
 import { Raw_FieldLink, Raw_ModelField } from './auto-build'
 import { ModelFullMetadata } from './ModelFullMetadata'
+import {
+  extractCheckedMapForValue,
+  extractMultiEnumCheckedMapForValue,
+  getCheckedTagsForField,
+} from './GeneralDataHelper'
 
 export class GeneralDataFormatter {
   public static formatModelField(rawData: Raw_ModelField) {
@@ -23,5 +28,21 @@ export class GeneralDataFormatter {
 
   public static formatFieldLink(rawData: Raw_FieldLink) {
     return new FieldLinkMaker(rawData).getLinkModel()
+  }
+
+  public static transferValueNaturalLanguage(value: any, field: ModelFieldModel) {
+    if (field.fieldType === FieldType.Enum || field.fieldType === FieldType.TextEnum) {
+      const value2LabelMap = field.value2LabelMap
+      if (Object.keys(value2LabelMap).length > 0) {
+        return value2LabelMap[value]
+      }
+    } else if (field.fieldType === FieldType.Tags) {
+      const checkedMap = extractCheckedMapForValue(value, field)
+      return getCheckedTagsForField(field, checkedMap).join(', ')
+    } else if (field.fieldType === FieldType.MultiEnum) {
+      const checkedMap = extractMultiEnumCheckedMapForValue(value, field.options)
+      return getCheckedTagsForField(field, checkedMap).join(', ')
+    }
+    return `${value}`
   }
 }
