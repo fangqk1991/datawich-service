@@ -77,7 +77,7 @@ export class LogicExpressionHelper {
             return !(expectVal as string[]).includes(inputVal)
           case FilterSymbol.BoolEQ:
             return !!inputVal === !!expectVal
-          case FilterSymbol.Like:
+          case FilterSymbol.LIKE:
             return new RegExp(expectVal as string).test(inputVal)
           case FilterSymbol.EQ:
             return inputVal === expectVal
