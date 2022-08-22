@@ -8,8 +8,8 @@ describe('Test LogicExpression.test.ts', () => {
         {
           condition: {
             leftKey: 'a',
-            symbol: FilterSymbol.EQ,
-            rightValue: 1,
+            symbol: FilterSymbol.Like,
+            rightValue: '^2$',
           },
         },
         {
