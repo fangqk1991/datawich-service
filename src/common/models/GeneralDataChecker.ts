@@ -66,8 +66,8 @@ export class GeneralDataChecker {
             break
           }
           case FieldType.MultipleLinesText: {
-            if (`${value}`.length > 1024) {
-              errorMap[field.fieldKey] = `${field.name} 的长度不能超过 1024`
+            if (`${value}`.length > 16384) {
+              errorMap[field.fieldKey] = `${field.name} 的长度不能超过 16384`
             }
             break
           }
