@@ -13,7 +13,7 @@ import {
 } from '../../common/models'
 import { DataModelHandler } from '../../services/DataModelHandler'
 import { _DatawichService } from '../../services/_DatawichService'
-import { FangchaSession } from '@fangcha/backend-kit'
+import { FangchaSession } from '@fangcha/router/lib/session'
 import { ModelDataHandler } from '../../services/ModelDataHandler'
 import { DatahubHandler } from '../../services/DatahubHandler'
 import { _DatahubColumn } from '../../models/datahub-sync/_DatahubColumn'

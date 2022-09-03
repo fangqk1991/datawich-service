@@ -5,7 +5,7 @@ import { ModelDataInfo } from './ModelDataInfo'
 import { ModelDataHandler } from './ModelDataHandler'
 import { _DataModel } from '../models/extensions/_DataModel'
 import { AccessLevel, GeneralPermission } from '../common/models'
-import { FangchaSession } from '@fangcha/backend-kit'
+import { FangchaSession } from '@fangcha/router/lib/session'
 
 export class DataAppSpecHandler {
   ctx!: Context

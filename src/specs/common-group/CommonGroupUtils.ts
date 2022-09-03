@@ -2,7 +2,7 @@ import { Context } from 'koa'
 import assert from '@fangcha/assert'
 import { GroupLevel } from '@fangcha/general-group'
 import { _DatawichService } from '../../services/_DatawichService'
-import { FangchaSession } from '@fangcha/backend-kit'
+import { FangchaSession } from '@fangcha/router/lib/session'
 
 export const prepareGroup = async (ctx: Context, forEditing = false) => {
   const group = await _DatawichService.groupApp.findGroup(ctx.params.groupId)

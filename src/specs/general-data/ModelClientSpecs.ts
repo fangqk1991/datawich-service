@@ -3,7 +3,7 @@ import { Context } from 'koa'
 import { SpecFactory } from '@fangcha/router'
 import { _AppClient } from '../../models/extensions/_AppClient'
 import { ModelClientApis } from '../../common/web-api'
-import { FangchaSession } from '@fangcha/backend-kit'
+import { FangchaSession } from '@fangcha/router/lib/session'
 import { ClientAuthParams, GeneralDataPermissionKey } from '../../common/models'
 
 const factory = new SpecFactory('API 应用管理')

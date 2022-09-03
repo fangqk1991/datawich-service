@@ -1,7 +1,7 @@
 import assert from '@fangcha/assert'
 import { SpecFactory } from '@fangcha/router'
 import { Context } from 'koa'
-import { FangchaSession } from '@fangcha/backend-kit'
+import { FangchaSession } from '@fangcha/router/lib/session'
 import { _CommonProfile } from '../../models/extensions/_CommonProfile'
 import { ProfileEventDescriptor } from '../../common/models'
 import { CommonProfileApis } from '../../common/web-api'

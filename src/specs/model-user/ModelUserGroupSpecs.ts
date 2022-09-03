@@ -4,7 +4,7 @@ import { GeneralModelSpaces, GroupSpace } from '@fangcha/general-group'
 import { prepareGroup } from './CommonGroupUtils'
 import { ModelUserApis } from '../../common/web-api'
 import { _DatawichService } from '../../services/_DatawichService'
-import { FangchaSession } from '@fangcha/backend-kit'
+import { FangchaSession } from '@fangcha/router/lib/session'
 import { GeneralDataPermissionKey } from '../../common/models'
 
 const factory = new SpecFactory('模型用户组')

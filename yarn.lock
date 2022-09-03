@@ -940,6 +940,11 @@
   resolved "https://registry.yarnpkg.com/@fangcha/app-error/-/app-error-1.1.0.tgz#6055f5b537dc05a384dab45cbf60958f3337a37b"
   integrity sha512-9A4xraQWNoEwUdP0Rs1+WJnV0f4ufFytYQ/y/X+5UqVpxu3OVlwUlp7rBOehioECVOh06qIF6geV1sXqUdFOIA==
 
+"@fangcha/app-error@^1.2.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/app-error/-/app-error-1.4.0.tgz#2fdcb6e146652ea6a6a6db55bdd8599f19f21b58"
+  integrity sha512-sF3IRxL4pXVXBhRyqd5oTFqjwW3d2ag4Fo2K3HhTdJ3moM4gGT9dpIf412bgjXXBoQLMOPCtdkISnBg9xA7Vnw==
+
 "@fangcha/app-request@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@fangcha/app-request/-/app-request-1.4.0.tgz#a15816585ca0369e6e70bb5e3e65d42c78290ed1"
@@ -957,10 +962,10 @@
   dependencies:
     "@fangcha/app-error" "^1.1.0"
 
-"@fangcha/backend-kit@^0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@fangcha/backend-kit/-/backend-kit-0.5.0.tgz#9dbc981a03661f5f214848f46a10ae67b63c0f45"
-  integrity sha512-lnmvA+Hh0ErNz8zttF086MnEBELDxlnqndeo3UcV6ZOiPt2dwb9R5QnuH5uMKl4N0mSKhneKsN/t/Oo5JdGMdg==
+"@fangcha/backend-kit@^0.28.0":
+  version "0.28.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/backend-kit/-/backend-kit-0.28.0.tgz#6f83d2c890a9719ff7a240b7aba189a3fd8e1402"
+  integrity sha512-MBc4PcN0zbDTElglapG1d6aBwcdXAhKtTmgm08Ltd3F6M0R1Lx3SAapUiO+etSGrrC19XjYV6DURkmb93WatLg==
 
 "@fangcha/eslint@^0.2.0":
   version "0.2.0"
@@ -982,15 +987,13 @@
     eslint-plugin-vue "^6.1.2"
     prettier "^2.5.1"
 
-"@fangcha/general-group@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@fangcha/general-group/-/general-group-0.1.2.tgz#f5b7bedbe735a72b9177fcd33ffbe4d825fa680b"
-  integrity sha512-ePKrU5jA0t+A52KBAbwr8wt7sWDvIamCahXEIM6vYMIpv74wmIc8JI0Zl5YFMJXWHURazEphZr6Mp7JRwck4uQ==
+"@fangcha/general-group@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/general-group/-/general-group-0.2.0.tgz#6ba9ecb72bfb889a9e35f4cc57c87fcced052a1b"
+  integrity sha512-oO9pjVc1bocw3ZzwMQfZhpgMPQ7xdHO8H/vurYmq0sxrbJroUy/nKSvJfyklT4c3mbRys/JAnjuhZmAiaiRsGA==
   dependencies:
     "@fangcha/assert" "^1.1.0"
     "@fangcha/logger" "^0.2.0"
-    fc-feed "^0.16.0"
-    fc-sql "^0.28.0"
     tslib "^2.4.0"
 
 "@fangcha/generator@^0.1.1":
@@ -1009,10 +1012,19 @@
     lodash "^4.17.15"
     tslib "^2.3.1"
 
-"@fangcha/oss-service@^0.3.0":
+"@fangcha/logger@^0.3.0":
   version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@fangcha/oss-service/-/oss-service-0.3.0.tgz#56dafa777005f48271a7bf6c52f402fbfc2c1fc2"
-  integrity sha512-uxBbf6TEhLrrBndRZ+BHyWezc0AJl9xHLVydREPxqaV9Sy//pafGNyNJQARId13MTdiMuu4FT4DGVRKk2qLSCw==
+  resolved "https://registry.yarnpkg.com/@fangcha/logger/-/logger-0.3.0.tgz#05d080a54edea5ee141f320b865b18e6b8d5d9c5"
+  integrity sha512-R+B96xETQ53plQeHGom13Dbf1vxlmgcZLhkxg4NNEixVyGAkG4CvKy4RotMhNa/rflLbuf7zkJFwil2a9mzngg==
+  dependencies:
+    "@fangcha/app-error" "^1.2.0"
+    lodash "^4.17.15"
+    tslib "^2.3.1"
+
+"@fangcha/oss-service@^0.4.4":
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/@fangcha/oss-service/-/oss-service-0.4.4.tgz#b568feb8123af10a599fd80bfbbf0089bfb65753"
+  integrity sha512-RkRce4JGpZ+NJTXfEmMW0ZH7pd2/gJXx7ZREnTPpF5axuFV9uCHxBVALxr0CoFz+GlE6vkCYO0nl+DY7Tgp+Rw==
   dependencies:
     "@fangcha/ali-oss" "^1.0.0"
     "@fangcha/app-request" "^1.4.0"
@@ -1021,22 +1033,20 @@
     shelljs "^0.8.5"
     tslib "^2.4.0"
 
-"@fangcha/router@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@fangcha/router/-/router-0.3.0.tgz#d68fdbac2fe9a08ccb19da27a9c70e7e4497be1c"
-  integrity sha512-j2bhLpoQsg8ndtunAXRhaZtkti9NTDhlKQ+m6NrlURddUQLZRJuIwchQTtwIN1WeYcGfw6B8BSjrPknWCDa1fw==
-  dependencies:
-    "@fangcha/swagger" "^0.1.0"
+"@fangcha/router@^0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/router/-/router-0.8.0.tgz#2609e8b74e2ed726ec97505ca2f6728bde1695f3"
+  integrity sha512-VjVFzxSh5mlYZE2aqDdasjxcEEWf95YaFF2iHGTqPiSOwYcNfyAf8Ebn+fcrFEt/zzjiHy568RzRHiaHDuYKRA==
 
 "@fangcha/swagger@^0.1.0":
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@fangcha/swagger/-/swagger-0.1.0.tgz#75f0b7806916da109d8ddaf16b0942d78a1b134c"
   integrity sha512-MDtlGlIJffwsunSupt6gc4cK2WMas4KJ+yn64jGQ44yXD/V5QJQ8cGYh3kW5LRqNufMd02VfYFLlUO9lJGEg7w==
 
-"@fangcha/tools@^1.19.0":
-  version "1.19.0"
-  resolved "https://registry.yarnpkg.com/@fangcha/tools/-/tools-1.19.0.tgz#67c465d4b6d11fac1687b94dccd29cb58a20ed0a"
-  integrity sha512-98GKijDG08kuK1E91jdRimSNvF8cgdXAbu71PykLZGupjnBkju3K+sTSjgrt6bmOtcIVy8OifCSYAguQgH4JVQ==
+"@fangcha/tools@^1.21.1":
+  version "1.21.1"
+  resolved "https://registry.yarnpkg.com/@fangcha/tools/-/tools-1.21.1.tgz#2fce119593f188e40a9733cf9b86317f552614ce"
+  integrity sha512-fJolc1JCA4ZMJDRNVl2aPqKMSeJbaQ5GO3/7LacNBwlDFeuxUntobFweYXKz7U65z9VzFI4XRPkQIHmqHLUBgw==
   dependencies:
     moment "^2.29.1"
     tslib "^2.3.1"
@@ -3913,25 +3923,20 @@ faye-websocket@^0.11.3:
   dependencies:
     websocket-driver ">=0.5.1"
 
-fc-feed@^0.16.0:
-  version "0.16.0"
-  resolved "https://registry.yarnpkg.com/fc-feed/-/fc-feed-0.16.0.tgz#077d58244fdff7270424d08645ce0eaa9bca3985"
-  integrity sha512-wEZYWnIR22A1rGMaUr+hi+JWb6sxu7FM+wfLH0q0H+6qbG/5C4kkqW+oWwJlTgJNwy/nQcPsPfi+lCuvgZgblQ==
-
-fc-feed@^0.17.0:
-  version "0.17.0"
-  resolved "https://registry.yarnpkg.com/fc-feed/-/fc-feed-0.17.0.tgz#6712b7b9f0fae808eb90076253bf17823cebdeea"
-  integrity sha512-W+IDqXGTxnkNtTsBAFDRhCCLcOwdlkXCNSROASFSymStR4xJy1ufBEt2g8ev5MZWKXxhJkRUWUBGCk8OICMgqA==
+fc-feed@^0.19.0:
+  version "0.19.0"
+  resolved "https://registry.yarnpkg.com/fc-feed/-/fc-feed-0.19.0.tgz#e60ef6de983d6720dac44425702c95949db070bd"
+  integrity sha512-Fx7yG+wwd68mPCSacOm5P3abqQaf0gCiCSCSltNCOXlLiKln+wmd6nBRIFLAUXuaDoiMG8CCUEqQ6LDwqT+jhA==
 
 fc-model@^0.4.2:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/fc-model/-/fc-model-0.4.2.tgz#12751aea0b645208756b7b67923dc8c30adedc48"
   integrity sha512-Uiv0DcQeKcJsQ4f24toMDgn5RP/cIIvUq9+YR3EBZS3DjVOmNHzuF0SXDhgqZoG2eOrLEmguoAO/Ri7rFVcl5g==
 
-fc-sql@^0.28.0:
-  version "0.28.0"
-  resolved "https://registry.yarnpkg.com/fc-sql/-/fc-sql-0.28.0.tgz#7655fded34fcb334756e616ac803414633eac743"
-  integrity sha512-dKI+zy3FTZD5kGk9m8XBslWDiO86lKtEtFnG6KYL7XTQevoAMCa1r2fRaShAwUfyt7wcnwcW6nFyqwUSyH4xkQ==
+fc-sql@^0.28.1:
+  version "0.28.1"
+  resolved "https://registry.yarnpkg.com/fc-sql/-/fc-sql-0.28.1.tgz#d5918e33d120b7a0460d92ab883dad9a4f03395b"
+  integrity sha512-Dz8WR0qxXYLJDg2mPJE8gSCL7/tD4hte8PrOUyOPSwadnvONLO9xg3oyh3wQ/z/Q40yBth3aoJMMKKVRL1790A==
   dependencies:
     moment "^2.24.0"
     mysql2 "^1.7.0"
