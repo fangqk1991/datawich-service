@@ -3,6 +3,7 @@ import { DatawichConfig } from '../../config'
 import { HealthSpecs, RouterApp } from '@fangcha/router'
 import { DatawichSwaggerDocItems } from '../../../src/specs'
 import { TempLoginSpecDocItem } from './TempLoginSpecs'
+import { KitProfileSpecDocItem } from '@fangcha/backend-kit/lib/profile'
 
 const routerApp = new RouterApp({
   baseURL: DatawichConfig.adminBaseURL,
@@ -13,6 +14,7 @@ const routerApp = new RouterApp({
       specs: HealthSpecs,
     },
     ...DatawichSwaggerDocItems,
+    KitProfileSpecDocItem,
     TempLoginSpecDocItem,
   ],
 })

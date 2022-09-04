@@ -962,10 +962,10 @@
   dependencies:
     "@fangcha/app-error" "^1.1.0"
 
-"@fangcha/backend-kit@^0.29.0":
-  version "0.29.0"
-  resolved "https://registry.yarnpkg.com/@fangcha/backend-kit/-/backend-kit-0.29.0.tgz#d54597fe21440148318d7ed71ff79b9a9d3f7fbc"
-  integrity sha512-BThpznKVpque30qwhvg0uOoSnm/KHdqXdxJFWXwwJ7J85xWzwY664R+SpmOW991LcgtzLeF2l1xiXFIp6QsNTg==
+"@fangcha/backend-kit@^0.30.0":
+  version "0.30.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/backend-kit/-/backend-kit-0.30.0.tgz#c7161380bef2017e3450636396c434cf9d0823dc"
+  integrity sha512-QGqQN0YJT8jz+MtI3ygxuwrxT1XYOZooBnTNMylCF9Os1/FtN0JzqtKde2sFgulbKXNkKs9t80ApGTbSw95GTg==
 
 "@fangcha/eslint@^0.2.0":
   version "0.2.0"
@@ -1033,10 +1033,10 @@
     shelljs "^0.8.5"
     tslib "^2.4.0"
 
-"@fangcha/router@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@fangcha/router/-/router-0.8.0.tgz#2609e8b74e2ed726ec97505ca2f6728bde1695f3"
-  integrity sha512-VjVFzxSh5mlYZE2aqDdasjxcEEWf95YaFF2iHGTqPiSOwYcNfyAf8Ebn+fcrFEt/zzjiHy568RzRHiaHDuYKRA==
+"@fangcha/router@^0.9.0":
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/router/-/router-0.9.0.tgz#0750be8cfbf3f2062ac25b12169c30b860d92bd0"
+  integrity sha512-+H6o3HS2Wdz7tBkoUNVlhbshDQ2BnFeall8lWXi/jqvBwSxOouaNRSDdeYauPMnwrOxSyPEraRDnn7LI/zFsOQ==
 
 "@fangcha/swagger@^0.1.1":
   version "0.1.1"
