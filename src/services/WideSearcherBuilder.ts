@@ -16,6 +16,7 @@ import {
 } from '../common/models'
 import { _DataModel } from '../models/extensions/_DataModel'
 import { _FieldLink } from '../models/extensions/_FieldLink'
+import * as moment from 'moment'
 
 interface SearchableField {
   tableColumnName: string
@@ -189,9 +190,26 @@ export class WideSearcherBuilder {
             }
             break
           case FieldType.Date:
-          case FieldType.Datetime:
             if (Array.isArray(filterValue) && filterValue.length === 2) {
               searcher.addSpecialCondition(`${columnName} BETWEEN ? AND ?`, filterValue[0], filterValue[1])
+            }
+            break
+          case FieldType.Datetime:
+            if (Array.isArray(filterValue) && filterValue.length === 2) {
+              const [startStr, endStr] = filterValue
+              const startMoment = moment.utc(startStr)
+              const endMoment = moment.utc(endStr)
+              if (/^\d{4}-\d{2}-\d{2}$/.test(startStr)) {
+                startMoment.startOf('day')
+              }
+              if (/^\d{4}-\d{2}-\d{2}$/.test(endStr)) {
+                endMoment.endOf('day')
+              }
+              searcher.addSpecialCondition(
+                `${columnName} BETWEEN FROM_UNIXTIME(?) AND FROM_UNIXTIME(?)`,
+                startMoment.unix(),
+                endMoment.unix()
+              )
             }
             break
           case FieldType.Attachment:
