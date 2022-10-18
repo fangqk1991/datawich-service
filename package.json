@@ -32,7 +32,7 @@
     "@fangcha/oss-service": "^0.4.4",
     "@fangcha/tools": "^1.21.1",
     "@fangcha/webpack": "^0.7.0",
-    "@fangcha/router": "^0.9.0",
+    "@fangcha/router": "^0.11.0",
     "@fangcha/swagger": "^0.1.1",
     "@types/assert": "^1.5.4",
     "@types/koa": "^2.13.4",
