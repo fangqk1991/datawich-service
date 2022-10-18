@@ -1,4 +1,4 @@
-export const DatawichConfig = {
+module.exports = {
   adminPort: 6800,
   adminBaseURL: 'http://localhost:8080',
   mysql: {

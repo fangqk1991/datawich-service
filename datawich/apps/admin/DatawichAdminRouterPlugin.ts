@@ -1,12 +1,12 @@
 import { RouterSdkPlugin } from '@fangcha/router/lib/sdk'
-import { DatawichConfig } from '../../config'
 import { HealthSpecs, RouterApp } from '@fangcha/router'
 import { DatawichSwaggerDocItems } from '../../../src/specs'
 import { TempLoginSpecDocItem } from './TempLoginSpecs'
 import { KitProfileSpecDocItem } from '@fangcha/backend-kit/lib/profile'
+import { GlobalAppConfig } from '@fangcha/config'
 
 const routerApp = new RouterApp({
-  baseURL: DatawichConfig.adminBaseURL,
+  baseURL: GlobalAppConfig.adminBaseURL,
   docItems: [
     {
       name: '健康检查',
@@ -20,12 +20,12 @@ const routerApp = new RouterApp({
 })
 
 export const DatawichAdminRouterPlugin = RouterSdkPlugin({
-  baseURL: DatawichConfig.adminBaseURL,
+  baseURL: GlobalAppConfig.adminBaseURL,
   jwtProtocol: {
     jwtKey: 'datawich_token_jwt',
     jwtSecret: 'datawich_secret',
   },
 
-  backendPort: DatawichConfig.adminPort,
+  backendPort: GlobalAppConfig.adminPort,
   routerApp: routerApp,
 })

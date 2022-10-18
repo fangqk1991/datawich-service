@@ -24,6 +24,7 @@
   "devDependencies": {
     "@fangcha/ali-oss": "^1.0.0",
     "@fangcha/backend-kit": "^0.30.0",
+    "@fangcha/config": "^0.5.0",
     "@fangcha/eslint": "^0.2.0",
     "@fangcha/general-group": "^0.2.0",
     "@fangcha/generator": "^0.1.1",

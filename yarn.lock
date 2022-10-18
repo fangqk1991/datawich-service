@@ -967,6 +967,13 @@
   resolved "https://registry.yarnpkg.com/@fangcha/backend-kit/-/backend-kit-0.30.0.tgz#c7161380bef2017e3450636396c434cf9d0823dc"
   integrity sha512-QGqQN0YJT8jz+MtI3ygxuwrxT1XYOZooBnTNMylCF9Os1/FtN0JzqtKde2sFgulbKXNkKs9t80ApGTbSw95GTg==
 
+"@fangcha/config@^0.5.0":
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/@fangcha/config/-/config-0.5.1.tgz#29f330eda58635c7cfa708df854c12cbad5500d4"
+  integrity sha512-AKOpJ2E2L3gJ75pC5y2bjXh/CzJrE/NxjPXsxVtIma1w/lVX/3ONYhnSH7vzfg4UBp2t8axGHAhm+sIScfF0lg==
+  dependencies:
+    lodash "^4.17.21"
+
 "@fangcha/eslint@^0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@fangcha/eslint/-/eslint-0.2.0.tgz#aca6b6a1e57fd4fb0de809bad38bfdcc7f1baec2"
