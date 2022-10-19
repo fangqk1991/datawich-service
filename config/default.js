@@ -17,14 +17,14 @@ module.exports = {
   ossOptions: {
     Default: {
       visitor: {
-        region: 'oss-cn-beijing',
+        region: 'oss-cn-shanghai',
         accessKeyId: '__accessKeyId__',
         accessKeySecret: '<OSS accessKeySecret>',
         bucket: '__bucket__',
         secure: true,
       },
       uploader: {
-        region: 'oss-cn-beijing',
+        region: 'oss-cn-shanghai',
         accessKeyId: '__accessKeyId__',
         accessKeySecret: '<OSS accessKeySecret>',
         bucket: '__bucket__',
