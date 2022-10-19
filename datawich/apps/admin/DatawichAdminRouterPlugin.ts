@@ -1,23 +1,22 @@
 import { RouterSdkPlugin } from '@fangcha/router/lib/sdk'
 import { RouterApp } from '@fangcha/router'
 import { DatawichSwaggerDocItems } from '../../../src/specs'
-import { TempLoginSpecDocItem } from './TempLoginSpecs'
 import { KitProfileSpecDocItem } from '@fangcha/backend-kit/lib/profile'
-import { GlobalAppConfig } from '@fangcha/config'
+import { DatawichConfig } from '../../DatawichConfig'
 
 const routerApp = new RouterApp({
-  baseURL: GlobalAppConfig.adminBaseURL,
+  baseURL: DatawichConfig.adminBaseURL,
   useHealthSpecs: true,
-  docItems: [...DatawichSwaggerDocItems, KitProfileSpecDocItem, TempLoginSpecDocItem],
+  docItems: [...DatawichSwaggerDocItems, KitProfileSpecDocItem],
 })
 
 export const DatawichAdminRouterPlugin = RouterSdkPlugin({
-  baseURL: GlobalAppConfig.adminBaseURL,
+  baseURL: DatawichConfig.adminBaseURL,
   jwtProtocol: {
     jwtKey: 'datawich_token_jwt',
     jwtSecret: 'datawich_secret',
   },
 
-  backendPort: GlobalAppConfig.adminPort,
+  backendPort: DatawichConfig.adminPort,
   routerApp: routerApp,
 })
