@@ -1,6 +1,6 @@
 import { SpecFactory } from '@fangcha/router'
 import { GeneralDataApis } from '../../common/web-api'
-import { DataModelSpecHandler } from './DataModelSpecHandler'
+import { DataModelSpecHandler } from '../handlers/DataModelSpecHandler'
 
 const factory = new SpecFactory('模型组')
 

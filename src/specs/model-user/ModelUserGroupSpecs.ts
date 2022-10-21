@@ -5,7 +5,7 @@ import { ModelUserApis } from '../../common/web-api'
 import { _DatawichService } from '../../services/_DatawichService'
 import { FangchaSession } from '@fangcha/router/lib/session'
 import { GeneralDataPermissionKey } from '../../common/models'
-import { CommonGroupSpecHandler } from '../common-group/CommonGroupSpecHandler'
+import { CommonGroupSpecHandler } from '../handlers/CommonGroupSpecHandler'
 
 const factory = new SpecFactory('模型用户组')
 

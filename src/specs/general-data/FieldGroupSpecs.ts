@@ -2,7 +2,7 @@ import { SpecFactory } from '@fangcha/router'
 import { GeneralDataApis } from '../../common/web-api'
 import { SessionChecker } from '../../services/SessionChecker'
 import { _FieldGroup } from '../../models/extensions/_FieldGroup'
-import { DataModelSpecHandler } from './DataModelSpecHandler'
+import { DataModelSpecHandler } from '../handlers/DataModelSpecHandler'
 
 const factory = new SpecFactory('字段组')
 

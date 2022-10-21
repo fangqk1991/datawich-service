@@ -4,7 +4,7 @@ import { GeneralDataApis } from '../../common/web-api'
 import { SessionChecker } from '../../services/SessionChecker'
 import { ClientAuthParams, GeneralPermission } from '../../common/models'
 import { ModelAuthHandler } from '../../services/ModelAuthHandler'
-import { DataModelSpecHandler } from './DataModelSpecHandler'
+import { DataModelSpecHandler } from '../handlers/DataModelSpecHandler'
 
 const factory = new SpecFactory('模型 API 访问者')
 

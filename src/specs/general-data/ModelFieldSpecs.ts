@@ -13,7 +13,7 @@ import {
 import { SessionChecker } from '../../services/SessionChecker'
 import { _ModelField } from '../../models/extensions/_ModelField'
 import { _ModelFieldAction } from '../../models/extensions/_ModelFieldAction'
-import { DataModelSpecHandler } from './DataModelSpecHandler'
+import { DataModelSpecHandler } from '../handlers/DataModelSpecHandler'
 
 const factory = new SpecFactory('模型字段')
 

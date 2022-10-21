@@ -4,7 +4,7 @@ import { GeneralDataApis } from '../../common/web-api'
 import { SessionChecker } from '../../services/SessionChecker'
 import { checkIndexAbleField, ModelType } from '../../common/models'
 import { _FieldIndex } from '../../models/extensions/_FieldIndex'
-import { DataModelSpecHandler } from './DataModelSpecHandler'
+import { DataModelSpecHandler } from '../handlers/DataModelSpecHandler'
 
 const factory = new SpecFactory('数据索引')
 

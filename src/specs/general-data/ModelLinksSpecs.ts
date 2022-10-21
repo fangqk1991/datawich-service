@@ -3,7 +3,7 @@ import { GeneralDataApis } from '../../common/web-api'
 import { SessionChecker } from '../../services/SessionChecker'
 import { FieldLinkModel } from '../../common/models'
 import { _FieldLink } from '../../models/extensions/_FieldLink'
-import { DataModelSpecHandler } from './DataModelSpecHandler'
+import { DataModelSpecHandler } from '../handlers/DataModelSpecHandler'
 
 const factory = new SpecFactory('模型关联信息')
 

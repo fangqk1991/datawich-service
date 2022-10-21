@@ -3,10 +3,6 @@ import { GeneralDataSpecs } from './general-data'
 import { DataAppSpecs } from './data-app'
 import { ModelUserSpecs } from './model-user'
 import { CommonGroupSpecs } from './common-group'
-export * from './general-data'
-export * from './model-user'
-export * from './common-group'
-export * from './data-app'
 
 export const DatawichSwaggerDocItems: SwaggerDocItem[] = [
   {
@@ -30,3 +26,7 @@ export const DatawichSwaggerDocItems: SwaggerDocItem[] = [
     specs: CommonGroupSpecs,
   },
 ]
+
+export * from './handlers/CommonGroupSpecHandler'
+export * from './handlers/DataAppSpecHandler'
+export * from './handlers/DataModelSpecHandler'

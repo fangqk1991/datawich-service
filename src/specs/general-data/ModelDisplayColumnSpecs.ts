@@ -2,7 +2,7 @@ import { SpecFactory } from '@fangcha/router'
 import assert from '@fangcha/assert'
 import { GeneralDataApis } from '../../common/web-api'
 import { DisplayScope, DisplayScopeDescriptor } from '../../common/models'
-import { DataModelSpecHandler } from './DataModelSpecHandler'
+import { DataModelSpecHandler } from '../handlers/DataModelSpecHandler'
 
 const factory = new SpecFactory('模型自定义展示列')
 

@@ -4,7 +4,7 @@ import { GeneralDataApis } from '../../common/web-api'
 import { SessionChecker } from '../../services/SessionChecker'
 import { DataModelHandler } from '../../services/DataModelHandler'
 import { _ModelMilestone } from '../../models/extensions/_ModelMilestone'
-import { DataModelSpecHandler } from './DataModelSpecHandler'
+import { DataModelSpecHandler } from '../handlers/DataModelSpecHandler'
 
 const factory = new SpecFactory('元信息版本')
 

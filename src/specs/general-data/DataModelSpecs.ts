@@ -16,7 +16,7 @@ import { FangchaSession } from '@fangcha/router/lib/session'
 import { ModelDataHandler } from '../../services/ModelDataHandler'
 import { DatahubHandler } from '../../services/DatahubHandler'
 import { _DatahubColumn } from '../../models/datahub-sync/_DatahubColumn'
-import { DataModelSpecHandler } from './DataModelSpecHandler'
+import { DataModelSpecHandler } from '../handlers/DataModelSpecHandler'
 
 const factory = new SpecFactory('数据模型')
 
