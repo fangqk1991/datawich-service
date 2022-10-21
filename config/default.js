@@ -1,5 +1,5 @@
 module.exports = {
-  adminPort: 6800,
+  adminPort: 8081,
   adminBaseURL: 'http://localhost:8080',
   mysql: {
     datawichDB: {

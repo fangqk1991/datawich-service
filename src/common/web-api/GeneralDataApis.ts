@@ -157,6 +157,16 @@ const ModelFieldApis = {
     route: '/api/v2/general-data/:modelKey/field',
     description: '模型完整字段列表获取',
   },
+  DataModelAllFieldsDestroy: {
+    method: 'DELETE',
+    route: '/api/v2/general-data/:modelKey/destroy-all-fields',
+    description: '移除所有字段',
+  },
+  DataModelFieldsRebuild: {
+    method: 'PUT',
+    route: '/api/v2/general-data/:modelKey/rebuild-fields',
+    description: '重建模型字段',
+  },
   DataModelVisibleFieldListGet: {
     method: 'GET',
     route: '/api/v2/general-data/:modelKey/visible-field',

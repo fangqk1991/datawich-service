@@ -8,7 +8,8 @@ import {
   FieldLinkModel,
   FieldType,
   GeneralPermission,
-  ModelFieldModel, ModelNotifyTemplateModel
+  ModelFieldModel,
+  ModelNotifyTemplateModel,
 } from '../../common/models'
 import { SessionChecker } from '../../services/SessionChecker'
 import { _ModelField } from '../../models/extensions/_ModelField'
@@ -20,6 +21,30 @@ factory.prepare(GeneralDataApis.DataModelFieldListGet, async (ctx) => {
   const dataModel = await prepareDataModel(ctx)
   const feeds = await dataModel.getFields()
   ctx.body = feeds.map((feed) => feed.modelForClient())
+})
+
+factory.prepare(GeneralDataApis.DataModelAllFieldsDestroy, async (ctx) => {
+  const dataModel = await prepareDataModel(ctx)
+  await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
+  const feeds = await dataModel.getFields()
+  for (const modelField of feeds) {
+    if (!modelField.isSystem) {
+      await dataModel.deleteField(modelField)
+    }
+  }
+  ctx.status = 200
+})
+
+factory.prepare(GeneralDataApis.DataModelFieldsRebuild, async (ctx) => {
+  const dataModel = await prepareDataModel(ctx)
+  await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
+  const feeds = await dataModel.getFields()
+  for (const modelField of feeds) {
+    if (!modelField.isSystem) {
+      await dataModel.deleteField(modelField)
+    }
+  }
+  ctx.status = 200
 })
 
 factory.prepare(GeneralDataApis.DataModelVisibleFieldListGet, async (ctx) => {
