@@ -1,10 +1,10 @@
 import assert from '@fangcha/assert'
 import { Context } from 'koa'
-import { SessionChecker } from './SessionChecker'
-import { ModelDataInfo } from './ModelDataInfo'
-import { ModelDataHandler } from './ModelDataHandler'
-import { _DataModel } from '../models/extensions/_DataModel'
-import { AccessLevel, GeneralPermission } from '../common/models'
+import { SessionChecker } from '../../services/SessionChecker'
+import { ModelDataInfo } from '../../services/ModelDataInfo'
+import { ModelDataHandler } from '../../services/ModelDataHandler'
+import { _DataModel } from '../../models/extensions/_DataModel'
+import { AccessLevel, GeneralPermission } from '../../common/models'
 import { FangchaSession } from '@fangcha/router/lib/session'
 
 export class DataAppSpecHandler {
