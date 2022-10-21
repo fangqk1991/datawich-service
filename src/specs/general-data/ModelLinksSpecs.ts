@@ -1,5 +1,4 @@
 import { SpecFactory } from '@fangcha/router'
-import { prepareFieldLink } from './SpecUtils'
 import { GeneralDataApis } from '../../common/web-api'
 import { SessionChecker } from '../../services/SessionChecker'
 import { FieldLinkModel } from '../../common/models'
@@ -31,20 +30,18 @@ factory.prepare(GeneralDataApis.ModelHoldingLinkCreate, async (ctx) => {
 })
 
 factory.prepare(GeneralDataApis.ModelHoldingLinkUpdate, async (ctx) => {
-  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+  await new DataModelSpecHandler(ctx).handleFieldLink(async (fieldLink, dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel)
     const params = ctx.request.body
-    const link = await prepareFieldLink(ctx)
-    await link.updateLinkInfo(params)
+    await fieldLink.updateLinkInfo(params)
     ctx.status = 200
   })
 })
 
 factory.prepare(GeneralDataApis.ModelHoldingLinkDelete, async (ctx) => {
-  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+  await new DataModelSpecHandler(ctx).handleFieldLink(async (fieldLink, dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel)
-    const link = await prepareFieldLink(ctx)
-    await link.dropLink()
+    await fieldLink.dropLink()
     ctx.status = 200
   })
 })

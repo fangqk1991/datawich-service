@@ -1,8 +1,8 @@
 import { SpecFactory } from '@fangcha/router'
 import assert from '@fangcha/assert'
-import { prepareDatahubColumn } from './SpecUtils'
 import { DatahubApis } from '../../common/web-api'
 import { _DatahubEngine } from '../../models/datahub-sync/_DatahubEngine'
+import { _DatahubColumn } from '../../models/datahub-sync/_DatahubColumn'
 
 const factory = new SpecFactory('Datahub 数据')
 
@@ -20,7 +20,13 @@ factory.prepare(DatahubApis.DataEngineTableListGet, async (ctx) => {
 })
 
 factory.prepare(DatahubApis.DataColumnInfoUpdate, async (ctx) => {
-  const column = await prepareDatahubColumn(ctx)
+  const params = {
+    engine_key: ctx.params.engineKey,
+    table_key: ctx.params.tableKey,
+    column_key: ctx.params.columnKey,
+  }
+  const column = (await _DatahubColumn.findOne(params))!
+  assert.ok(!!column, 'DatahubColumn Not Found')
   const { name } = ctx.request.body
   await column.updateName(name || '')
   ctx.status = 200

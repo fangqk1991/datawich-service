@@ -1,5 +1,4 @@
 import { SpecFactory } from '@fangcha/router'
-import { prepareFieldGroup } from './SpecUtils'
 import { GeneralDataApis } from '../../common/web-api'
 import { SessionChecker } from '../../services/SessionChecker'
 import { _FieldGroup } from '../../models/extensions/_FieldGroup'
@@ -26,20 +25,18 @@ factory.prepare(GeneralDataApis.ModelFieldGroupCreate, async (ctx) => {
 })
 
 factory.prepare(GeneralDataApis.ModelFieldGroupUpdate, async (ctx) => {
-  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+  await new DataModelSpecHandler(ctx).handleFieldGroup(async (fieldGroup, dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel)
     const params = ctx.request.body
-    const feed = await prepareFieldGroup(ctx)
-    await feed.updateInfos(params)
+    await fieldGroup.updateInfos(params)
     ctx.status = 200
   })
 })
 
 factory.prepare(GeneralDataApis.ModelFieldGroupDelete, async (ctx) => {
-  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+  await new DataModelSpecHandler(ctx).handleFieldGroup(async (fieldGroup, dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel)
-    const feed = await prepareFieldGroup(ctx)
-    await feed.destroyGroup()
+    await fieldGroup.destroyGroup()
     ctx.status = 200
   })
 })
