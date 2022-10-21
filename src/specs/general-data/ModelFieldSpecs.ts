@@ -1,6 +1,6 @@
 import { SpecFactory } from '@fangcha/router'
 import assert from '@fangcha/assert'
-import { GeneralDataApis } from '../../common/web-api'
+import { ModelFieldApis } from '../../common/web-api'
 import {
   DisplayScope,
   FieldDisplayMode,
@@ -17,14 +17,14 @@ import { DataModelSpecHandler } from '../handlers/DataModelSpecHandler'
 
 const factory = new SpecFactory('模型字段')
 
-factory.prepare(GeneralDataApis.DataModelFieldListGet, async (ctx) => {
+factory.prepare(ModelFieldApis.DataModelFieldListGet, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     const feeds = await dataModel.getFields()
     ctx.body = feeds.map((feed) => feed.modelForClient())
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelAllFieldsDestroy, async (ctx) => {
+factory.prepare(ModelFieldApis.DataModelAllFieldsDestroy, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
     const feeds = await dataModel.getFields()
@@ -37,7 +37,7 @@ factory.prepare(GeneralDataApis.DataModelAllFieldsDestroy, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelFieldsRebuild, async (ctx) => {
+factory.prepare(ModelFieldApis.DataModelFieldsRebuild, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
     const feeds = await dataModel.getFields()
@@ -50,7 +50,7 @@ factory.prepare(GeneralDataApis.DataModelFieldsRebuild, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelVisibleFieldListGet, async (ctx) => {
+factory.prepare(ModelFieldApis.DataModelVisibleFieldListGet, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     const feeds = await dataModel.getVisibleFields()
     const allLinks = await dataModel.getFieldLinks()
@@ -77,19 +77,19 @@ factory.prepare(GeneralDataApis.DataModelVisibleFieldListGet, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelListCustomFieldsGet, async (ctx) => {
+factory.prepare(ModelFieldApis.DataModelListCustomFieldsGet, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     ctx.body = await dataModel.makeCustomFields(DisplayScope.LIST)
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelDetailCustomFieldsGet, async (ctx) => {
+factory.prepare(ModelFieldApis.DataModelDetailCustomFieldsGet, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     ctx.body = await dataModel.makeCustomFields(DisplayScope.DETAIL)
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelFieldLinkListGet, async (ctx) => {
+factory.prepare(ModelFieldApis.DataModelFieldLinkListGet, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     const feeds = await dataModel.getFieldLinks()
     const result: FieldLinkModel[] = []
@@ -100,7 +100,7 @@ factory.prepare(GeneralDataApis.DataModelFieldLinkListGet, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelFieldTop, async (ctx) => {
+factory.prepare(ModelFieldApis.DataModelFieldTop, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
     await dataModel.topField(ctx.params.fieldKey)
@@ -108,7 +108,7 @@ factory.prepare(GeneralDataApis.DataModelFieldTop, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelFieldCreate, async (ctx) => {
+factory.prepare(ModelFieldApis.DataModelFieldCreate, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
     const { fieldType } = ctx.request.body
@@ -119,7 +119,7 @@ factory.prepare(GeneralDataApis.DataModelFieldCreate, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.ModelShadowFieldCreate, async (ctx) => {
+factory.prepare(ModelFieldApis.ModelShadowFieldCreate, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
     const field = await dataModel.createShadowField(ctx.request.body)
@@ -127,7 +127,7 @@ factory.prepare(GeneralDataApis.ModelShadowFieldCreate, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelFieldDataClone, async (ctx) => {
+factory.prepare(ModelFieldApis.DataModelFieldDataClone, async (ctx) => {
   await new DataModelSpecHandler(ctx).handleField(async (toField, dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
     const { copyFromFieldKey } = ctx.request.body
@@ -138,7 +138,7 @@ factory.prepare(GeneralDataApis.DataModelFieldDataClone, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelSystemFieldsShow, async (ctx) => {
+factory.prepare(ModelFieldApis.DataModelSystemFieldsShow, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     const { fieldKeys } = ctx.request.body
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
@@ -147,7 +147,7 @@ factory.prepare(GeneralDataApis.DataModelSystemFieldsShow, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelBroadcastUpdate, async (ctx) => {
+factory.prepare(ModelFieldApis.DataModelBroadcastUpdate, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     const { fieldKeys } = ctx.request.body
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
@@ -159,7 +159,7 @@ factory.prepare(GeneralDataApis.DataModelBroadcastUpdate, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.DataSystemModelFieldUpdate, async (ctx) => {
+factory.prepare(ModelFieldApis.DataSystemModelFieldUpdate, async (ctx) => {
   await new DataModelSpecHandler(ctx).handleField(async (modelField, dataModel) => {
     const params = ctx.request.body
     const options = {
@@ -174,7 +174,7 @@ factory.prepare(GeneralDataApis.DataSystemModelFieldUpdate, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelFieldUpdate, async (ctx) => {
+factory.prepare(ModelFieldApis.DataModelFieldUpdate, async (ctx) => {
   await new DataModelSpecHandler(ctx).handleField(async (modelField, dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
     assert.ok(!modelField.isSystem && !modelField.isShadow, '本接口不能修改系统字段或影子字段')
@@ -184,7 +184,7 @@ factory.prepare(GeneralDataApis.DataModelFieldUpdate, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelEnumFieldTransfer, async (ctx) => {
+factory.prepare(ModelFieldApis.DataModelEnumFieldTransfer, async (ctx) => {
   await new DataModelSpecHandler(ctx).handleField(async (modelField, dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
     assert.ok(!modelField.isSystem && !modelField.isShadow, '本接口不能修改系统字段或影子字段')
@@ -194,7 +194,7 @@ factory.prepare(GeneralDataApis.DataModelEnumFieldTransfer, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelFieldDelete, async (ctx) => {
+factory.prepare(ModelFieldApis.DataModelFieldDelete, async (ctx) => {
   await new DataModelSpecHandler(ctx).handleField(async (modelField, dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
     assert.ok(!modelField.isSystem, '本接口不能修改系统字段')
@@ -203,7 +203,7 @@ factory.prepare(GeneralDataApis.DataModelFieldDelete, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelFieldActionCreate, async (ctx) => {
+factory.prepare(ModelFieldApis.DataModelFieldActionCreate, async (ctx) => {
   await new DataModelSpecHandler(ctx).handleField(async (modelField, dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
     assert.ok(!modelField.isSystem && !modelField.isShadow, '本接口不能修改系统字段或影子字段')
@@ -212,7 +212,7 @@ factory.prepare(GeneralDataApis.DataModelFieldActionCreate, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelFieldActionUpdate, async (ctx) => {
+factory.prepare(ModelFieldApis.DataModelFieldActionUpdate, async (ctx) => {
   await new DataModelSpecHandler(ctx).handleField(async (modelField, dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
     assert.ok(!modelField.isSystem && !modelField.isShadow, '本接口不能修改系统字段或影子字段')
@@ -223,7 +223,7 @@ factory.prepare(GeneralDataApis.DataModelFieldActionUpdate, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelFieldActionDelete, async (ctx) => {
+factory.prepare(ModelFieldApis.DataModelFieldActionDelete, async (ctx) => {
   await new DataModelSpecHandler(ctx).handleField(async (modelField, dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
     assert.ok(!modelField.isSystem && !modelField.isShadow, '本接口不能修改系统字段或影子字段')

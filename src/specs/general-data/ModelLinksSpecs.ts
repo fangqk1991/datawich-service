@@ -1,5 +1,5 @@
 import { SpecFactory } from '@fangcha/router'
-import { GeneralDataApis } from '../../common/web-api'
+import { DataModelApis } from '../../common/web-api'
 import { SessionChecker } from '../../services/SessionChecker'
 import { FieldLinkModel } from '../../common/models'
 import { _FieldLink } from '../../models/extensions/_FieldLink'
@@ -7,7 +7,7 @@ import { DataModelSpecHandler } from '../handlers/DataModelSpecHandler'
 
 const factory = new SpecFactory('模型关联信息')
 
-factory.prepare(GeneralDataApis.ModelHoldingLinkListGet, async (ctx) => {
+factory.prepare(DataModelApis.ModelHoldingLinkListGet, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel)
     const feeds = await dataModel.getHoldingLinks()
@@ -19,7 +19,7 @@ factory.prepare(GeneralDataApis.ModelHoldingLinkListGet, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.ModelHoldingLinkCreate, async (ctx) => {
+factory.prepare(DataModelApis.ModelHoldingLinkCreate, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel)
     const params = ctx.request.body
@@ -29,7 +29,7 @@ factory.prepare(GeneralDataApis.ModelHoldingLinkCreate, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.ModelHoldingLinkUpdate, async (ctx) => {
+factory.prepare(DataModelApis.ModelHoldingLinkUpdate, async (ctx) => {
   await new DataModelSpecHandler(ctx).handleFieldLink(async (fieldLink, dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel)
     const params = ctx.request.body
@@ -38,7 +38,7 @@ factory.prepare(GeneralDataApis.ModelHoldingLinkUpdate, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.ModelHoldingLinkDelete, async (ctx) => {
+factory.prepare(DataModelApis.ModelHoldingLinkDelete, async (ctx) => {
   await new DataModelSpecHandler(ctx).handleFieldLink(async (fieldLink, dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel)
     await fieldLink.dropLink()

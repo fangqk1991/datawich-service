@@ -1,12 +1,12 @@
 import { SpecFactory } from '@fangcha/router'
-import { GeneralDataApis } from '../../common/web-api'
+import { DataModelApis } from '../../common/web-api'
 import { SessionChecker } from '../../services/SessionChecker'
 import { _FieldGroup } from '../../models/extensions/_FieldGroup'
 import { DataModelSpecHandler } from '../handlers/DataModelSpecHandler'
 
 const factory = new SpecFactory('字段组')
 
-factory.prepare(GeneralDataApis.ModelFieldGroupListGet, async (ctx) => {
+factory.prepare(DataModelApis.ModelFieldGroupListGet, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel)
     const feeds = await dataModel.getFieldGroups()
@@ -14,7 +14,7 @@ factory.prepare(GeneralDataApis.ModelFieldGroupListGet, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.ModelFieldGroupCreate, async (ctx) => {
+factory.prepare(DataModelApis.ModelFieldGroupCreate, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel)
     const params = ctx.request.body
@@ -24,7 +24,7 @@ factory.prepare(GeneralDataApis.ModelFieldGroupCreate, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.ModelFieldGroupUpdate, async (ctx) => {
+factory.prepare(DataModelApis.ModelFieldGroupUpdate, async (ctx) => {
   await new DataModelSpecHandler(ctx).handleFieldGroup(async (fieldGroup, dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel)
     const params = ctx.request.body
@@ -33,7 +33,7 @@ factory.prepare(GeneralDataApis.ModelFieldGroupUpdate, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.ModelFieldGroupDelete, async (ctx) => {
+factory.prepare(DataModelApis.ModelFieldGroupDelete, async (ctx) => {
   await new DataModelSpecHandler(ctx).handleFieldGroup(async (fieldGroup, dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel)
     await fieldGroup.destroyGroup()

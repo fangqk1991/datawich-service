@@ -1,6 +1,6 @@
 import { SpecFactory } from '@fangcha/router'
 import assert from '@fangcha/assert'
-import { GeneralDataApis } from '../../common/web-api'
+import { ModelIndexApis } from '../../common/web-api'
 import { SessionChecker } from '../../services/SessionChecker'
 import { checkIndexAbleField, ModelType } from '../../common/models'
 import { _FieldIndex } from '../../models/extensions/_FieldIndex'
@@ -8,7 +8,7 @@ import { DataModelSpecHandler } from '../handlers/DataModelSpecHandler'
 
 const factory = new SpecFactory('数据索引')
 
-factory.prepare(GeneralDataApis.DataModelColumnIndexListGet, async (ctx) => {
+factory.prepare(ModelIndexApis.DataModelColumnIndexListGet, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel)
     const indexes = await dataModel.getColumnIndexes()
@@ -16,7 +16,7 @@ factory.prepare(GeneralDataApis.DataModelColumnIndexListGet, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelColumnIndexCreate, async (ctx) => {
+factory.prepare(ModelIndexApis.DataModelColumnIndexCreate, async (ctx) => {
   await new DataModelSpecHandler(ctx).handleField(async (modelField, dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel)
     assert.ok(checkIndexAbleField(modelField.fieldType), '此类型不可设置索引')
@@ -30,7 +30,7 @@ factory.prepare(GeneralDataApis.DataModelColumnIndexCreate, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelColumnIndexDrop, async (ctx) => {
+factory.prepare(ModelIndexApis.DataModelColumnIndexDrop, async (ctx) => {
   await new DataModelSpecHandler(ctx).handleField(async (modelField, dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel)
     const fieldIndex = await _FieldIndex.findIndex(modelField.modelKey, modelField.fieldKey)

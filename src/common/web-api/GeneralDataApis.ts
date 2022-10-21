@@ -340,12 +340,3 @@ export const ModelMilestoneApis = {
     description: '指定版本完整元信息获取',
   },
 }
-
-export const GeneralDataApis = {
-  ...DataModelApis,
-  ...ModelFieldApis,
-  ...ModelGroupApis,
-  ...ModelIndexApis,
-  ...ModelClientApis,
-  ...ModelMilestoneApis,
-}

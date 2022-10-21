@@ -1,6 +1,6 @@
 import { SpecFactory } from '@fangcha/router'
 import assert from '@fangcha/assert'
-import { GeneralDataApis } from '../../common/web-api'
+import { DataModelApis } from '../../common/web-api'
 import { _DataModel } from '../../models/extensions/_DataModel'
 import { SessionChecker } from '../../services/SessionChecker'
 import {
@@ -20,7 +20,7 @@ import { DataModelSpecHandler } from '../handlers/DataModelSpecHandler'
 
 const factory = new SpecFactory('数据模型')
 
-factory.prepare(GeneralDataApis.DataModelListGet, async (ctx) => {
+factory.prepare(DataModelApis.DataModelListGet, async (ctx) => {
   const searcher = new _DataModel().fc_searcher(ctx.request.query)
   const feeds = await searcher.queryFeeds()
   ctx.body = {
@@ -29,14 +29,14 @@ factory.prepare(GeneralDataApis.DataModelListGet, async (ctx) => {
   }
 })
 
-factory.prepare(GeneralDataApis.DataModelAccessibleCheck, async (ctx) => {
+factory.prepare(DataModelApis.DataModelAccessibleCheck, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
     ctx.status = 200
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelClone, async (ctx) => {
+factory.prepare(DataModelApis.DataModelClone, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     const session = ctx.session as FangchaSession
     const { to_key } = ctx.request.body
@@ -45,14 +45,14 @@ factory.prepare(GeneralDataApis.DataModelClone, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelFullMetadataGet, async (ctx) => {
+factory.prepare(DataModelApis.DataModelFullMetadataGet, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     ctx.set('Content-disposition', `attachment; filename=${dataModel.modelKey}.json`)
     ctx.body = JSON.stringify(await new DataModelHandler(dataModel).getFullMetadata(), null, 2)
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelInfoGet, async (ctx) => {
+factory.prepare(DataModelApis.DataModelInfoGet, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel)
     const data = dataModel.modelForClient()
@@ -61,7 +61,7 @@ factory.prepare(GeneralDataApis.DataModelInfoGet, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelOuterModelListGet, async (ctx) => {
+factory.prepare(DataModelApis.DataModelOuterModelListGet, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel)
     const outerModels = await dataModel.getOuterModelsInUse()
@@ -69,7 +69,7 @@ factory.prepare(GeneralDataApis.DataModelOuterModelListGet, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelShadowModelListGet, async (ctx) => {
+factory.prepare(DataModelApis.DataModelShadowModelListGet, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel)
     const outerModels = await dataModel.getShadowModels()
@@ -77,7 +77,7 @@ factory.prepare(GeneralDataApis.DataModelShadowModelListGet, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelCreate, async (ctx) => {
+factory.prepare(DataModelApis.DataModelCreate, async (ctx) => {
   const session = ctx.session as FangchaSession
   const params = { ...ctx.request.body }
   params.author = session.curUserStr()
@@ -85,7 +85,7 @@ factory.prepare(GeneralDataApis.DataModelCreate, async (ctx) => {
   ctx.body = dataModel.fc_pureModel()
 })
 
-factory.prepare(GeneralDataApis.DataModelImport, async (ctx) => {
+factory.prepare(DataModelApis.DataModelImport, async (ctx) => {
   const session = ctx.session as FangchaSession
   const params = ctx.request.body as ModelFullMetadata
   params.fieldLinks = params.fieldLinks || []
@@ -100,7 +100,7 @@ factory.prepare(GeneralDataApis.DataModelImport, async (ctx) => {
   ctx.body = dataModel.fc_pureModel()
 })
 
-factory.prepare(GeneralDataApis.DataModelUpdate, async (ctx) => {
+factory.prepare(DataModelApis.DataModelUpdate, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
     await dataModel.updateFeed(ctx.request.body)
@@ -108,7 +108,7 @@ factory.prepare(GeneralDataApis.DataModelUpdate, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelForAnalysisUpdate, async (ctx) => {
+factory.prepare(DataModelApis.DataModelForAnalysisUpdate, async (ctx) => {
   const session = ctx.session as FangchaSession
   session.assertVisitorHasPermission(GeneralDataPermissionKey.PERMISSION_GENERAL_DATA_ANALYSIS)
   const changedList = ctx.request.body as ForAnalysisParams[]
@@ -121,7 +121,7 @@ factory.prepare(GeneralDataApis.DataModelForAnalysisUpdate, async (ctx) => {
   ctx.status = 200
 })
 
-factory.prepare(GeneralDataApis.DataModelDelete, async (ctx) => {
+factory.prepare(DataModelApis.DataModelDelete, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
     await new DataModelHandler(dataModel).destroyModel()
@@ -129,7 +129,7 @@ factory.prepare(GeneralDataApis.DataModelDelete, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelRecordsEmpty, async (ctx) => {
+factory.prepare(DataModelApis.DataModelRecordsEmpty, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     const session = ctx.session as FangchaSession
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
@@ -138,7 +138,7 @@ factory.prepare(GeneralDataApis.DataModelRecordsEmpty, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelSummaryInfoGet, async (ctx) => {
+factory.prepare(DataModelApis.DataModelSummaryInfoGet, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     ctx.body = {
       count: await new ModelDataHandler(dataModel).getDataCount(),
@@ -146,14 +146,14 @@ factory.prepare(GeneralDataApis.DataModelSummaryInfoGet, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.ModelDatahubFieldListGet, async (ctx) => {
+factory.prepare(DataModelApis.ModelDatahubFieldListGet, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     assert.ok(dataModel.modelType === ModelType.DatahubModel, '只有数据源模型可进行此操作')
     ctx.body = await new DatahubHandler(dataModel).getDatahubColumnModels()
   })
 })
 
-factory.prepare(GeneralDataApis.ModelDatahubInfoGet, async (ctx) => {
+factory.prepare(DataModelApis.ModelDatahubInfoGet, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     assert.ok(dataModel.modelType === ModelType.DatahubModel, '只有数据源模型可进行此操作')
     const datahubTable = await new DatahubHandler(dataModel).getDatahubTable()
@@ -167,7 +167,7 @@ factory.prepare(GeneralDataApis.ModelDatahubInfoGet, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.ModelDatahubRecordsLoad, async (ctx) => {
+factory.prepare(DataModelApis.ModelDatahubRecordsLoad, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
     assert.ok(dataModel.modelType === ModelType.DatahubModel, '只有数据源模型可进行此操作')
@@ -176,7 +176,7 @@ factory.prepare(GeneralDataApis.ModelDatahubRecordsLoad, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.ModelDatahubColumnBind, async (ctx) => {
+factory.prepare(DataModelApis.ModelDatahubColumnBind, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
     assert.ok(dataModel.modelType === ModelType.DatahubModel, '只有数据源模型可进行此操作')
@@ -193,19 +193,19 @@ factory.prepare(GeneralDataApis.ModelDatahubColumnBind, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.DataOpenModelListGet, async (ctx) => {
+factory.prepare(DataModelApis.DataOpenModelListGet, async (ctx) => {
   const searcher = new _DataModel().fc_searcher({ isLibrary: 1 })
   const feeds = await searcher.queryFeeds()
   ctx.body = feeds.map((feed) => feed.modelForClient())
 })
 
-factory.prepare(GeneralDataApis.DataContentModelListGet, async (ctx) => {
+factory.prepare(DataModelApis.DataContentModelListGet, async (ctx) => {
   const searcher = new _DataModel().fc_searcher({ modelType: ModelType.ContentModel })
   const feeds = await searcher.queryFeeds()
   ctx.body = feeds.map((feed) => feed.modelForClient())
 })
 
-factory.prepare(GeneralDataApis.DataModelNotifyTemplateGet, async (ctx) => {
+factory.prepare(DataModelApis.DataModelNotifyTemplateGet, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
     const template = await dataModel.prepareNotifyTemplate()
@@ -213,7 +213,7 @@ factory.prepare(GeneralDataApis.DataModelNotifyTemplateGet, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.DataModelNotifyTemplateUpdate, async (ctx) => {
+factory.prepare(DataModelApis.DataModelNotifyTemplateUpdate, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     const params = ctx.request.body
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
