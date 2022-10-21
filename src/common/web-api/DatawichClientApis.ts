@@ -1,4 +1,4 @@
-export const ModelClientApis = {
+export const DatawichClientApis = {
   ModelClientListGet: {
     method: 'GET',
     route: '/api/v2/general-model-client',

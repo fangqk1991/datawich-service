@@ -1,14 +1,14 @@
 import { SpecFactory } from '@fangcha/router'
 import assert from '@fangcha/assert'
-import { GeneralDataApis } from '../../common/web-api'
 import { SessionChecker } from '../../services/SessionChecker'
 import { DataModelHandler } from '../../services/DataModelHandler'
 import { _ModelMilestone } from '../../models/extensions/_ModelMilestone'
 import { DataModelSpecHandler } from '../handlers/DataModelSpecHandler'
+import { ModelMilestoneApis } from '../../common/web-api'
 
 const factory = new SpecFactory('元信息版本')
 
-factory.prepare(GeneralDataApis.ModelMilestoneListGet, async (ctx) => {
+factory.prepare(ModelMilestoneApis.ModelMilestoneListGet, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel)
     const searcher = dataModel.getMilestoneSearcher()
@@ -17,7 +17,7 @@ factory.prepare(GeneralDataApis.ModelMilestoneListGet, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.ModelMilestoneCreate, async (ctx) => {
+factory.prepare(ModelMilestoneApis.ModelMilestoneCreate, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel)
     await new DataModelHandler(dataModel).createMilestone(ctx.request.body)
@@ -25,7 +25,7 @@ factory.prepare(GeneralDataApis.ModelMilestoneCreate, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.ModelMilestoneImport, async (ctx) => {
+factory.prepare(ModelMilestoneApis.ModelMilestoneImport, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel)
     await new DataModelHandler(dataModel).importMilestone(ctx.request.body)
@@ -33,7 +33,7 @@ factory.prepare(GeneralDataApis.ModelMilestoneImport, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.ModelMilestoneDelete, async (ctx) => {
+factory.prepare(ModelMilestoneApis.ModelMilestoneDelete, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     assert.ok(false, '暂不支持删除操作', 403)
     await new SessionChecker(ctx).assertModelAccessible(dataModel)
@@ -44,7 +44,7 @@ factory.prepare(GeneralDataApis.ModelMilestoneDelete, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.ModelMasterMetadataGet, async (ctx) => {
+factory.prepare(ModelMilestoneApis.ModelMasterMetadataGet, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel)
     ctx.set('Content-disposition', `attachment; filename=${dataModel.modelKey}-master.json`)
@@ -52,7 +52,7 @@ factory.prepare(GeneralDataApis.ModelMasterMetadataGet, async (ctx) => {
   })
 })
 
-factory.prepare(GeneralDataApis.ModelMilestoneMetadataGet, async (ctx) => {
+factory.prepare(ModelMilestoneApis.ModelMilestoneMetadataGet, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel)
     const milestone = await _ModelMilestone.findMilestone(dataModel.modelKey, ctx.params.tagName)

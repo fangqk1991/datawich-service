@@ -1,4 +1,4 @@
-const DataModelApis = {
+export const DataModelApis = {
   DataModelListGet: {
     method: 'GET',
     route: '/api/v2/general-data',
@@ -151,7 +151,7 @@ const DataModelApis = {
   },
 }
 
-const ModelFieldApis = {
+export const ModelFieldApis = {
   DataModelFieldListGet: {
     method: 'GET',
     route: '/api/v2/general-data/:modelKey/field',
@@ -264,7 +264,7 @@ const ModelFieldApis = {
   },
 }
 
-const ModelGroupApis = {
+export const ModelGroupApis = {
   ModelLinkedGroupListGet: {
     method: 'GET',
     route: '/api/v2/general-data/:modelKey/linked-group',
@@ -272,7 +272,7 @@ const ModelGroupApis = {
   },
 }
 
-const ModelClientApis = {
+export const ModelClientApis = {
   ModelAuthClientListGet: {
     method: 'GET',
     route: '/api/v2/general-data/:modelKey/auth-client',
@@ -290,7 +290,7 @@ const ModelClientApis = {
   },
 }
 
-const ModelIndexApis = {
+export const ModelIndexApis = {
   DataModelColumnIndexListGet: {
     method: 'GET',
     route: '/api/v2/general-data/:modelKey/column-index',
@@ -308,7 +308,7 @@ const ModelIndexApis = {
   },
 }
 
-const ModelMilestoneApis = {
+export const ModelMilestoneApis = {
   ModelMilestoneListGet: {
     method: 'GET',
     route: '/api/v2/general-data/:modelKey/milestone',
