@@ -17,5 +17,5 @@
     "suppressImplicitAnyIndexErrors": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src", "datawich"]
+  "include": ["src"]
 }
