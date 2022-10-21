@@ -1,5 +1,4 @@
 import { SpecFactory } from '@fangcha/router'
-import { prepareDataModel } from './SpecUtils'
 import assert from '@fangcha/assert'
 import { GeneralDataApis } from '../../common/web-api'
 import { _DataModel } from '../../models/extensions/_DataModel'
@@ -17,6 +16,7 @@ import { FangchaSession } from '@fangcha/router/lib/session'
 import { ModelDataHandler } from '../../services/ModelDataHandler'
 import { DatahubHandler } from '../../services/DatahubHandler'
 import { _DatahubColumn } from '../../models/datahub-sync/_DatahubColumn'
+import { DataModelSpecHandler } from './DataModelSpecHandler'
 
 const factory = new SpecFactory('数据模型')
 
@@ -30,45 +30,51 @@ factory.prepare(GeneralDataApis.DataModelListGet, async (ctx) => {
 })
 
 factory.prepare(GeneralDataApis.DataModelAccessibleCheck, async (ctx) => {
-  const dataModel = await prepareDataModel(ctx)
-  await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
-  ctx.status = 200
+  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+    await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
+    ctx.status = 200
+  })
 })
 
 factory.prepare(GeneralDataApis.DataModelClone, async (ctx) => {
-  const session = ctx.session as FangchaSession
-  const dataModel = await prepareDataModel(ctx)
-  const { to_key } = ctx.request.body
-  const toModel = await new DataModelHandler(dataModel).cloneToModel(to_key, session.curUserStr())
-  ctx.body = toModel.modelForClient()
+  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+    const session = ctx.session as FangchaSession
+    const { to_key } = ctx.request.body
+    const toModel = await new DataModelHandler(dataModel).cloneToModel(to_key, session.curUserStr())
+    ctx.body = toModel.modelForClient()
+  })
 })
 
 factory.prepare(GeneralDataApis.DataModelFullMetadataGet, async (ctx) => {
-  const dataModel = await prepareDataModel(ctx)
-  ctx.set('Content-disposition', `attachment; filename=${dataModel.modelKey}.json`)
-  ctx.body = JSON.stringify(await new DataModelHandler(dataModel).getFullMetadata(), null, 2)
+  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+    ctx.set('Content-disposition', `attachment; filename=${dataModel.modelKey}.json`)
+    ctx.body = JSON.stringify(await new DataModelHandler(dataModel).getFullMetadata(), null, 2)
+  })
 })
 
 factory.prepare(GeneralDataApis.DataModelInfoGet, async (ctx) => {
-  const dataModel = await prepareDataModel(ctx)
-  await new SessionChecker(ctx).assertModelAccessible(dataModel)
-  const data = dataModel.modelForClient()
-  data.powerData = await new SessionChecker(ctx).getScopePowerData(dataModel.modelKey)
-  ctx.body = data
+  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+    await new SessionChecker(ctx).assertModelAccessible(dataModel)
+    const data = dataModel.modelForClient()
+    data.powerData = await new SessionChecker(ctx).getScopePowerData(dataModel.modelKey)
+    ctx.body = data
+  })
 })
 
 factory.prepare(GeneralDataApis.DataModelOuterModelListGet, async (ctx) => {
-  const dataModel = await prepareDataModel(ctx)
-  await new SessionChecker(ctx).assertModelAccessible(dataModel)
-  const outerModels = await dataModel.getOuterModelsInUse()
-  ctx.body = outerModels.map((feed) => feed.fc_pureModel())
+  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+    await new SessionChecker(ctx).assertModelAccessible(dataModel)
+    const outerModels = await dataModel.getOuterModelsInUse()
+    ctx.body = outerModels.map((feed) => feed.fc_pureModel())
+  })
 })
 
 factory.prepare(GeneralDataApis.DataModelShadowModelListGet, async (ctx) => {
-  const dataModel = await prepareDataModel(ctx)
-  await new SessionChecker(ctx).assertModelAccessible(dataModel)
-  const outerModels = await dataModel.getShadowModels()
-  ctx.body = outerModels.map((feed) => feed.fc_pureModel())
+  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+    await new SessionChecker(ctx).assertModelAccessible(dataModel)
+    const outerModels = await dataModel.getShadowModels()
+    ctx.body = outerModels.map((feed) => feed.fc_pureModel())
+  })
 })
 
 factory.prepare(GeneralDataApis.DataModelCreate, async (ctx) => {
@@ -95,10 +101,11 @@ factory.prepare(GeneralDataApis.DataModelImport, async (ctx) => {
 })
 
 factory.prepare(GeneralDataApis.DataModelUpdate, async (ctx) => {
-  const dataModel = await prepareDataModel(ctx)
-  await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
-  await dataModel.updateFeed(ctx.request.body)
-  ctx.status = 200
+  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+    await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
+    await dataModel.updateFeed(ctx.request.body)
+    ctx.status = 200
+  })
 })
 
 factory.prepare(GeneralDataApis.DataModelForAnalysisUpdate, async (ctx) => {
@@ -115,68 +122,75 @@ factory.prepare(GeneralDataApis.DataModelForAnalysisUpdate, async (ctx) => {
 })
 
 factory.prepare(GeneralDataApis.DataModelDelete, async (ctx) => {
-  const dataModel = await prepareDataModel(ctx)
-  await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
-  await new DataModelHandler(dataModel).destroyModel()
-  ctx.status = 200
+  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+    await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
+    await new DataModelHandler(dataModel).destroyModel()
+    ctx.status = 200
+  })
 })
 
 factory.prepare(GeneralDataApis.DataModelRecordsEmpty, async (ctx) => {
-  const session = ctx.session as FangchaSession
-  const dataModel = await prepareDataModel(ctx)
-  await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
-  await dataModel.removeAllRecords(session.curUserStr())
-  ctx.status = 200
+  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+    const session = ctx.session as FangchaSession
+    await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
+    await dataModel.removeAllRecords(session.curUserStr())
+    ctx.status = 200
+  })
 })
 
 factory.prepare(GeneralDataApis.DataModelSummaryInfoGet, async (ctx) => {
-  const dataModel = await prepareDataModel(ctx)
-  ctx.body = {
-    count: await new ModelDataHandler(dataModel).getDataCount(),
-  }
+  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+    ctx.body = {
+      count: await new ModelDataHandler(dataModel).getDataCount(),
+    }
+  })
 })
 
 factory.prepare(GeneralDataApis.ModelDatahubFieldListGet, async (ctx) => {
-  const dataModel = await prepareDataModel(ctx)
-  assert.ok(dataModel.modelType === ModelType.DatahubModel, '只有数据源模型可进行此操作')
-  ctx.body = await new DatahubHandler(dataModel).getDatahubColumnModels()
+  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+    assert.ok(dataModel.modelType === ModelType.DatahubModel, '只有数据源模型可进行此操作')
+    ctx.body = await new DatahubHandler(dataModel).getDatahubColumnModels()
+  })
 })
 
 factory.prepare(GeneralDataApis.ModelDatahubInfoGet, async (ctx) => {
-  const dataModel = await prepareDataModel(ctx)
-  assert.ok(dataModel.modelType === ModelType.DatahubModel, '只有数据源模型可进行此操作')
-  const datahubTable = await new DatahubHandler(dataModel).getDatahubTable()
-  const progress = await datahubTable.getLatestProgress()
-  ctx.body = {
-    sampleDate: dataModel.sampleDate,
-    engineKey: datahubTable.engineKey,
-    tableKey: datahubTable.tableKey,
-    latestProgress: progress?.fc_pureModel(),
-  }
+  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+    assert.ok(dataModel.modelType === ModelType.DatahubModel, '只有数据源模型可进行此操作')
+    const datahubTable = await new DatahubHandler(dataModel).getDatahubTable()
+    const progress = await datahubTable.getLatestProgress()
+    ctx.body = {
+      sampleDate: dataModel.sampleDate,
+      engineKey: datahubTable.engineKey,
+      tableKey: datahubTable.tableKey,
+      latestProgress: progress?.fc_pureModel(),
+    }
+  })
 })
 
 factory.prepare(GeneralDataApis.ModelDatahubRecordsLoad, async (ctx) => {
-  const dataModel = await prepareDataModel(ctx)
-  await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
-  assert.ok(dataModel.modelType === ModelType.DatahubModel, '只有数据源模型可进行此操作')
-  await new DatahubHandler(dataModel).loadLatestDatahubRecords()
-  ctx.status = 200
+  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+    await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
+    assert.ok(dataModel.modelType === ModelType.DatahubModel, '只有数据源模型可进行此操作')
+    await new DatahubHandler(dataModel).loadLatestDatahubRecords()
+    ctx.status = 200
+  })
 })
 
 factory.prepare(GeneralDataApis.ModelDatahubColumnBind, async (ctx) => {
-  const dataModel = await prepareDataModel(ctx)
-  await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
-  assert.ok(dataModel.modelType === ModelType.DatahubModel, '只有数据源模型可进行此操作')
-  const datahubLink = new DatahubHandler(dataModel).datahubLink
-  const { columnKey, fieldData } = ctx.request.body
-  const column = await _DatahubColumn.findOne({
-    engine_key: datahubLink.engineKey,
-    table_key: datahubLink.tableKey,
-    column_key: columnKey,
+  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+    await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
+    assert.ok(dataModel.modelType === ModelType.DatahubModel, '只有数据源模型可进行此操作')
+    const datahubLink = new DatahubHandler(dataModel).datahubLink
+    const { columnKey, fieldData } = ctx.request.body
+    const column = await _DatahubColumn.findOne({
+      engine_key: datahubLink.engineKey,
+      table_key: datahubLink.tableKey,
+      column_key: columnKey,
+    })
+    assert.ok(!!column, 'DatahubColumn Not Found')
+    await new DatahubHandler(dataModel).bindDatahubColumn(fieldData, column!)
+    ctx.status = 200
   })
-  assert.ok(!!column, 'DatahubColumn Not Found')
-  await new DatahubHandler(dataModel).bindDatahubColumn(fieldData, column!)
-  ctx.status = 200
 })
 
 factory.prepare(GeneralDataApis.DataOpenModelListGet, async (ctx) => {
@@ -192,18 +206,20 @@ factory.prepare(GeneralDataApis.DataContentModelListGet, async (ctx) => {
 })
 
 factory.prepare(GeneralDataApis.DataModelNotifyTemplateGet, async (ctx) => {
-  const dataModel = await prepareDataModel(ctx)
-  await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
-  const template = await dataModel.prepareNotifyTemplate()
-  ctx.body = template.fc_pureModel()
+  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+    await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
+    const template = await dataModel.prepareNotifyTemplate()
+    ctx.body = template.fc_pureModel()
+  })
 })
 
 factory.prepare(GeneralDataApis.DataModelNotifyTemplateUpdate, async (ctx) => {
-  const params = ctx.request.body
-  const dataModel = await prepareDataModel(ctx)
-  await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
-  await dataModel.updateNotifyTemplate(params)
-  ctx.status = 200
+  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+    const params = ctx.request.body
+    await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
+    await dataModel.updateNotifyTemplate(params)
+    ctx.status = 200
+  })
 })
 
 export const DataModelSpecs = factory.buildSpecs()
