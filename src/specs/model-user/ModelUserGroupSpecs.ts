@@ -1,11 +1,11 @@
 import { SpecFactory } from '@fangcha/router'
 import assert from '@fangcha/assert'
 import { GeneralModelSpaces, GroupSpace } from '@fangcha/general-group'
-import { prepareGroup } from './CommonGroupUtils'
 import { ModelUserApis } from '../../common/web-api'
 import { _DatawichService } from '../../services/_DatawichService'
 import { FangchaSession } from '@fangcha/router/lib/session'
 import { GeneralDataPermissionKey } from '../../common/models'
+import { CommonGroupSpecHandler } from '../common-group/CommonGroupSpecHandler'
 
 const factory = new SpecFactory('模型用户组')
 
@@ -34,17 +34,19 @@ factory.prepare(ModelUserApis.ModelUserGroupCreate, async (ctx) => {
 })
 
 factory.prepare(ModelUserApis.ModelUserGroupDelete, async (ctx) => {
-  const group = await prepareGroup(ctx, true)
-  assert.ok(group.space !== GroupSpace.ModelRetainGroup, '保留组不可删除')
-  await group.destroyGroup()
-  ctx.status = 200
+  await new CommonGroupSpecHandler(ctx).handle(async (group) => {
+    assert.ok(group.space !== GroupSpace.ModelRetainGroup, '保留组不可删除')
+    await group.destroyGroup()
+    ctx.status = 200
+  })
 })
 
 factory.prepare(ModelUserApis.ModelUserGroupPermissionUpdate, async (ctx) => {
-  const group = await prepareGroup(ctx, true)
-  assert.ok(group.space !== GroupSpace.ModelRetainGroup, '保留组权限不可修改')
-  await group.updatePermissions(ctx.request.body)
-  ctx.status = 200
+  await new CommonGroupSpecHandler(ctx).handle(async (group) => {
+    assert.ok(group.space !== GroupSpace.ModelRetainGroup, '保留组权限不可修改')
+    await group.updatePermissions(ctx.request.body)
+    ctx.status = 200
+  })
 })
 
 export const ModelUserGroupSpecs = factory.buildSpecs()
