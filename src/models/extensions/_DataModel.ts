@@ -317,6 +317,9 @@ export class _DataModel extends __DataModel {
     assert.ok(!(await field.checkExistsInDB()), '模型中已存在该字段，不可重复创建')
 
     await this.insertFieldToDB(field)
+    if (params.isUnique) {
+      await _FieldIndex.createIndex(field, 1)
+    }
     return field
   }
 
