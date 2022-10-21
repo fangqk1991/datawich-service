@@ -1,5 +1,4 @@
 import { SpecFactory } from '@fangcha/router'
-import { prepareModelField } from './SpecUtils'
 import assert from '@fangcha/assert'
 import { GeneralDataApis } from '../../common/web-api'
 import { SessionChecker } from '../../services/SessionChecker'
@@ -18,8 +17,7 @@ factory.prepare(GeneralDataApis.DataModelColumnIndexListGet, async (ctx) => {
 })
 
 factory.prepare(GeneralDataApis.DataModelColumnIndexCreate, async (ctx) => {
-  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
-    const modelField = await prepareModelField(ctx)
+  await new DataModelSpecHandler(ctx).handleField(async (modelField, dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel)
     assert.ok(checkIndexAbleField(modelField.fieldType), '此类型不可设置索引')
     let { isUnique } = ctx.request.body
@@ -33,8 +31,7 @@ factory.prepare(GeneralDataApis.DataModelColumnIndexCreate, async (ctx) => {
 })
 
 factory.prepare(GeneralDataApis.DataModelColumnIndexDrop, async (ctx) => {
-  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
-    const modelField = await prepareModelField(ctx)
+  await new DataModelSpecHandler(ctx).handleField(async (modelField, dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel)
     const fieldIndex = await _FieldIndex.findIndex(modelField.modelKey, modelField.fieldKey)
     assert.ok(!!fieldIndex, '索引不存在')

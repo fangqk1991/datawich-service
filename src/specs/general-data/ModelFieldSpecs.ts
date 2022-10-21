@@ -1,6 +1,5 @@
 import { SpecFactory } from '@fangcha/router'
 import assert from '@fangcha/assert'
-import { prepareModelField } from './SpecUtils'
 import { GeneralDataApis } from '../../common/web-api'
 import {
   DisplayScope,
@@ -129,9 +128,8 @@ factory.prepare(GeneralDataApis.ModelShadowFieldCreate, async (ctx) => {
 })
 
 factory.prepare(GeneralDataApis.DataModelFieldDataClone, async (ctx) => {
-  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+  await new DataModelSpecHandler(ctx).handleField(async (toField, dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
-    const toField = await prepareModelField(ctx)
     const { copyFromFieldKey } = ctx.request.body
     const fromField = await _ModelField.findModelField(dataModel.modelKey, copyFromFieldKey)
     assert.ok(!!fromField, 'Source ModelField Not Found')
@@ -162,14 +160,13 @@ factory.prepare(GeneralDataApis.DataModelBroadcastUpdate, async (ctx) => {
 })
 
 factory.prepare(GeneralDataApis.DataSystemModelFieldUpdate, async (ctx) => {
-  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+  await new DataModelSpecHandler(ctx).handleField(async (modelField, dataModel) => {
     const params = ctx.request.body
     const options = {
       star: params.star,
       name: params.name,
     }
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
-    const modelField = await prepareModelField(ctx)
     assert.ok(!!modelField.isSystem || !!modelField.isShadow, '本接口只能修改系统字段或影子字段')
     await dataModel.modifyField(modelField, options as any)
     ctx.body = modelField.modelForClient()
@@ -178,9 +175,8 @@ factory.prepare(GeneralDataApis.DataSystemModelFieldUpdate, async (ctx) => {
 })
 
 factory.prepare(GeneralDataApis.DataModelFieldUpdate, async (ctx) => {
-  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+  await new DataModelSpecHandler(ctx).handleField(async (modelField, dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
-    const modelField = await prepareModelField(ctx)
     assert.ok(!modelField.isSystem && !modelField.isShadow, '本接口不能修改系统字段或影子字段')
     await dataModel.modifyField(modelField, ctx.request.body)
     ctx.body = modelField.modelForClient()
@@ -189,9 +185,8 @@ factory.prepare(GeneralDataApis.DataModelFieldUpdate, async (ctx) => {
 })
 
 factory.prepare(GeneralDataApis.DataModelEnumFieldTransfer, async (ctx) => {
-  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+  await new DataModelSpecHandler(ctx).handleField(async (modelField, dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
-    const modelField = await prepareModelField(ctx)
     assert.ok(!modelField.isSystem && !modelField.isShadow, '本接口不能修改系统字段或影子字段')
     await dataModel.transferIntEnumToTextEnum(modelField, ctx.request.body)
     ctx.body = modelField.modelForClient()
@@ -200,9 +195,8 @@ factory.prepare(GeneralDataApis.DataModelEnumFieldTransfer, async (ctx) => {
 })
 
 factory.prepare(GeneralDataApis.DataModelFieldDelete, async (ctx) => {
-  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+  await new DataModelSpecHandler(ctx).handleField(async (modelField, dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
-    const modelField = await prepareModelField(ctx)
     assert.ok(!modelField.isSystem, '本接口不能修改系统字段')
     await dataModel.deleteField(modelField)
     ctx.status = 200
@@ -210,9 +204,8 @@ factory.prepare(GeneralDataApis.DataModelFieldDelete, async (ctx) => {
 })
 
 factory.prepare(GeneralDataApis.DataModelFieldActionCreate, async (ctx) => {
-  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+  await new DataModelSpecHandler(ctx).handleField(async (modelField, dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
-    const modelField = await prepareModelField(ctx)
     assert.ok(!modelField.isSystem && !modelField.isShadow, '本接口不能修改系统字段或影子字段')
     await modelField.addAction(ctx.request.body)
     ctx.status = 200
@@ -220,9 +213,8 @@ factory.prepare(GeneralDataApis.DataModelFieldActionCreate, async (ctx) => {
 })
 
 factory.prepare(GeneralDataApis.DataModelFieldActionUpdate, async (ctx) => {
-  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+  await new DataModelSpecHandler(ctx).handleField(async (modelField, dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
-    const modelField = await prepareModelField(ctx)
     assert.ok(!modelField.isSystem && !modelField.isShadow, '本接口不能修改系统字段或影子字段')
     const action = (await _ModelFieldAction.findWithUid(ctx.params.actionId)) as _ModelFieldAction
     assert.ok(!!action, 'Action 不存在')
@@ -232,9 +224,8 @@ factory.prepare(GeneralDataApis.DataModelFieldActionUpdate, async (ctx) => {
 })
 
 factory.prepare(GeneralDataApis.DataModelFieldActionDelete, async (ctx) => {
-  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
+  await new DataModelSpecHandler(ctx).handleField(async (modelField, dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
-    const modelField = await prepareModelField(ctx)
     assert.ok(!modelField.isSystem && !modelField.isShadow, '本接口不能修改系统字段或影子字段')
     const action = (await _ModelFieldAction.findWithUid(ctx.params.actionId)) as _ModelFieldAction
     assert.ok(!!action, 'Action 不存在')

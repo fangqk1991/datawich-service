@@ -1,6 +1,7 @@
 import assert from '@fangcha/assert'
 import { Context } from 'koa'
 import { _DataModel } from '../../models/extensions/_DataModel'
+import { _ModelField } from '../../models/extensions/_ModelField'
 
 export class DataModelSpecHandler {
   ctx!: Context
@@ -27,8 +28,26 @@ export class DataModelSpecHandler {
     return this._dataModel
   }
 
+  private _modelField!: _ModelField
+  private async prepareModelField() {
+    if (!this._modelField) {
+      const ctx = this.ctx
+      const dataModel = await this.prepareDataModel()
+      const modelField = await _ModelField.findModelField(dataModel.modelKey, ctx.params.fieldKey)
+      assert.ok(!!modelField, 'ModelField Not Found')
+      this._modelField = modelField
+    }
+    return this._modelField
+  }
+
   public async handle(handler: (dataModel: _DataModel) => Promise<void>) {
     const dataModel = await this.prepareDataModel()
     await handler(dataModel)
+  }
+
+  public async handleField(handler: (modelField: _ModelField, dataModel: _DataModel) => Promise<void>) {
+    const dataModel = await this.prepareDataModel()
+    const modelField = await this.prepareModelField()
+    await handler(modelField, dataModel)
   }
 }
