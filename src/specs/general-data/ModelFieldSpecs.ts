@@ -15,7 +15,7 @@ import { _ModelField } from '../../models/extensions/_ModelField'
 import { _ModelFieldAction } from '../../models/extensions/_ModelFieldAction'
 import { DataModelSpecHandler } from '../handlers/DataModelSpecHandler'
 import { RawTableHandler } from '../../services/RawTableHandler'
-import { MyDatabase } from '../../../datawich/services/MyDatabase'
+import { _DatawichService } from '../../services/_DatawichService'
 
 const factory = new SpecFactory('模型字段')
 
@@ -38,7 +38,7 @@ factory.prepare(ModelFieldApis.DataModelFieldsRebuild, async (ctx) => {
   await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
     await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
     const { rawTableName } = ctx.request.body
-    const handler = new RawTableHandler(MyDatabase.datawichDB, rawTableName)
+    const handler = new RawTableHandler(_DatawichService.database, rawTableName)
     assert.ok(await handler.checkTableExists(), `rawTableName(${rawTableName}) not exists.`)
     await dataModel.removeAllCustomFields()
     await handler.injectFieldsToDataModel(dataModel)

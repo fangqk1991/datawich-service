@@ -1,13 +1,12 @@
 import { initGeneralDataSettingsTest } from '../GeneralDataServiceDev'
 import { _DataModel, DataModelHandler, RawTableHandler } from '../../src'
-import { FCDatabase } from 'fc-sql'
+import { MyDatabase } from '../../datawich/services/MyDatabase'
 
 initGeneralDataSettingsTest()
 
 describe('Test RawTableHandler.test.ts', () => {
-  const datawichDB = FCDatabase.instanceWithName('general_data')
   it(`Test transferColumnsToModelFields`, async () => {
-    const handler = new RawTableHandler(datawichDB, 'datawich_company')
+    const handler = new RawTableHandler(MyDatabase.datawichDB, 'datawich_company')
     const fields = await handler.transferColumnsToModelFields()
     console.info(fields)
   })
@@ -28,7 +27,7 @@ describe('Test RawTableHandler.test.ts', () => {
       author: author,
     })
 
-    const handler = new RawTableHandler(datawichDB, 'datawich_company')
+    const handler = new RawTableHandler(MyDatabase.datawichDB, 'datawich_company')
     await handler.injectFieldsToDataModel(model)
   })
 })
