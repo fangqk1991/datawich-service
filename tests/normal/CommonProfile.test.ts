@@ -1,8 +1,8 @@
 import * as assert from 'assert'
 import { DiffMapper } from '@fangcha/tools'
-import { _CommonProfile } from '../..'
 import { initGeneralDataSettingsTest } from '../GeneralDataServiceDev'
 import { ProfileEvent } from '../../src/common/models'
+import { _CommonProfile } from '../../src'
 
 initGeneralDataSettingsTest()
 
