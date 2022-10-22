@@ -56,6 +56,15 @@ export class _DataModel extends __DataModel {
     this._fields = undefined
   }
 
+  public async removeAllCustomFields() {
+    const feeds = await this.getFields()
+    for (const modelField of feeds) {
+      if (!modelField.isSystem) {
+        await this.deleteField(modelField)
+      }
+    }
+  }
+
   public async getFields() {
     if (!this._fields) {
       const searcher = new _ModelField().fc_searcher()

@@ -1,3 +1,4 @@
+import { Api } from '@fangcha/swagger'
 export const ModelFieldApis = {
   DataModelFieldListGet: {
     method: 'GET',
@@ -10,10 +11,26 @@ export const ModelFieldApis = {
     description: '移除所有字段',
   },
   DataModelFieldsRebuild: {
-    method: 'PUT',
+    method: 'POST',
     route: '/api/v2/general-data/:modelKey/rebuild-fields',
     description: '重建模型字段',
-  },
+    parameters: [
+      {
+        name: 'bodyData',
+        type: 'object',
+        in: 'body',
+        schema: {
+          type: 'object',
+          properties: {
+            rawTableName: {
+              type: 'string',
+              example: 'xxxx',
+            },
+          },
+        },
+      },
+    ],
+  } as Api,
   DataModelVisibleFieldListGet: {
     method: 'GET',
     route: '/api/v2/general-data/:modelKey/visible-field',
