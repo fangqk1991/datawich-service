@@ -1,15 +1,25 @@
-import { FangchaApp } from '@fangcha/backend-kit'
-import { DatawichAdminRouterPlugin } from './admin/DatawichAdminRouterPlugin'
 import { _DatawichService } from '../../src'
 import { MyDatabase } from '../services/MyDatabase'
 import { TypicalSsoSdkPlugin } from '@fangcha/backend-kit/lib/sso'
 import { DatawichConfig } from '../DatawichConfig'
 import { DatawichOssPlugin } from '../services/DatawichOssPlugin'
+import { WebApp } from '@fangcha/backend-kit/lib/router'
+import { DatawichSwaggerDocItems } from '../../src/specs'
 
-const app = new FangchaApp({
+const app = new WebApp({
   env: 'development',
   appName: 'datawich-admin',
-  plugins: [DatawichAdminRouterPlugin, TypicalSsoSdkPlugin(DatawichConfig.adminSSO), DatawichOssPlugin],
+  useJwtSpecs: true,
+  mainDocItems: DatawichSwaggerDocItems,
+  routerOptions: {
+    baseURL: DatawichConfig.adminBaseURL,
+    jwtProtocol: {
+      jwtKey: 'datawich_token_jwt',
+      jwtSecret: 'datawich_secret',
+    },
+    backendPort: DatawichConfig.adminPort,
+  },
+  plugins: [TypicalSsoSdkPlugin(DatawichConfig.adminSSO), DatawichOssPlugin],
 
   appDidLoad: async () => {
     _DatawichService.init({

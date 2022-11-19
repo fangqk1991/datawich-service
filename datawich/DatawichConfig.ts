@@ -1,3 +1,3 @@
-import { GlobalAppConfig } from '@fangcha/config'
+import { GlobalAppConfig } from 'fc-config'
 
 export const DatawichConfig = GlobalAppConfig
