@@ -1033,10 +1033,10 @@
     lodash "^4.17.15"
     tslib "^2.3.1"
 
-"@fangcha/oss-service@^0.6.0":
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/@fangcha/oss-service/-/oss-service-0.6.0.tgz#24c860f51591ccb0188e41c8c02c9c848c39da25"
-  integrity sha512-nlZ1814TIiw89qLHPd7ZhuvxlHuaiKq494oxDCxXQNtYsLkH9DC5azsFJwUFUX5dWlTndrn3wGs4p31pMLZ00g==
+"@fangcha/oss-service@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/oss-service/-/oss-service-0.7.0.tgz#f485b44169f2f8c9d7300094c869e96e3feaa122"
+  integrity sha512-irhD0cTsaAZlgxNts0COdnkaX+8QwgtHvYMd1GMAlP7SSHSZM3MME6xYhz7okpwRh5PT98kVWwfSju1AqLn0iw==
 
 "@fangcha/router@^0.22.0":
   version "0.22.0"

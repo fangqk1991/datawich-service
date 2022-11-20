@@ -1,6 +1,6 @@
 {
   "name": "@fangcha/datawich-service",
-  "version": "0.25.0",
+  "version": "0.26.0",
   "description": "Datawich Service.",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -29,7 +29,7 @@
     "@fangcha/general-group": "^0.2.0",
     "@fangcha/generator": "^0.1.1",
     "@fangcha/logger": "^0.4.0",
-    "@fangcha/oss-service": "^0.6.0",
+    "@fangcha/oss-service": "^0.7.0",
     "@fangcha/router": "^0.22.0",
     "@fangcha/swagger": "^0.1.1",
     "@fangcha/tools": "^1.22.0",

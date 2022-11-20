@@ -5,6 +5,7 @@ import { DatawichConfig } from '../DatawichConfig'
 import { DatawichOssPlugin } from '../services/DatawichOssPlugin'
 import { WebApp } from '@fangcha/backend-kit/lib/router'
 import { DatawichSwaggerDocItems } from '../../src/specs'
+import { AliyunOSS } from '@fangcha/ali-oss'
 
 const app = new WebApp({
   env: 'development',
@@ -24,6 +25,8 @@ const app = new WebApp({
   appDidLoad: async () => {
     _DatawichService.init({
       database: MyDatabase.datawichDB,
+      ossForSignature: new AliyunOSS(DatawichConfig.ossOptions.Default.visitor),
+      downloadRootDir: DatawichConfig.datawichDownloadDir,
     })
   },
 })
