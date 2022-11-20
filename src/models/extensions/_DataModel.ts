@@ -69,6 +69,7 @@ export class _DataModel extends __DataModel {
       const searcher = new _ModelField().fc_searcher()
       searcher.processor().addConditionKV('model_key', this.modelKey)
       searcher.processor().addOrderRule('weight', 'DESC')
+      searcher.processor().addOrderRule('create_time', 'ASC')
       this._fields = (await searcher.queryAllFeeds()) as _ModelField[]
     }
     return this._fields
