@@ -15,7 +15,6 @@ import { _ModelMilestone } from './_ModelMilestone'
 import {
   AccessLevel,
   calculateDataKey,
-  checkModelHasVendorField,
   cleanDataByModelFields,
   DataModelExtrasData,
   DataModelModel,
@@ -150,11 +149,6 @@ export class _DataModel extends __DataModel {
 
   public sqlTableName() {
     return `_${this.modelKey}`
-  }
-
-  public async hasVendorField() {
-    const fields = await this.getFields()
-    return checkModelHasVendorField(fields as any)
   }
 
   public async getShadowFields() {
@@ -314,12 +308,6 @@ export class _DataModel extends __DataModel {
       extras.dateRange = params.dateRange
     } else if (field.fieldType === FieldType.SingleLineText) {
       extras.searchable = params.searchable || 0
-    } else if (field.fieldType === FieldType.VendorID) {
-      assert.ok(field.fieldKey === 'vendor_id', 'Vendor ID 字段 key 必须为 vendor_id')
-      const searcher = new _ModelField().fc_searcher()
-      searcher.processor().addConditionKV('model_key', field.modelKey)
-      searcher.processor().addConditionKV('field_type', FieldType.VendorID)
-      assert.ok((await searcher.queryCount()) === 0, '该模型已存在 Vendor ID 类型的字段，不可创建多个')
     }
     field.extrasInfo = JSON.stringify(extras)
     assert.ok(!(await field.checkExistsInDB()), '模型中已存在该字段，不可重复创建')

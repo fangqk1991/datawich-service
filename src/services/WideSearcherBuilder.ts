@@ -166,7 +166,6 @@ export class WideSearcherBuilder {
           case FieldType.RichText:
             break
           case FieldType.SingleLineText:
-          case FieldType.VendorID:
           case FieldType.Enum:
           case FieldType.TextEnum:
           case FieldType.User:

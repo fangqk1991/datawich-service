@@ -22,7 +22,6 @@ export enum FieldType {
   Date = 'Date',
   Datetime = 'Datetime',
   ReadonlyText = 'ReadonlyText',
-  VendorID = 'VendorID',
   Attachment = 'Attachment',
   User = 'User',
   // Group 仅临时作用于展示阶段，实际不会存储此类型字段
@@ -38,16 +37,11 @@ const values = [
   FieldType.MultipleLinesText,
   FieldType.JSON,
   FieldType.RichText,
-  FieldType.Enum,
   FieldType.TextEnum,
   FieldType.MultiEnum,
-  FieldType.Tags,
   FieldType.Date,
   FieldType.Datetime,
-  // FieldType.ReadonlyText,
-  FieldType.VendorID,
   FieldType.Attachment,
-  FieldType.User,
 ]
 
 const describe = (code: FieldType) => {
@@ -78,8 +72,6 @@ const describe = (code: FieldType) => {
       return 'Datetime Type'
     case FieldType.ReadonlyText:
       return 'Readonly Text'
-    case FieldType.VendorID:
-      return 'Vendor ID'
     case FieldType.Attachment:
       return 'Attachment'
     case FieldType.User:
@@ -122,8 +114,6 @@ export const getFieldTypeDatabaseSpec = (field: ModelFieldModel, beIndex = false
       return `TIMESTAMP NULL COMMENT '${commentText}'`
     case FieldType.ReadonlyText:
       return `VARCHAR(1023) NOT NULL DEFAULT '' COMMENT '${commentText}'`
-    case FieldType.VendorID:
-      return `BIGINT NOT NULL DEFAULT 0 COMMENT '${commentText}'`
     case FieldType.Attachment:
       return `TEXT COMMENT '${commentText}'`
     case FieldType.User:
@@ -152,8 +142,6 @@ export const getFieldValueExample = (field: DescribableField) => {
     }
     case FieldType.Integer:
     case FieldType.Float:
-    case FieldType.VendorID:
-      return 0
     case FieldType.Date:
       return '2000-01-01'
     case FieldType.Datetime:
@@ -206,7 +194,7 @@ export const checkFieldHasOptions = (code: any) => {
 }
 
 export const checkSpecialField = (code: FieldType) => {
-  return [FieldType.RichText, FieldType.VendorID, FieldType.Attachment, FieldType.User, FieldType.JSON].includes(code)
+  return [FieldType.RichText, FieldType.Attachment, FieldType.JSON].includes(code)
 }
 
 export const checkUniqueAbleField = (code: FieldType | any) => {
@@ -265,10 +253,6 @@ const FieldTypeI18N = {
   'Readonly Text': {
     en: `Readonly Text`,
     zh: `只读文本`,
-  },
-  'Vendor ID': {
-    en: `Vendor ID`,
-    zh: `Vendor ID`,
   },
   Attachment: {
     en: `Attachment`,

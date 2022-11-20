@@ -102,13 +102,6 @@ export const fieldWidgetStyle = (field: ModelFieldModel) => {
   return `width: ${width}`
 }
 
-export const checkModelHasVendorField = (modelFields: { fieldType: FieldType; fieldKey: string }[]) => {
-  const vendorFields = modelFields.filter((field) => {
-    return field.fieldType === FieldType.VendorID && field.fieldKey === 'vendor_id'
-  })
-  return vendorFields.length > 0
-}
-
 export const attachmentEntityKey = (field: { fieldKey: string }) => {
   return `${field.fieldKey}.entity`
 }

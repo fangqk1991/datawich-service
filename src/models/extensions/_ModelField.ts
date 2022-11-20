@@ -208,8 +208,6 @@ export class _ModelField extends __ModelField implements Raw_ModelField {
         return 'yyyy-MM-dd'
       case FieldType.Datetime:
         return 'ISO 8601 时间'
-      case FieldType.VendorID:
-        return 'Vendor ID，没有或未知请输入 0'
     }
     return ''
   }
@@ -234,8 +232,6 @@ export class _ModelField extends __ModelField implements Raw_ModelField {
       }
       case FieldType.Integer:
       case FieldType.Float:
-      case FieldType.VendorID:
-        return 0
       case FieldType.Date:
         return '2000-01-01'
       case FieldType.Datetime:

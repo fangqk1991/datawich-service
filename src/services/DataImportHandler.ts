@@ -7,7 +7,6 @@ import { _DataModel } from '../models/extensions/_DataModel'
 import {
   calculateMultiEnumValueWithCheckedMap,
   calculateValueWithCheckedMap,
-  checkModelHasVendorField,
   FieldType,
   getFieldNaturalLanguageValueExample
 } from '../common/models'
@@ -75,9 +74,6 @@ export class DataImportHandler {
     const excel = new TypicalExcel(columnKeys, {
       defaultColumnWidth: 12,
     })
-    if (checkModelHasVendorField(modelFields as any)) {
-      excel.setColumnWidth('vendor_id', 30)
-    }
     excel.setColumnWidth('_some_key_1', 38)
     excel.setColumnName('_some_key_1', '（请保留本行）')
     excel.useBorder = true
