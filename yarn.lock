@@ -976,10 +976,16 @@
   dependencies:
     "@fangcha/app-error" "^1.1.0"
 
-"@fangcha/backend-kit@^0.45.1":
-  version "0.45.1"
-  resolved "https://registry.yarnpkg.com/@fangcha/backend-kit/-/backend-kit-0.45.1.tgz#cec37f65571f7a1e0304d03b26455b08243d07fe"
-  integrity sha512-RL81i3Fbuz6aR6n9WgCkzQkFIRlEAJeT2IGF6fsKIR0Xbi59mSGsfaxY2p3Gpb/ingtpgZA1nH3n4rOLpGiGwQ==
+"@fangcha/backend-kit@^0.50.0":
+  version "0.50.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/backend-kit/-/backend-kit-0.50.0.tgz#b36a729f6b2d3bf27d28965bf461a668c239d468"
+  integrity sha512-7eteS3k/3S+OROQhvoThMVyQcROABH6qTzVlMe+mXiYjkarALt3VyFEjdwrU5y0sM5pvcAaoUh6lC+n5/sRliw==
+  dependencies:
+    "@fangcha/app-error" "^1.5.0"
+    "@fangcha/app-request" "^1.6.0"
+    "@fangcha/assert" "^1.1.0"
+    "@fangcha/router" "^0.24.0"
+    "@fangcha/tools" "^1.22.0"
 
 "@fangcha/eslint@^0.3.2":
   version "0.3.2"
@@ -1038,10 +1044,14 @@
   resolved "https://registry.yarnpkg.com/@fangcha/oss-service/-/oss-service-0.7.0.tgz#f485b44169f2f8c9d7300094c869e96e3feaa122"
   integrity sha512-irhD0cTsaAZlgxNts0COdnkaX+8QwgtHvYMd1GMAlP7SSHSZM3MME6xYhz7okpwRh5PT98kVWwfSju1AqLn0iw==
 
-"@fangcha/router@^0.22.0":
-  version "0.22.0"
-  resolved "https://registry.yarnpkg.com/@fangcha/router/-/router-0.22.0.tgz#b73cc28574f6a0a821c202c9a2fb4cd99995b752"
-  integrity sha512-039Gb1V+RvodTEpYOiAb8QXO0rE1vEz5CEGxMOOTMOC+Ss1d+XqmlBaf7Ijn5vWidLfFnIZIkG/aQAZKIZSBZw==
+"@fangcha/router@^0.24.0":
+  version "0.24.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/router/-/router-0.24.0.tgz#584a14fe4f123f0973daedb6fddc09a05270f1da"
+  integrity sha512-L1PcOUh216gLa7KOxwMgpFL8Rrnql1rgDpQkdD2/PM0/IrFwHJVc6Ic9Q6F3RA7/YJ3iHW09n7uw6e0Y8JxkhQ==
+  dependencies:
+    "@fangcha/app-error" "^1.5.0"
+    "@fangcha/swagger" "^0.1.1"
+    "@fangcha/tools" "^1.22.0"
 
 "@fangcha/swagger@^0.1.1":
   version "0.1.1"
@@ -1057,10 +1067,10 @@
     tslib "^2.3.1"
     uuid "^3.3.3"
 
-"@fangcha/webpack@^0.9.1":
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/@fangcha/webpack/-/webpack-0.9.1.tgz#106abab6ee4a6ae7a809e9844ca5966b019b94ad"
-  integrity sha512-m3kbCxzVm6MBNuuEwXoInGTYwzIFSfBJUTHoWwr11+SvYlpeEy5vP8zRgZIdh6leBaxhhGanV44d4dohu7fCXg==
+"@fangcha/webpack@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/webpack/-/webpack-0.10.0.tgz#3bf9b8b548faf170dcf4c130b9c9bd976a176260"
+  integrity sha512-I4sI/rB5Ujoc0L8ZCBg2LFU93f/2YS74Mkww9gWAtlfpPTREaZDW8d8TIGMW9o0ugzs4CFFes+3u3u4z0nxKlA==
   dependencies:
     "@babel/core" "^7.8.4"
     "@babel/plugin-proposal-decorators" "^7.8.3"
