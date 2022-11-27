@@ -52,7 +52,7 @@ export default class __ModelMilestone extends FeedBase {
    */
   public metadataStr!: string
   /**
-   * @description [timestamp] 创建时间: ISO8601 字符串
+   * @description [timestamp] 创建时间
    */
   public createTime!: string
 

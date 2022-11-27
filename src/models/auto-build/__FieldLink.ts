@@ -96,11 +96,11 @@ export default class __FieldLink extends FeedBase {
    */
   public extrasInfo!: string
   /**
-   * @description [timestamp] 创建时间: ISO8601 字符串
+   * @description [timestamp] 创建时间
    */
   public createTime!: string
   /**
-   * @description [timestamp] 更新时间: ISO8601 字符串
+   * @description [timestamp] 更新时间
    */
   public updateTime!: string
 

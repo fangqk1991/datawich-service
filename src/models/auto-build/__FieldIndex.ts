@@ -42,11 +42,11 @@ export default class __FieldIndex extends FeedBase {
    */
   public isUnique!: number
   /**
-   * @description [timestamp] 创建时间: ISO8601 字符串
+   * @description [timestamp] 创建时间
    */
   public createTime!: string
   /**
-   * @description [timestamp] 更新时间: ISO8601 字符串
+   * @description [timestamp] 更新时间
    */
   public updateTime!: string
 

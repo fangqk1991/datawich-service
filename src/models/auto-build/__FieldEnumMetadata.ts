@@ -54,7 +54,7 @@ export default class __FieldEnumMetadata extends FeedBase {
    */
   public label!: string
   /**
-   * @description [timestamp] 创建时间: ISO8601 字符串
+   * @description [timestamp] 创建时间
    */
   public createTime!: string
 
