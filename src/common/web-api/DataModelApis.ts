@@ -49,11 +49,6 @@ export const DataModelApis = {
     route: '/api/v2/general-data/:modelKey/outer-model',
     description: '获取模型关联的外部模型列表',
   },
-  DataModelShadowModelListGet: {
-    method: 'GET',
-    route: '/api/v2/general-data/:modelKey/shadow-model',
-    description: '获取模型的影子模型列表',
-  },
   DataModelUpdate: {
     method: 'PUT',
     route: '/api/v2/general-data/:modelKey',

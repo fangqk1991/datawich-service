@@ -64,15 +64,6 @@ const generalDataSchemas: DBModelSchema[] = [
     modifiableBlackList: ['model_key', 'field_key', 'ref_model', 'ref_field'],
   },
   {
-    tableName: 'field_shadow_link',
-    outputFile: `${__dirname}/../src/models/auto-build/__FieldShadowLink.ts`,
-    extFile: `${__dirname}/../src/models/extensions/_FieldShadowLink.ts`,
-    primaryKey: ['shadow_model', 'shadow_field'],
-    reloadOnAdded: true,
-    reloadOnUpdated: true,
-    modifiableWhiteList: [],
-  },
-  {
     tableName: 'app_client',
     outputFile: `${__dirname}/../src/models/auto-build/__AppClient.ts`,
     extFile: `${__dirname}/../src/models/extensions/_AppClient.ts`,

@@ -6,7 +6,6 @@ const _cols: string[] = [
   'model_key',
   'field_key',
   'group_key',
-  'matrix_key',
   'name',
   'input_hint',
   'required',
@@ -19,7 +18,6 @@ const _cols: string[] = [
   'weight',
   'is_system',
   'is_hidden',
-  'is_shadow',
   'is_deleted',
   'for_broadcast',
   'star',
@@ -31,7 +29,6 @@ const _insertableCols: string[] = [
   'model_key',
   'field_key',
   'group_key',
-  'matrix_key',
   'name',
   'input_hint',
   'required',
@@ -44,7 +41,6 @@ const _insertableCols: string[] = [
   'weight',
   'is_system',
   'is_hidden',
-  'is_shadow',
   'is_deleted',
   'for_broadcast',
   'star',
@@ -52,7 +48,6 @@ const _insertableCols: string[] = [
 const _modifiableCols: string[] = [
   // prettier-ignore
   'group_key',
-  'matrix_key',
   'name',
   'input_hint',
   'required',
@@ -65,7 +60,6 @@ const _modifiableCols: string[] = [
   'weight',
   'is_system',
   'is_hidden',
-  'is_shadow',
   'is_deleted',
   'for_broadcast',
   'star',
@@ -92,10 +86,6 @@ export default class __ModelField extends FeedBase {
    * @description [varchar(63)] 字段组键值
    */
   public groupKey!: string
-  /**
-   * @description [varchar(63)] 内容扩展母体键值
-   */
-  public matrixKey!: string
   /**
    * @description [varchar(255)] 字段名称
    */
@@ -144,10 +134,6 @@ export default class __ModelField extends FeedBase {
    * @description [tinyint] 是否隐藏
    */
   public isHidden!: number
-  /**
-   * @description [tinyint] 是否为影子字段
-   */
-  public isShadow!: number
   /**
    * @description [tinyint] 是否已被删除
    */
@@ -203,7 +189,6 @@ export default class __ModelField extends FeedBase {
   public fc_defaultInit() {
     // This function is invoked by constructor of FCModel
     this.groupKey = ''
-    this.matrixKey = ''
     this.name = ''
     this.inputHint = ''
     this.required = 0
@@ -216,7 +201,6 @@ export default class __ModelField extends FeedBase {
     this.weight = 0
     this.isSystem = 0
     this.isHidden = 0
-    this.isShadow = 0
     this.isDeleted = 0
     this.forBroadcast = 0
     this.star = 0
@@ -227,7 +211,6 @@ export default class __ModelField extends FeedBase {
       modelKey: 'model_key',
       fieldKey: 'field_key',
       groupKey: 'group_key',
-      matrixKey: 'matrix_key',
       name: 'name',
       inputHint: 'input_hint',
       required: 'required',
@@ -240,7 +223,6 @@ export default class __ModelField extends FeedBase {
       weight: 'weight',
       isSystem: 'is_system',
       isHidden: 'is_hidden',
-      isShadow: 'is_shadow',
       isDeleted: 'is_deleted',
       forBroadcast: 'for_broadcast',
       star: 'star',

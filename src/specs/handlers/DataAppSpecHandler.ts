@@ -66,7 +66,6 @@ export class DataAppSpecHandler {
       !(await new SessionChecker(ctx).checkModelPermission(dataModel, GeneralPermission.AccessOthersData))
     ) {
       options['lockedUser'] = session.curUserStr()
-      options['relativeRecords'] = await new SessionChecker(ctx).calculateRelativeRecords(dataModel)
     }
     await handler(dataModel, options)
   }

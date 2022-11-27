@@ -67,14 +67,6 @@ factory.prepare(DataModelApis.DataModelOuterModelListGet, async (ctx) => {
   })
 })
 
-factory.prepare(DataModelApis.DataModelShadowModelListGet, async (ctx) => {
-  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
-    await new SessionChecker(ctx).assertModelAccessible(dataModel)
-    const outerModels = await dataModel.getShadowModels()
-    ctx.body = outerModels.map((feed) => feed.fc_pureModel())
-  })
-})
-
 factory.prepare(DataModelApis.DataModelCreate, async (ctx) => {
   const session = ctx.session as FangchaSession
   const params = { ...ctx.request.body }

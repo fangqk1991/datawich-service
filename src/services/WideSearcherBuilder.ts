@@ -32,33 +32,24 @@ export class WideSearcherBuilder {
   mainFields!: _ModelField[]
   mainFieldMap!: { [p: string]: _ModelField }
   fieldLinks!: _FieldLink[]
-  shadowFields!: _ModelField[]
   filterOptions!: SearchOptions
   userColumnNames: string[]
-  shadowFieldKeyMap: { [p: string]: boolean }
   searchableFields: SearchableField[] = []
 
   constructor(dataModel: _DataModel) {
     this.mainModel = dataModel
     this.mainFields = []
     this.fieldLinks = []
-    this.shadowFields = []
     this.filterOptions = {}
     this.userColumnNames = []
     this.searchableFields = []
-    this.shadowFieldKeyMap = {}
   }
 
   public setMainFields(fields: _ModelField[], fieldLinks: _FieldLink[]) {
     this.mainFields = fields
     this.fieldLinks = fieldLinks
-    this.shadowFields = fields.filter((field) => field.isShadow)
     this.mainFieldMap = this.mainFields.reduce((result, cur) => {
       result[cur.fieldKey] = cur
-      return result
-    }, {})
-    this.shadowFieldKeyMap = this.mainFields.reduce((result, cur) => {
-      result[cur.fieldKey] = true
       return result
     }, {})
     return this
@@ -239,21 +230,6 @@ export class WideSearcherBuilder {
       this.userColumnNames.forEach((columnName) => {
         builder.addCondition(`${columnName} = ?`, relatedUser)
       })
-      if (options.relativeRecords) {
-        const relativeRecords = options.relativeRecords
-        for (const record of relativeRecords) {
-          const constraintKeys = Object.keys(record).filter((key) => !!record[key])
-          if (constraintKeys.length === 0) {
-            continue
-          }
-          const andBuilder = new SearchBuilder()
-          for (const constraintKey of constraintKeys) {
-            const conditionKey = `${tableName}.\`${constraintKey}\``
-            andBuilder.addCondition(`${conditionKey} = ?`, record[constraintKey])
-          }
-          builder.addBuilderAND(andBuilder)
-        }
-      }
       builder.injectToSearcher(searcher)
     }
   }

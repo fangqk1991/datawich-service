@@ -1,9 +1,8 @@
 import assert from '@fangcha/assert'
-import { SearchBuilder } from '@fangcha/tools/lib/database'
 import { GeneralModelSpaces } from '@fangcha/general-group'
 import { Context } from 'koa'
 import { MemberPower } from '../models/permission/MemberPower'
-import { AccessLevel, FieldType, GeneralPermission } from '../common/models'
+import { AccessLevel, GeneralPermission } from '../common/models'
 import { _DataModel } from '../models/extensions/_DataModel'
 
 export class SessionChecker {
@@ -65,39 +64,5 @@ export class SessionChecker {
       )
     }
     return
-  }
-
-  public async calculateRelativeRecords(dataModel: _DataModel) {
-    const relativeRecords: { [p: string]: string | number }[] = []
-    const matrixModels = await dataModel.getMatrixModels()
-    const shadowFields = await dataModel.getShadowFields()
-    for (const matrixModel of matrixModels) {
-      const relativeFields = (await matrixModel.getFields()).filter(
-        (field) => field.fieldType === FieldType.User && !['author', 'update_author'].includes(field.fieldKey)
-      )
-      if (relativeFields.length === 0) {
-        continue
-      }
-      const curShadowFields = shadowFields.filter((field) => field.getMatrixModelKey() === matrixModel.modelKey)
-      const matrixFieldKeys = curShadowFields
-        .map((field) => field.getMatrixFieldKey())
-        .filter((item) => !!item) as string[]
-      if (matrixFieldKeys.length === 0) {
-        continue
-      }
-      const tableName = matrixModel.sqlTableName()
-      const searcher = matrixModel.dbSpec().database.searcher()
-      searcher.setTable(tableName)
-      searcher.setColumns(matrixFieldKeys)
-      searcher.markDistinct()
-      const builder = new SearchBuilder()
-      relativeFields.forEach((field) => {
-        builder.addCondition(`${tableName}.${field.fieldKey} = ?`, this.email)
-      })
-      builder.injectToSearcher(searcher)
-      const items = await searcher.queryList()
-      relativeRecords.push(...items)
-    }
-    return relativeRecords
   }
 }

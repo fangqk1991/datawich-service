@@ -5,7 +5,6 @@ import { FieldGroupModel, ModelFieldModel, ModelFullMetadata, Raw_FieldLink, Raw
 import { _ModelField } from '../models/extensions/_ModelField'
 import { _ModelMilestone } from '../models/extensions/_ModelMilestone'
 import { ModelDataHandler } from './ModelDataHandler'
-import { _FieldShadowLink } from '../models/extensions/_FieldShadowLink'
 import { _ModelGroup } from '../models/permission/_ModelGroup'
 import { _DatawichService } from './_DatawichService'
 
@@ -102,11 +101,6 @@ export class DataModelHandler {
     {
       const searcher = await new ModelDataHandler(dataModel).dataSearcher()
       assert.ok((await searcher.queryCount()) === 0, '该模型已有数据存在，不可删除')
-    }
-    {
-      const searcher = new _FieldShadowLink().fc_searcher()
-      searcher.processor().addConditionKV('matrix_model', dataModel.modelKey)
-      assert.ok((await searcher.queryCount()) === 0, '该模型已被其他模型扩展，不可删除')
     }
   }
 

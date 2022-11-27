@@ -4,7 +4,6 @@ import { Transaction } from 'fc-sql'
 import { _DataModel } from './_DataModel'
 import { _FieldLink } from './_FieldLink'
 import { _FieldEnumMetadata } from './_FieldEnumMetadata'
-import { _FieldShadowLink } from './_FieldShadowLink'
 import { _ModelFieldAction } from './_ModelFieldAction'
 import { makeUUID } from '@fangcha/tools'
 import {
@@ -321,26 +320,6 @@ export class _ModelField extends __ModelField implements Raw_ModelField {
     await tableHandler.addColumn(this.fieldKey, columnSpec)
   }
 
-  public async checkMatrixField() {
-    const searcher = new _FieldShadowLink().fc_searcher()
-    searcher.processor().addConditionKV('matrix_model', this.modelKey)
-    searcher.processor().addConditionKV('matrix_field', this.fieldKey)
-    return (await searcher.queryCount()) > 0
-  }
-
-  public async getShadowFields<T extends _ModelField>(this: T) {
-    const clazz = this.constructor as typeof _ModelField
-    const searcher = new clazz().fc_searcher()
-    searcher
-      .processor()
-      .addSpecialCondition(
-        'EXISTS (SELECT * FROM field_shadow_link WHERE matrix_model = ? AND matrix_field = ? AND model_field.model_key = field_shadow_link.shadow_model AND model_field.field_key = field_shadow_link.shadow_field)',
-        this.modelKey,
-        this.fieldKey
-      )
-    return (await searcher.queryAllFeeds()) as T[]
-  }
-
   public async changeColumnToDB() {
     const columnSpec = getFieldTypeDatabaseSpec(this as any)
     const tableHandler = this.dbSpec().database.tableHandler(this.sqlTableName())
@@ -379,29 +358,6 @@ export class _ModelField extends __ModelField implements Raw_ModelField {
     const link = await this.getReferenceLink(transaction)
     if (link) {
       return _ModelField.findModelField(link.refModel, link.refField, transaction)
-    }
-  }
-
-  public async getMatrixField() {
-    if (this.isShadow) {
-      const [modelKey, fieldKey] = this.matrixKey.split('.')
-      if (modelKey && fieldKey) {
-        return _ModelField.findModelField(modelKey, fieldKey)
-      }
-    }
-  }
-
-  public getMatrixModelKey() {
-    if (this.isShadow) {
-      const [modelKey] = this.matrixKey.split('.')
-      return modelKey
-    }
-  }
-
-  public getMatrixFieldKey() {
-    if (this.isShadow) {
-      const [, fieldKey] = this.matrixKey.split('.')
-      return fieldKey
     }
   }
 

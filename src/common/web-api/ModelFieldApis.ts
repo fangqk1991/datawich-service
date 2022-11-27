@@ -56,11 +56,6 @@ export const ModelFieldApis = {
     route: '/api/v2/general-data/:modelKey/field',
     description: '创建模型字段',
   },
-  ModelShadowFieldCreate: {
-    method: 'POST',
-    route: '/api/v2/general-data/:modelKey/shadow-field',
-    description: '关联内容字段',
-  },
   DataModelFieldTop: {
     method: 'PUT',
     route: '/api/v2/general-data/:modelKey/field/:fieldKey/top-field',

@@ -2,7 +2,6 @@ export interface Raw_ModelField {
   modelKey: string
   fieldKey: string
   groupKey: string
-  matrixKey: string
   name: string
   inputHint: string
   required: number
@@ -15,7 +14,6 @@ export interface Raw_ModelField {
   weight: number
   isSystem: number
   isHidden: number
-  isShadow: number
   isDeleted: number
   forBroadcast: number
   star: number
@@ -28,7 +26,6 @@ export const Keys_Raw_ModelField = [
   'modelKey',
   'fieldKey',
   'groupKey',
-  'matrixKey',
   'name',
   'inputHint',
   'required',
@@ -41,7 +38,6 @@ export const Keys_Raw_ModelField = [
   'weight',
   'isSystem',
   'isHidden',
-  'isShadow',
   'isDeleted',
   'forBroadcast',
   'star',

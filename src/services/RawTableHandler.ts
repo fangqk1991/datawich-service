@@ -32,8 +32,6 @@ export class RawTableHandler extends DBTableHandler {
       fieldParams.defaultValue = column.Default || ''
       fieldParams.star = 0
       fieldParams.isSystem = 0
-      fieldParams.isShadow = 0
-      fieldParams.matrixKey = ''
       fieldParams.remarks = column.Comment || ''
       fieldParams.inputHint = ''
       fieldParams.extrasInfo = JSON.stringify({})

@@ -3,7 +3,7 @@ import { DBTableHandler } from 'fc-sql'
 import { generateModel } from '../ModelTestHelper'
 import { logger } from '@fangcha/logger'
 import { initGeneralDataSettingsTest } from '../GeneralDataServiceDev'
-import { _DataModel, _FieldShadowLink, DataModelHandler } from '../../src'
+import { _DataModel, DataModelHandler } from '../../src'
 import { FieldType } from '../../src/common/models'
 
 initGeneralDataSettingsTest()
@@ -89,53 +89,6 @@ describe('Test DataModel', () => {
     const dataModel = feeds[0]
     const outerModels = await dataModel.getOuterModelsInUse()
     assert.ok(Array.isArray(outerModels))
-  })
-
-  it(`Test createShadowField`, async () => {
-    const masterModel = await generateModel()
-    await masterModel.createField({
-      fieldKey: 'user',
-      name: 'User',
-      required: 1,
-      fieldType: FieldType.User,
-      isUnique: 0,
-      star: 0,
-    } as any)
-    const matrixField = await masterModel.createField({
-      fieldKey: 'season',
-      name: 'Season',
-      required: 1,
-      fieldType: FieldType.Enum,
-      isUnique: 0,
-      star: 0,
-      options: [
-        { label: '春', value: 1 },
-        { label: '夏', value: 2 },
-        { label: '秋', value: 3 },
-        { label: '冬', value: 4 },
-      ],
-    } as any)
-
-    const shadowModel = await generateModel()
-    const shadowField = await shadowModel.createShadowField({
-      matrixKey: `${matrixField.modelKey}.${matrixField.fieldKey}`,
-      fieldKey: 'my_season',
-      name: 'MySeason',
-      star: 1,
-    })
-    assert.ok(!matrixField.isShadow)
-    assert.ok(!!shadowField.isShadow)
-    const shadowLink = new _FieldShadowLink()
-    shadowLink.matrixField = matrixField.modelKey
-    shadowLink.matrixField = matrixField.fieldKey
-    shadowLink.shadowModel = shadowField.modelKey
-    shadowLink.shadowField = shadowField.fieldKey
-    assert.ok(await shadowLink.findFeedInDB())
-    const shadowFields = await matrixField.getShadowFields()
-    assert.ok(shadowFields.length === 1)
-    assert.ok(await matrixField.checkMatrixField())
-    await new DataModelHandler(shadowModel).destroyModel()
-    await new DataModelHandler(masterModel).destroyModel()
   })
 
   it(`Test DataModel Full Structure`, async () => {

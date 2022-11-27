@@ -3,7 +3,7 @@ import assert from '@fangcha/assert'
 import { _ModelField } from './_ModelField'
 import { _FieldIndex } from './_FieldIndex'
 import { _FieldLink } from './_FieldLink'
-import { _FieldGroup, _FieldShadowLink, _ModelDisplayColumn } from '../..'
+import { _FieldGroup, _ModelDisplayColumn } from '../..'
 import { Transaction } from 'fc-sql'
 import { _ModelNotifyTemplate } from './_ModelNotifyTemplate'
 import { logger } from '@fangcha/logger'
@@ -147,10 +147,6 @@ export class _DataModel extends __DataModel {
     return `_${this.modelKey}`
   }
 
-  public async getShadowFields() {
-    return (await this.getFields()).filter((field) => field.isShadow)
-  }
-
   public async getForeignLinks() {
     const fieldLinks = await this.getFieldLinks()
     return fieldLinks.filter((link) => link.isForeignKey)
@@ -272,8 +268,6 @@ export class _DataModel extends __DataModel {
     field.star = 0
     field.fieldType = params.fieldType
     field.isSystem = 0
-    field.isShadow = params.isShadow || 0
-    field.matrixKey = params.matrixKey || ''
     field.remarks = params.remarks || ''
     field.inputHint = params.inputHint || ''
 
@@ -348,7 +342,6 @@ export class _DataModel extends __DataModel {
    * @description Dangerous!!!
    */
   public async deleteField(field: _ModelField) {
-    assert.ok(!(await field.checkMatrixField()), '该字段已被其他模型扩展，不可删除')
     const database = this.dbSpec().database
     try {
       const tableHandler = database.tableHandler(this.sqlTableName())
@@ -559,33 +552,6 @@ export class _DataModel extends __DataModel {
     return searcher.queryAllFeeds()
   }
 
-  public async createShadowField(params: ModelFieldModel | any) {
-    assert.ok(!!params.matrixKey, '内容扩展键值不存在')
-    const [matrixModelKey, matrixFieldKey] = params.matrixKey.split('.')
-    assert.ok(!!matrixModelKey, 'matrixModelKey 不存在')
-    assert.ok(!!matrixFieldKey, 'matrixFieldKey 不存在')
-    const matrixField = await _ModelField.findModelField(matrixModelKey, matrixFieldKey)
-    assert.ok(!!matrixField, '内容扩展字段不存在')
-    const options = matrixField.modelForClient()
-    options.modelKey = this.modelKey
-    options.fieldKey = params.fieldKey
-    options.name = params.name
-    options.star = params.star
-    options.isShadow = 1
-    options.matrixKey = params.matrixKey
-    const field = await this.createField(options)
-    const runner = this.dbSpec().database.createTransactionRunner()
-    await runner.commit(async (transaction) => {
-      const shadowLink = new _FieldShadowLink()
-      shadowLink.matrixModel = matrixField.modelKey
-      shadowLink.matrixField = matrixField.fieldKey
-      shadowLink.shadowModel = field.modelKey
-      shadowLink.shadowField = field.fieldKey
-      await shadowLink.addToDB(transaction)
-    })
-    return field
-  }
-
   /**
    * @description Very Dangerous!!!
    */
@@ -676,22 +642,19 @@ export class _DataModel extends __DataModel {
     })
 
     const database = this.dbSpec().database
-    const shadowFields = await field.getShadowFields()
-    for (const field2 of [field, ...shadowFields]) {
-      field2.fc_edit()
-      field2.fieldType = FieldType.TextEnum
-      field2.extrasInfo = JSON.stringify(Object.assign(field2.extrasData(), { options: toOptions }))
-      await field2.updateToDB()
-      await field2.changeColumnToDB()
+    {
+      field.fc_edit()
+      field.fieldType = FieldType.TextEnum
+      field.extrasInfo = JSON.stringify(Object.assign(field.extrasData(), { options: toOptions }))
+      await field.updateToDB()
+      await field.changeColumnToDB()
     }
     const runner = database.createTransactionRunner()
     await runner.commit(async (transaction) => {
-      for (const field2 of [field, ...shadowFields]) {
-        await field.rebuildEnumOptions(transaction)
-        for (const option of options) {
-          const sql = `UPDATE ${field2.sqlTableName()} SET \`${field2.fieldKey}\` = ? WHERE \`${field2.fieldKey}\` = ?`
-          await database.update(sql, [option.toValue, `${option.value}`], transaction)
-        }
+      await field.rebuildEnumOptions(transaction)
+      for (const option of options) {
+        const sql = `UPDATE ${field.sqlTableName()} SET \`${field.fieldKey}\` = ? WHERE \`${field.fieldKey}\` = ?`
+        await database.update(sql, [option.toValue, `${option.value}`], transaction)
       }
       await this.increaseVersion(transaction)
     })
@@ -790,15 +753,11 @@ export class _DataModel extends __DataModel {
       extras.nameI18n = params.nameI18n
     }
 
-    const shadowFields = await field.getShadowFields()
     const database = this.dbSpec().database
     const runner = database.createTransactionRunner()
     await runner.commit(async (transaction) => {
       await field.updateFeed(params, extras, transaction)
       await field.rebuildEnumOptions(transaction)
-      for (const shadowField of shadowFields) {
-        await shadowField.updateFeed(params, extras, transaction)
-      }
       await this.increaseVersion(transaction)
     })
   }
@@ -949,28 +908,6 @@ export class _DataModel extends __DataModel {
       .split(',')
       .map((item) => item.trim())
       .filter((item) => !!item)
-  }
-
-  public async getShadowModels() {
-    const searcher = this.fc_searcher()
-    searcher
-      .processor()
-      .addSpecialCondition(
-        'EXISTS (SELECT * FROM field_shadow_link WHERE matrix_model = ? AND data_model.model_key = field_shadow_link.shadow_model)',
-        this.modelKey
-      )
-    return searcher.queryAllFeeds()
-  }
-
-  public async getMatrixModels() {
-    const searcher = this.fc_searcher()
-    searcher
-      .processor()
-      .addSpecialCondition(
-        'EXISTS (SELECT * FROM field_shadow_link WHERE shadow_model = ? AND data_model.model_key = field_shadow_link.matrix_model)',
-        this.modelKey
-      )
-    return searcher.queryAllFeeds()
   }
 
   public async updateBroadcastFields(fieldKeys: string[]) {
