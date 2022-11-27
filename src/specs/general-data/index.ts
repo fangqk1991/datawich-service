@@ -1,7 +1,6 @@
 import { DataModelSpecs } from './DataModelSpecs'
 import { ModelFieldSpecs } from './ModelFieldSpecs'
 import { ModelGroupSpecs } from './ModelGroupSpecs'
-import { DatahubSpecs } from './DatahubSpecs'
 import { ModelIndexSpecs } from './ModelIndexSpecs'
 import { ModelLinksSpecs } from './ModelLinksSpecs'
 import { FieldGroupSpecs } from './FieldGroupSpecs'
@@ -14,7 +13,6 @@ export const GeneralDataSpecs = [
   ...DataModelSpecs,
   ...ModelFieldSpecs,
   ...ModelGroupSpecs,
-  ...DatahubSpecs,
   ...ModelIndexSpecs,
   ...ModelLinksSpecs,
   ...FieldGroupSpecs,

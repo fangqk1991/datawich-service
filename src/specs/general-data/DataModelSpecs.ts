@@ -14,8 +14,6 @@ import { DataModelHandler } from '../../services/DataModelHandler'
 import { _DatawichService } from '../../services/_DatawichService'
 import { FangchaSession } from '@fangcha/router/lib/session'
 import { ModelDataHandler } from '../../services/ModelDataHandler'
-import { DatahubHandler } from '../../services/DatahubHandler'
-import { _DatahubColumn } from '../../models/datahub-sync/_DatahubColumn'
 import { DataModelSpecHandler } from '../handlers/DataModelSpecHandler'
 
 const factory = new SpecFactory('数据模型')
@@ -143,53 +141,6 @@ factory.prepare(DataModelApis.DataModelSummaryInfoGet, async (ctx) => {
     ctx.body = {
       count: await new ModelDataHandler(dataModel).getDataCount(),
     }
-  })
-})
-
-factory.prepare(DataModelApis.ModelDatahubFieldListGet, async (ctx) => {
-  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
-    assert.ok(dataModel.modelType === ModelType.DatahubModel, '只有数据源模型可进行此操作')
-    ctx.body = await new DatahubHandler(dataModel).getDatahubColumnModels()
-  })
-})
-
-factory.prepare(DataModelApis.ModelDatahubInfoGet, async (ctx) => {
-  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
-    assert.ok(dataModel.modelType === ModelType.DatahubModel, '只有数据源模型可进行此操作')
-    const datahubTable = await new DatahubHandler(dataModel).getDatahubTable()
-    const progress = await datahubTable.getLatestProgress()
-    ctx.body = {
-      sampleDate: dataModel.sampleDate,
-      engineKey: datahubTable.engineKey,
-      tableKey: datahubTable.tableKey,
-      latestProgress: progress?.fc_pureModel(),
-    }
-  })
-})
-
-factory.prepare(DataModelApis.ModelDatahubRecordsLoad, async (ctx) => {
-  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
-    await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
-    assert.ok(dataModel.modelType === ModelType.DatahubModel, '只有数据源模型可进行此操作')
-    await new DatahubHandler(dataModel).loadLatestDatahubRecords()
-    ctx.status = 200
-  })
-})
-
-factory.prepare(DataModelApis.ModelDatahubColumnBind, async (ctx) => {
-  await new DataModelSpecHandler(ctx).handle(async (dataModel) => {
-    await new SessionChecker(ctx).assertModelAccessible(dataModel, GeneralPermission.ManageModel)
-    assert.ok(dataModel.modelType === ModelType.DatahubModel, '只有数据源模型可进行此操作')
-    const datahubLink = new DatahubHandler(dataModel).datahubLink
-    const { columnKey, fieldData } = ctx.request.body
-    const column = await _DatahubColumn.findOne({
-      engine_key: datahubLink.engineKey,
-      table_key: datahubLink.tableKey,
-      column_key: columnKey,
-    })
-    assert.ok(!!column, 'DatahubColumn Not Found')
-    await new DatahubHandler(dataModel).bindDatahubColumn(fieldData, column!)
-    ctx.status = 200
   })
 })
 

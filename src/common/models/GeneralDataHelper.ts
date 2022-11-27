@@ -127,22 +127,6 @@ export const inlineFieldDefaultName = (superField: { name: string }, field: { na
   return `${superField.name}'s ${field.name}`
 }
 
-export const calculateAvailableFieldTypes = (datahubColumnType: string) => {
-  datahubColumnType = datahubColumnType.toLowerCase().replace(/\(.*\)/, '')
-  if (/^.*int$/.test(datahubColumnType)) {
-    return [FieldType.Integer, FieldType.SingleLineText, FieldType.TextEnum]
-  } else if (/^.*text$/.test(datahubColumnType)) {
-    return [FieldType.MultipleLinesText, FieldType.TextEnum, FieldType.MultiEnum]
-  } else if (/^.*char$/.test(datahubColumnType)) {
-    return [FieldType.SingleLineText, FieldType.MultipleLinesText, FieldType.TextEnum, FieldType.MultiEnum]
-  } else if (datahubColumnType === 'double' || datahubColumnType === 'float') {
-    return [FieldType.Float, FieldType.SingleLineText]
-  } else if (datahubColumnType === 'date') {
-    return [FieldType.Date]
-  }
-  return []
-}
-
 export const makeDisplayFields = (fields: ModelFieldModel[]) => {
   const groupFieldMap: { [p: string]: ModelFieldModel } = {}
   const displayFields: ModelFieldModel[] = []

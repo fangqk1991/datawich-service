@@ -33,32 +33,6 @@ const generalDataSchemas: DBModelSchema[] = [
     outputFile: `${rootDir}/FieldIndexModel.ts`,
   },
   {
-    tableName: 'datahub_engine',
-    outputFile: `${rootDir}/DatahubEngineModel.ts`,
-  },
-  {
-    tableName: 'datahub_table',
-    outputFile: `${rootDir}/DatahubTableModel.ts`,
-  },
-  {
-    tableName: 'datahub_column',
-    outputFile: `${rootDir}/DatahubColumnModel.ts`,
-    extendPropertyList: [
-      {
-        name: 'linked',
-        type: 'boolean',
-      },
-      {
-        name: 'linkField',
-        type: 'string',
-      },
-    ],
-  },
-  {
-    tableName: 'datahub_sync_progress',
-    outputFile: `${rootDir}/DatahubSyncProgressModel.ts`,
-  },
-  {
     tableName: 'model_field_action',
     outputFile: `${rootDir}/FieldActionModel.ts`,
   },

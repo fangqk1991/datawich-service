@@ -79,26 +79,6 @@ export const DataModelApis = {
     route: '/api/v2/general-data/:modelKey/summary-info',
     description: '获取模型概要信息',
   },
-  ModelDatahubRecordsLoad: {
-    method: 'POST',
-    route: '/api/v2/general-data/:modelKey/load-datahub-records',
-    description: '载入 Datahub 最新数据',
-  },
-  ModelDatahubFieldListGet: {
-    method: 'GET',
-    route: '/api/v2/general-data/:modelKey/datahub-field',
-    description: '获取 Datahub 字段列表',
-  },
-  ModelDatahubColumnBind: {
-    method: 'POST',
-    route: '/api/v2/general-data/:modelKey/bind-datahub-column',
-    description: '绑定 Datahub 字段',
-  },
-  ModelDatahubInfoGet: {
-    method: 'GET',
-    route: '/api/v2/general-data/:modelKey/datahub-info',
-    description: '获取 Datahub 数据源信息',
-  },
   ModelHoldingLinkListGet: {
     method: 'GET',
     route: '/api/v2/general-data/:modelKey/holding-link',

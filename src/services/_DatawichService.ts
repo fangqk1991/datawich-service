@@ -18,12 +18,6 @@ import { _ModelDisplayColumn } from '../models/extensions/_ModelDisplayColumn'
 import { _ModelMilestone } from '../models/extensions/_ModelMilestone'
 import { ModelDataInfo } from './ModelDataInfo'
 import { GeneralGroupApp } from '@fangcha/general-group'
-import { _DatahubEngine } from '../models/datahub-sync/_DatahubEngine'
-import { _DatahubTable } from '../models/datahub-sync/_DatahubTable'
-import { _DatahubColumn } from '../models/datahub-sync/_DatahubColumn'
-import { _DatahubTableLink } from '../models/datahub-sync/_DatahubTableLink'
-import { _DatahubColumnLink } from '../models/datahub-sync/_DatahubColumnLink'
-import { _DatahubSyncProgress } from '../models/datahub-sync/_DatahubSyncProgress'
 import { _ModelGroup } from '../models/permission/_ModelGroup'
 import { CommonGroup } from '../models/permission/CommonGroup'
 import { MemberPower } from '../models/permission/MemberPower'
@@ -85,19 +79,8 @@ class __DatawichService {
     _ModelDisplayColumn.setDatabase(database)
     _ModelMilestone.setDatabase(database)
     ModelDataInfo.database = database
-    this.initDatahubSync(database)
     this.initPermissionSettings(database)
     this.groupApp = new GeneralGroupApp(database)
-    return this
-  }
-
-  private initDatahubSync(database: FCDatabase) {
-    _DatahubEngine.setDatabase(database)
-    _DatahubTable.setDatabase(database)
-    _DatahubColumn.setDatabase(database)
-    _DatahubTableLink.setDatabase(database)
-    _DatahubColumnLink.setDatabase(database)
-    _DatahubSyncProgress.setDatabase(database)
     return this
   }
 

@@ -22,9 +22,6 @@ factory.prepare(ModelIndexApis.DataModelColumnIndexCreate, async (ctx) => {
     assert.ok(checkIndexAbleField(modelField.fieldType), '此类型不可设置索引')
     let { isUnique } = ctx.request.body
     assert.ok([0, 1].includes(isUnique), 'isUnique 参数不合法')
-    if (isUnique === 1 && dataModel.modelType === ModelType.DatahubModel) {
-      isUnique = -1
-    }
     await _FieldIndex.createIndex(modelField, isUnique)
     ctx.status = 200
   })

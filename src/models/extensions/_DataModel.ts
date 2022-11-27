@@ -3,7 +3,7 @@ import assert from '@fangcha/assert'
 import { _ModelField } from './_ModelField'
 import { _FieldIndex } from './_FieldIndex'
 import { _FieldLink } from './_FieldLink'
-import { _DatahubTable, _DatahubTableLink, _FieldGroup, _FieldShadowLink, _ModelDisplayColumn } from '../..'
+import { _FieldGroup, _FieldShadowLink, _ModelDisplayColumn } from '../..'
 import { Transaction } from 'fc-sql'
 import { _ModelNotifyTemplate } from './_ModelNotifyTemplate'
 import { logger } from '@fangcha/logger'
@@ -132,11 +132,6 @@ export class _DataModel extends __DataModel {
     }
     if (params.modelType) {
       assert.ok(ModelTypeDescriptor.checkValueValid(params.modelType), '模型类型 参数有误')
-    }
-    if (params.modelType === ModelType.DatahubModel) {
-      assert.ok(!!params.datahubLink, '数据源 参数有误')
-      assert.ok(!!params.datahubLink.engineKey, '数据源 参数有误')
-      assert.ok(!!params.datahubLink.tableKey, '数据源 参数有误')
     }
   }
 
@@ -396,18 +391,6 @@ export class _DataModel extends __DataModel {
     })
   }
 
-  public static async getModelsForDatahubTable<T extends _DataModel>(this: { new (): T }, datahubTable: _DatahubTable) {
-    const searcher = new this().fc_searcher()
-    searcher
-      .processor()
-      .addSpecialCondition(
-        'EXISTS (SELECT datahub_table_link.* FROM datahub_table_link WHERE datahub_table_link.engine_key = ? AND datahub_table_link.table_key = ? AND datahub_table_link.child_model = data_model.model_key)',
-        datahubTable.engineKey,
-        datahubTable.tableKey
-      )
-    return searcher.queryAllFeeds()
-  }
-
   private _retainGroups?: CommonGroup[] = undefined
   public async getRetainGroups() {
     if (!this._retainGroups) {
@@ -448,12 +431,6 @@ export class _DataModel extends __DataModel {
         [DataRecordEvent.Update]: true,
       },
     }
-    if (this.modelType === ModelType.DatahubModel) {
-      extras.datahubLink = params.datahubLink
-      this.isDataInsertable = 0
-      this.isDataModifiable = 0
-      this.isDataDeletable = 0
-    }
     this.extrasInfo = JSON.stringify(extras)
     assert.ok(!(await this.checkExistsInDB()), '该模型(modelKey)已存在，不可重复创建')
     if (this.shortKey) {
@@ -470,13 +447,6 @@ export class _DataModel extends __DataModel {
       await tableHandler.addColumn('_data_id', 'CHAR(63) NOT NULL UNIQUE')
       const fields: _ModelField[] = await this.makeSystemFields()
       await this.addToDB(transaction)
-      if (this.modelType === ModelType.DatahubModel) {
-        const tableLink = new _DatahubTableLink()
-        tableLink.childModel = this.modelKey
-        tableLink.engineKey = params.datahubLink.engineKey
-        tableLink.tableKey = params.datahubLink.tableKey
-        await tableLink.addToDB(transaction)
-      }
       for (const field of fields) {
         await field.addToDB(transaction)
       }
@@ -506,12 +476,6 @@ export class _DataModel extends __DataModel {
     const tableHandler = database.tableHandler(tableName)
 
     const fields: _ModelField[] = []
-    if (this.modelType === ModelType.DatahubModel) {
-      const field = this.makeSystemField('__rid', '自增 ID', FieldType.Integer)
-      await tableHandler.addColumn(field.fieldKey, `BIGINT UNSIGNED NOT NULL`)
-      await database.update(`ALTER TABLE ${tableName} ADD UNIQUE(\`${field.fieldKey}\`)`)
-      fields.push(field)
-    }
     {
       const field = this.makeSystemField('rid', '序号', FieldType.Integer)
       fields.push(field)
@@ -976,7 +940,6 @@ export class _DataModel extends __DataModel {
     data.powerData = {}
     data.tagList = this.tagList()
     data.extrasData = extrasData
-    data.datahubLink = extrasData.datahubLink
     data.keyAlias = extrasData.keyAlias
     return data
   }
