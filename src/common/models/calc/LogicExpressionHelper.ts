@@ -1,6 +1,6 @@
 import assert from '@fangcha/assert'
 import { LogicSymbol, LogicSymbolDescriptor } from './LogicSymbol'
-import { LogicExpression } from './DataFilterModels'
+import { LogicExpression } from './LogicFilterModels'
 import { FilterSymbol, FilterSymbolDescriptor } from './FilterSymbol'
 
 export class LogicExpressionHelper {

@@ -1,11 +1,15 @@
-import { DescribableField, FieldLinkMaker, FieldLinkModel, FieldMaker, FieldType, ModelFieldModel } from './field'
-import { Raw_FieldLink, Raw_ModelField } from './auto-build'
-import { ModelFullMetadata } from './ModelFullMetadata'
 import {
-  extractCheckedMapForValue,
-  extractMultiEnumCheckedMapForValue,
-  getCheckedTagsForField,
-} from './GeneralDataHelper'
+  DescribableField,
+  FieldLinkMaker,
+  FieldLinkModel,
+  FieldMaker,
+  FieldType,
+  ModelFieldModel,
+  ModelFullMetadata,
+  Raw_FieldLink,
+  Raw_ModelField,
+} from '../models'
+import { GeneralDataHelper } from './GeneralDataHelper'
 
 export class GeneralDataFormatter {
   public static formatModelField(rawData: Raw_ModelField) {
@@ -37,11 +41,11 @@ export class GeneralDataFormatter {
         return value2LabelMap[value]
       }
     } else if (field.fieldType === FieldType.Tags) {
-      const checkedMap = extractCheckedMapForValue(value, field)
-      return getCheckedTagsForField(field, checkedMap).join(', ')
+      const checkedMap = GeneralDataHelper.extractCheckedMapForValue(value, field)
+      return GeneralDataHelper.getCheckedTagsForField(field, checkedMap).join(', ')
     } else if (field.fieldType === FieldType.MultiEnum) {
-      const checkedMap = extractMultiEnumCheckedMapForValue(value, field.options)
-      return getCheckedTagsForField(field, checkedMap).join(', ')
+      const checkedMap = GeneralDataHelper.extractMultiEnumCheckedMapForValue(value, field.options)
+      return GeneralDataHelper.getCheckedTagsForField(field, checkedMap).join(', ')
     }
     return value
   }

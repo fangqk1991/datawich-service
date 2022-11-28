@@ -1,5 +1,5 @@
-import { Keys_Raw_FieldLink, Raw_FieldLink } from '../auto-build'
 import { FieldLinkModel } from './FieldLinkModel'
+import { Keys_Raw_FieldLink, Raw_FieldLink } from './ModelFieldTypes'
 
 export class FieldLinkMaker {
   public readonly rawLink: Raw_FieldLink

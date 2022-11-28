@@ -1,11 +1,11 @@
-import { Keys_Raw_ModelField, Raw_ModelField } from '../auto-build'
 import { DateRange, DescribableField, ModelFieldExtrasData, ModelFieldModel } from './ModelFieldModel'
 import { checkFieldHasOptions, FieldType } from './FieldType'
-import { calculateDataKey, calculateFilterKey, inlineFieldDefaultName } from '../GeneralDataHelper'
 import { FieldLinkModel } from './FieldLinkModel'
 import { LinkMapperInfo } from './LinkMapperInfo'
 import { I18nCode } from '@fangcha/tools'
 import { _TinyDatawich } from '../../_TinyDatawich'
+import { Keys_Raw_ModelField, Raw_ModelField } from './ModelFieldTypes'
+import { GeneralDataHelper } from '../../tools'
 
 export class FieldMaker {
   public readonly rawField: Raw_ModelField
@@ -26,7 +26,7 @@ export class FieldMaker {
       const fieldModel = this.getFieldModel()
       const fieldInfo: DescribableField = {
         fieldKey: fieldModel.fieldKey,
-        dataKey: calculateDataKey(fieldModel),
+        dataKey: GeneralDataHelper.calculateDataKey(fieldModel),
         fieldType: fieldModel.fieldType,
         name: fieldModel.name,
       }
@@ -49,10 +49,11 @@ export class FieldMaker {
           }
         }
         for (const refField of refFields) {
-          const name = checkedMap[refField.fieldKey]?.mappingName || inlineFieldDefaultName(refField, fieldInfo)
+          const name =
+            checkedMap[refField.fieldKey]?.mappingName || GeneralDataHelper.inlineFieldDefaultName(refField, fieldInfo)
           fieldInfos.push({
             fieldKey: refField.fieldKey,
-            dataKey: calculateDataKey(refField, fieldInfo),
+            dataKey: GeneralDataHelper.calculateDataKey(refField, fieldInfo),
             fieldType: refField.fieldType as FieldType,
             name: `${name} [${fieldInfo.name} 关联]`,
             options: refField.options,
@@ -127,8 +128,8 @@ export class FieldMaker {
         [I18nCode.en]: rawData.name,
         [I18nCode.zhHans]: rawData.name,
       }
-      result.filterKey = calculateFilterKey(result)
-      result.dataKey = calculateDataKey(result)
+      result.filterKey = GeneralDataHelper.calculateFilterKey(result)
+      result.dataKey = GeneralDataHelper.calculateDataKey(result)
       // @ts-ignore
       delete result.extrasInfo
       this._fieldModel = result

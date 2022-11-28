@@ -1,4 +1,15 @@
-export interface Raw_DataModel {
+export interface DataModelExtrasData {
+  hideCreateButton: boolean
+  keyAlias: string
+  dataInfoTmpl?: string
+  broadcastEventData?: { [p in string]: boolean }
+}
+
+export interface SessionModelPowerData {
+  [p: string]: boolean
+}
+
+export interface DataModelModel {
   modelKey: string
   modelType: string
   shortKey: string | null
@@ -28,37 +39,12 @@ export interface Raw_DataModel {
   extrasInfo: string
   createTime: string
   updateTime: string
-}
 
-export const Keys_Raw_DataModel = [
-  // prettier-ignore
-  'modelKey',
-  'modelType',
-  'shortKey',
-  'name',
-  'description',
-  'remarks',
-  'version',
-  'accessLevel',
-  'isRetained',
-  'isDataInsertable',
-  'isDataModifiable',
-  'isDataDeletable',
-  'isDataExportable',
-  'isOnline',
-  'isCustom',
-  'isLibrary',
-  'isLocked',
-  'useEmail',
-  'isBroadcast',
-  'isDeleted',
-  'star',
-  'wechatbotKey',
-  'author',
-  'defaultMemberLevel',
-  'sampleDate',
-  'tags',
-  'extrasInfo',
-  'createTime',
-  'updateTime',
-]
+  ////////////////////////////
+  keyAlias: string
+  // session 对当前模型的访问能力
+  powerData: SessionModelPowerData
+  extrasData: DataModelExtrasData
+  // 特殊标记，如 GoodsPower
+  tagList: string[]
+}

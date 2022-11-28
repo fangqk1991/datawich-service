@@ -1,9 +1,8 @@
-import { FieldDisplayMode } from '../FieldDisplayMode'
-import { Raw_ModelField } from '../auto-build'
 import { I18nTextData, SelectOption } from '@fangcha/tools'
 import { FieldLinkModel } from './FieldLinkModel'
 import { FieldType } from './FieldType'
 import { LogicExpression } from '../calc'
+import { Raw_ModelField } from './ModelFieldTypes'
 
 export interface DateRange {
   floor: string
@@ -53,7 +52,7 @@ export interface ModelFieldModel extends Raw_ModelField {
   dataKey: string
   actions: ActionInfo[]
   refFieldLinks: FieldLinkModel[]
-  fieldDisplayMode: FieldDisplayMode
+  fieldDisplayMode: string
   fieldDisplayTmpl: string
   groupName: string
   groupFields: ModelFieldModel[]

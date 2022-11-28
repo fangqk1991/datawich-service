@@ -1,9 +1,7 @@
-import { ModelFieldModel } from './field/ModelFieldModel'
-import { FieldType } from './field'
+import { FieldType, LogicExpressionHelper, ModelFieldModel } from '../models'
 import * as moment from 'moment'
 import { JsonChecker } from '@fangcha/tools'
-import { extractMultiEnumItems } from './GeneralDataHelper'
-import { LogicExpressionHelper } from './calc'
+import { GeneralDataHelper } from './GeneralDataHelper'
 
 interface OssFileInfo {
   ossKey: string
@@ -95,7 +93,7 @@ export class GeneralDataChecker {
             if (!isRequired && !value) {
               break
             }
-            if (extractMultiEnumItems(value).find((key) => value2LabelMap[key] === undefined)) {
+            if (GeneralDataHelper.extractMultiEnumItems(value).find((key) => value2LabelMap[key] === undefined)) {
               errorMap[field.fieldKey] = `${field.name} 有误，合法的枚举项为 { ${Object.keys(value2LabelMap)
                 .map((value) => `${value}[${value2LabelMap[value]}]`)
                 .join(' | ')} }`
