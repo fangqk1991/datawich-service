@@ -4,14 +4,12 @@ import { TypicalSsoSdkPlugin } from '@fangcha/backend-kit/lib/sso'
 import { DatawichConfig } from '../DatawichConfig'
 import { DatawichOssPlugin } from '../services/DatawichOssPlugin'
 import { WebApp } from '@fangcha/backend-kit/lib/router'
-import { DatawichSwaggerDocItems } from '../../src/specs'
 import { AliyunOSS } from '@fangcha/ali-oss'
 
 const app = new WebApp({
   env: 'development',
   appName: 'datawich-admin',
   useJwtSpecs: true,
-  mainDocItems: DatawichSwaggerDocItems,
   routerOptions: {
     baseURL: DatawichConfig.adminBaseURL,
     jwtProtocol: {
