@@ -79,7 +79,7 @@ export class GeneralDataChecker {
             break
           }
           case FieldType.StringList: {
-            if (Array.isArray(value) && !value.find((item) => !(typeof item === 'string'))) {
+            if (!Array.isArray(value) || value.find((item) => !(typeof item === 'string')) !== undefined) {
               errorMap[field.fieldKey] = `${field.name} 必须为标准 string[] 格式`
             }
             break
