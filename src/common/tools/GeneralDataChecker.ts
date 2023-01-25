@@ -33,6 +33,7 @@ export class GeneralDataChecker {
           field.fieldType === FieldType.MultipleLinesText ||
           field.fieldType === FieldType.RichText ||
           field.fieldType === FieldType.JSON ||
+          field.fieldType === FieldType.StringList ||
           field.fieldType === FieldType.Attachment
         ) {
           if (!params[field.fieldKey]) {
@@ -72,6 +73,12 @@ export class GeneralDataChecker {
           case FieldType.JSON: {
             if (!JsonChecker.checkJSON(value)) {
               errorMap[field.fieldKey] = `${field.name} 必须为标准 JSON 格式`
+            }
+            break
+          }
+          case FieldType.StringList: {
+            if (Array.isArray(value) && !value.find((item) => !(typeof item === 'string'))) {
+              errorMap[field.fieldKey] = `${field.name} 必须为标准 string[] 格式`
             }
             break
           }

@@ -7,6 +7,7 @@ export enum FieldType {
   SingleLineText = 'SingleLineText',
   MultipleLinesText = 'MultipleLinesText',
   JSON = 'JSON',
+  StringList = 'StringList',
   RichText = 'RichText',
   /**
    * @deprecated
@@ -35,6 +36,7 @@ const values = [
   FieldType.SingleLineText,
   FieldType.MultipleLinesText,
   FieldType.JSON,
+  FieldType.StringList,
   FieldType.RichText,
   FieldType.TextEnum,
   FieldType.MultiEnum,
@@ -55,6 +57,8 @@ const describe = (code: FieldType) => {
       return 'Multiple Lines Text'
     case FieldType.JSON:
       return 'JSON Text'
+    case FieldType.StringList:
+      return 'String List'
     case FieldType.RichText:
       return 'Rich Text'
     case FieldType.Enum:
