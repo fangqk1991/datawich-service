@@ -32,6 +32,7 @@ export class GeneralDataChecker {
           field.fieldType === FieldType.SingleLineText ||
           field.fieldType === FieldType.MultipleLinesText ||
           field.fieldType === FieldType.RichText ||
+          field.fieldType === FieldType.Link ||
           field.fieldType === FieldType.JSON ||
           field.fieldType === FieldType.StringList ||
           field.fieldType === FieldType.Attachment
@@ -64,6 +65,7 @@ export class GeneralDataChecker {
             }
             break
           }
+          case FieldType.Link:
           case FieldType.MultipleLinesText: {
             if (`${value}`.length > 16384) {
               errorMap[field.fieldKey] = `${field.name} 的长度不能超过 16384`
